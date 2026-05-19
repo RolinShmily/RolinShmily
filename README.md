@@ -1,10 +1,8 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0D1117,50:1a73e8,100:0D1117&height=100&section=header&text=&fontSize=0&fontColor=transparent" width="100%"/>
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=44&pause=1000&color=f75c7e&center=true&vCenter=true&width=500&height=60&lines=RoL1n_SrP" alt="RoL1n_SrP" />
 
-<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=44&pause=1000&color=1A73E8&center=true&vCenter=true&width=500&height=60&lines=RoL1n_SrP" alt="RoL1n_SrP" />
-
-<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=400&size=16&pause=2000&color=8B949E&center=true&vCenter=true&width=500&height=28&lines=Electronic+Information+Engineering+Undergraduate" alt="Subtitle" />
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=400&size=16&pause=2000&color=8B949E&center=true&vCenter=true&width=500&height=28&lines=Entities +should+not+be+multiplied+unnecessarily." alt="Subtitle" />
 
 <p>
   <a href="https://github.com/RolinShmily"><img src="assets/badges/github-badge.svg" alt="GitHub"></a>
@@ -14,13 +12,17 @@
   <a href="https://steamcommunity.com/profiles/76561199516828933/"><img src="assets/badges/steam-badge.svg" alt="Steam"></a>
 </p>
 
-> **"Entities should not be multiplied unnecessarily."** -- Occam's Razor
-
 </div>
 
 ![RolinShmily's GitHub stats](stats/stats.svg)
 
 ![Top Langs](stats/top-langs.svg)
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Peter-JXL/Peter-JXL/output/github-contribution-grid-snake-dark.svg">
+  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Peter-JXL/Peter-JXL/output/github-contribution-grid-snake.svg">
+  <img alt="github contribution grid snake animation" src="https://raw.githubusercontent.com/Peter-JXL/Peter-JXL/output/github-contribution-grid-snake.svg">
+</picture>
 
 ## <img src="assets/gifs/about-me.gif" width="28"> About Me
 
