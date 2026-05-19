@@ -1,4 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 380" width="620" height="380">
+  <defs>
+    <style>
+      text { font-family: 'SF Mono', 'Cascadia Code', 'Fira Code', 'JetBrains Mono', Consolas, 'Liberation Mono', monospace; }
+    </style>
+  </defs>
+
   <!-- Window shadow -->
   <rect x="4" y="4" width="612" height="372" rx="10" fill="#000" opacity="0.3"/>
 
@@ -15,102 +21,108 @@
   <circle cx="58" cy="17" r="6.5" fill="#27C93F"/>
 
   <!-- Title text -->
-  <text x="306" y="22" fill="#6C7086" text-anchor="middle" font-size="13" font-family="monospace" font-weight="bold">bash — roL1n@HAUT</text>
+  <text x="306" y="22" fill="#6C7086" text-anchor="middle" font-size="13" font-weight="bold">bash — roL1n@HAUT</text>
 
   <!-- Line 1: prompt + cat command -->
   <g opacity="0">
-    <text x="14" y="60" fill="#89B4FA" font-size="14" font-family="monospace">roL1n@HAUT</text>
-    <text x="110" y="60" fill="#CDD6F4" font-size="14" font-family="monospace">~$ cat profile.json</text>
+    <text x="14" y="60" fill="#89B4FA" font-size="14">roL1n@HAUT</text>
+    <text x="110" y="60" fill="#CDD6F4" font-size="14">~$ cat profile.json</text>
     <animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="0.2s" fill="freeze"/>
   </g>
 
   <!-- Line 2: { -->
   <g opacity="0">
-    <text x="28" y="82" fill="#CDD6F4" font-size="14" font-family="monospace">{</text>
+    <text x="28" y="82" fill="#CDD6F4" font-size="14">{</text>
     <animate attributeName="opacity" from="0" to="1" dur="0.2s" begin="1s" fill="freeze"/>
   </g>
 
   <!-- Line 3: name -->
   <g opacity="0">
-    <text x="42" y="104" fill="#89B4FA" font-size="14" font-family="monospace">"name"</text>
-    <text x="102" y="104" fill="#CDD6F4" font-size="14" font-family="monospace">:     </text>
-    <text x="140" y="104" fill="#A6E3A1" font-size="14" font-family="monospace">"RoL1n_SrP"</text>
-    <text x="236" y="104" fill="#CDD6F4" font-size="14" font-family="monospace">,</text>
+    <text x="42" y="104" fill="#89B4FA" font-size="14">"name"</text>
+    <text x="102" y="104" fill="#CDD6F4" font-size="14">:     </text>
+    <text x="140" y="104" fill="#A6E3A1" font-size="14">"RoL1n_SrP"</text>
+    <text x="236" y="104" fill="#CDD6F4" font-size="14">,</text>
     <animate attributeName="opacity" from="0" to="1" dur="0.2s" begin="1.4s" fill="freeze"/>
   </g>
 
   <!-- Line 4: school -->
   <g opacity="0">
-    <text x="42" y="126" fill="#89B4FA" font-size="14" font-family="monospace">"school"</text>
-    <text x="116" y="126" fill="#CDD6F4" font-size="14" font-family="monospace">:   </text>
-    <text x="140" y="126" fill="#A6E3A1" font-size="14" font-family="monospace">"HAUT"</text>
-    <text x="196" y="126" fill="#CDD6F4" font-size="14" font-family="monospace">,</text>
+    <text x="42" y="126" fill="#89B4FA" font-size="14">"school"</text>
+    <text x="116" y="126" fill="#CDD6F4" font-size="14">:   </text>
+    <text x="140" y="126" fill="#A6E3A1" font-size="14">"HAUT"</text>
+    <text x="196" y="126" fill="#CDD6F4" font-size="14">,</text>
     <animate attributeName="opacity" from="0" to="1" dur="0.2s" begin="1.8s" fill="freeze"/>
   </g>
 
-  <!-- Line 5: major -->
+  <!-- Line 5: major (full text) -->
   <g opacity="0">
-    <text x="42" y="148" fill="#89B4FA" font-size="14" font-family="monospace">"major"</text>
-    <text x="102" y="148" fill="#CDD6F4" font-size="14" font-family="monospace">:    </text>
-    <text x="140" y="148" fill="#A6E3A1" font-size="14" font-family="monospace">"Electronic Information Eng"</text>
-    <text x="390" y="148" fill="#CDD6F4" font-size="14" font-family="monospace">,</text>
+    <text x="42" y="148" fill="#89B4FA" font-size="14">"major"</text>
+    <text x="102" y="148" fill="#CDD6F4" font-size="14">:    </text>
+    <text x="140" y="148" fill="#A6E3A1" font-size="14">"Electronic Information</text>
     <animate attributeName="opacity" from="0" to="1" dur="0.2s" begin="2.2s" fill="freeze"/>
+  </g>
+
+  <!-- Line 5 continued: major wrapped -->
+  <g opacity="0">
+    <text x="140" y="166" fill="#A6E3A1" font-size="14">Engineering"</text>
+    <text x="270" y="166" fill="#CDD6F4" font-size="14">,</text>
+    <animate attributeName="opacity" from="0" to="1" dur="0.2s" begin="2.5s" fill="freeze"/>
   </g>
 
   <!-- Line 6: location -->
   <g opacity="0">
-    <text x="42" y="170" fill="#89B4FA" font-size="14" font-family="monospace">"location"</text>
-    <text x="130" y="170" fill="#CDD6F4" font-size="14" font-family="monospace">: </text>
-    <text x="140" y="170" fill="#A6E3A1" font-size="14" font-family="monospace">"China"</text>
-    <text x="196" y="170" fill="#CDD6F4" font-size="14" font-family="monospace">,</text>
-    <animate attributeName="opacity" from="0" to="1" dur="0.2s" begin="2.6s" fill="freeze"/>
+    <text x="42" y="188" fill="#89B4FA" font-size="14">"location"</text>
+    <text x="130" y="188" fill="#CDD6F4" font-size="14">: </text>
+    <text x="140" y="188" fill="#A6E3A1" font-size="14">"China"</text>
+    <text x="196" y="188" fill="#CDD6F4" font-size="14">,</text>
+    <animate attributeName="opacity" from="0" to="1" dur="0.2s" begin="2.9s" fill="freeze"/>
   </g>
 
   <!-- Line 7: blog -->
   <g opacity="0">
-    <text x="42" y="192" fill="#89B4FA" font-size="14" font-family="monospace">"blog"</text>
-    <text x="88" y="192" fill="#CDD6F4" font-size="14" font-family="monospace">:     </text>
-    <text x="140" y="192" fill="#A6E3A1" font-size="14" font-family="monospace">"blog.srprolin.top"</text>
-    <text x="292" y="192" fill="#CDD6F4" font-size="14" font-family="monospace">,</text>
-    <animate attributeName="opacity" from="0" to="1" dur="0.2s" begin="3s" fill="freeze"/>
+    <text x="42" y="210" fill="#89B4FA" font-size="14">"blog"</text>
+    <text x="88" y="210" fill="#CDD6F4" font-size="14">:     </text>
+    <text x="140" y="210" fill="#A6E3A1" font-size="14">"blog.srprolin.top"</text>
+    <text x="292" y="210" fill="#CDD6F4" font-size="14">,</text>
+    <animate attributeName="opacity" from="0" to="1" dur="0.2s" begin="3.3s" fill="freeze"/>
   </g>
 
   <!-- Line 8: hobbies -->
   <g opacity="0">
-    <text x="42" y="214" fill="#89B4FA" font-size="14" font-family="monospace">"hobbies"</text>
-    <text x="116" y="214" fill="#CDD6F4" font-size="14" font-family="monospace">:  </text>
-    <text x="140" y="214" fill="#F9E2AF" font-size="14" font-family="monospace">["Coding"</text>
-    <text x="210" y="214" fill="#CDD6F4" font-size="14" font-family="monospace">, </text>
-    <text x="218" y="214" fill="#F9E2AF" font-size="14" font-family="monospace">"Gaming"</text>
-    <text x="296" y="214" fill="#CDD6F4" font-size="14" font-family="monospace">, </text>
-    <text x="304" y="214" fill="#F9E2AF" font-size="14" font-family="monospace">"Server"</text>
-    <text x="366" y="214" fill="#CDD6F4" font-size="14" font-family="monospace">,</text>
-    <animate attributeName="opacity" from="0" to="1" dur="0.2s" begin="3.4s" fill="freeze"/>
+    <text x="42" y="232" fill="#89B4FA" font-size="14">"hobbies"</text>
+    <text x="116" y="232" fill="#CDD6F4" font-size="14">:  </text>
+    <text x="140" y="232" fill="#F9E2AF" font-size="14">["Coding"</text>
+    <text x="210" y="232" fill="#CDD6F4" font-size="14">, </text>
+    <text x="218" y="232" fill="#F9E2AF" font-size="14">"Gaming"</text>
+    <text x="296" y="232" fill="#CDD6F4" font-size="14">, </text>
+    <text x="304" y="232" fill="#F9E2AF" font-size="14">"Server"</text>
+    <text x="366" y="232" fill="#CDD6F4" font-size="14">,</text>
+    <animate attributeName="opacity" from="0" to="1" dur="0.2s" begin="3.7s" fill="freeze"/>
   </g>
 
   <!-- Line 9: hobbies continued -->
   <g opacity="0">
-    <text x="140" y="236" fill="#F9E2AF" font-size="14" font-family="monospace">"Open Source"</text>
-    <text x="262" y="236" fill="#F9E2AF" font-size="14" font-family="monospace">]</text>
-    <animate attributeName="opacity" from="0" to="1" dur="0.2s" begin="3.8s" fill="freeze"/>
+    <text x="140" y="254" fill="#F9E2AF" font-size="14">"Open Source"</text>
+    <text x="262" y="254" fill="#F9E2AF" font-size="14">]</text>
+    <animate attributeName="opacity" from="0" to="1" dur="0.2s" begin="4.1s" fill="freeze"/>
   </g>
 
   <!-- Line 10: } -->
   <g opacity="0">
-    <text x="28" y="258" fill="#CDD6F4" font-size="14" font-family="monospace">}</text>
-    <animate attributeName="opacity" from="0" to="1" dur="0.2s" begin="4.2s" fill="freeze"/>
+    <text x="28" y="276" fill="#CDD6F4" font-size="14">}</text>
+    <animate attributeName="opacity" from="0" to="1" dur="0.2s" begin="4.5s" fill="freeze"/>
   </g>
 
   <!-- Line 11: final prompt with blinking cursor -->
   <g opacity="0">
-    <text x="14" y="284" fill="#89B4FA" font-size="14" font-family="monospace">roL1n@HAUT</text>
-    <text x="110" y="284" fill="#CDD6F4" font-size="14" font-family="monospace">~$ </text>
-    <animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="4.8s" fill="freeze"/>
+    <text x="14" y="302" fill="#89B4FA" font-size="14">roL1n@HAUT</text>
+    <text x="110" y="302" fill="#CDD6F4" font-size="14">~$ </text>
+    <animate attributeName="opacity" from="0" to="1" dur="0.3s" begin="5s" fill="freeze"/>
   </g>
 
   <!-- Blinking cursor -->
-  <rect x="148" y="272" width="9" height="16" fill="#CDD6F4">
-    <animate attributeName="opacity" values="0" dur="0.01s" begin="4.8s" fill="freeze"/>
-    <animate attributeName="opacity" values="1;0;1" dur="1s" begin="5.1s" repeatCount="indefinite"/>
+  <rect x="148" y="290" width="9" height="16" fill="#CDD6F4">
+    <animate attributeName="opacity" values="0" dur="0.01s" begin="5s" fill="freeze"/>
+    <animate attributeName="opacity" values="1;0;1" dur="1s" begin="5.3s" repeatCount="indefinite"/>
   </rect>
 </svg>

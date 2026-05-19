@@ -1,8 +1,10 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0D1117,50:1a73e8,100:0D1117&height=180&section=header&text=&fontSize=0&fontColor=transparent" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:0D1117,50:1a73e8,100:0D1117&height=100&section=header&text=&fontSize=0&fontColor=transparent" width="100%"/>
 
 <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=44&pause=1000&color=1A73E8&center=true&vCenter=true&width=500&height=60&lines=RoL1n_SrP" alt="RoL1n_SrP" />
+
+<img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=400&size=16&pause=2000&color=8B949E&center=true&vCenter=true&width=500&height=28&lines=Electronic+Information+Engineering+Undergraduate" alt="Subtitle" />
 
 <p>
   <a href="https://github.com/RolinShmily"><img src="https://img.shields.io/badge/GitHub-RolinShmily-181717?style=flat-square&logo=github" alt="GitHub"></a>
@@ -29,7 +31,7 @@
 ## <img src="https://media.giphy.com/media/10zxDv7Hv5RF9C/giphy.gif" width="28"> Tech Stack
 
 <p align="center">
-  <img src="https://skillicons.dev/icons?i=python,cpp,typescript,javascript,html,css,astro,vite,react,linux,docker,nginx,git,github,mysql,postgres,raspberrypi,stm32,cloudflare&perline=10" />
+  <img src="https://skillicons.dev/icons?i=python,cpp,typescript,javascript,html,css,astro,vite,react,linux,docker,nginx,git,github,mysql,postgres,raspberrypi,cloudflare&perline=10" />
 </p>
 
 ---
@@ -132,5 +134,5 @@
 </p>
 
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=22&pause=1000&color=1a73e8&center=true&vCenter=true&multiline=true&repeat=true&width=500&height=100&lines=Thanks+for+visiting!;Let's+build+something+amazing+together!" alt="Typing SVG" />
+  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=22&pause=1000&color=1a73e8&center=true&vCenter=true&multiline=true&repeat=true&width=500&height=100&lines=Thanks+for+visiting!;Let%27s+build+something+amazing+together!" alt="Typing SVG" />
 </p>
