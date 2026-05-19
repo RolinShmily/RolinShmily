@@ -18,7 +18,7 @@
 
 ---
 
-## <img src="https://media.giphy.com/media/qgQUgACxQaKqIt41Qv/giphy.gif" width="28"> About Me
+## <img src="https://media.giphy.com/media/5biuEMbZUQtTcXIzoP/giphy.gif" width="28"> About Me
 
 <p align="center">
   <img src="assets/terminal.svg" width="620" alt="Terminal Profile" />
@@ -26,7 +26,7 @@
 
 ---
 
-## <img src="https://media.giphy.com/media/QMHoU66sBXqqLqYvGO/giphy.gif" width="28"> Tech Stack
+## <img src="https://media.giphy.com/media/10zxDv7Hv5RF9C/giphy.gif" width="28"> Tech Stack
 
 <p align="center">
   <img src="https://skillicons.dev/icons?i=python,cpp,typescript,javascript,html,css,astro,vite,react,linux,docker,nginx,git,github,mysql,postgres,raspberrypi,stm32,cloudflare&perline=10" />
@@ -34,7 +34,7 @@
 
 ---
 
-## <img src="https://media.giphy.com/media/KzJkzjga8lXUAvKFKF/giphy.gif" width="28"> Featured Projects
+## <img src="https://media.giphy.com/media/5yEMf7pmP4PZPse6cF/giphy.gif" width="28"> Featured Projects
 
 <table>
   <tr>
@@ -92,7 +92,7 @@
 
 ---
 
-## <img src="https://media.giphy.com/media/du3J3cXyzhj75IOgvA/giphy.gif" width="28"> GitHub Stats
+## <img src="https://media.giphy.com/media/BAISY79GvpZjE3foFC/giphy.gif" width="28"> GitHub Stats
 
 <p align="center">
   <img src="https://github-readme-stats.vercel.app/api?username=RolinShmily&show_icons=true&theme=radical&hide_border=true&count_private=true&include_all_commits=true&rank_icon=github" width="48%"/>
@@ -106,7 +106,7 @@
 
 ---
 
-## <img src="https://media.giphy.com/media/LnQjpWaON8nhr2yK86/giphy.gif" width="28"> Blog Stats
+## <img src="https://media.giphy.com/media/26BRrzGFAvUZAYoqk/giphy.gif" width="28"> Blog Stats
 
 <p align="center">
   <a href="https://blog.srprolin.top">
@@ -119,7 +119,7 @@
 
 ---
 
-## <img src="https://media.giphy.com/media/W0ynMwyPwYcD6jXQFq/giphy.gif" width="28"> Activity Graph
+## <img src="https://media.giphy.com/media/0axK6DUzaWluvpzBE9/giphy.gif" width="28"> Activity Graph
 
 <p align="center">
   <img src="https://github-readme-activity-graph.vercel.app/graph?username=RolinShmily&bg_color=0D1117&color=1a73e8&line=1a73e8&point=FFFFFF&area_color=1a73e8&area=true&hide_border=true&custom_title=RoL1n%27s%20Contribution%20Graph" width="95%"/>
