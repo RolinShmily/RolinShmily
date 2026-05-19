@@ -1,0 +1,40 @@
+name: Generate Stats Cards
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Generate stats card
+        uses: readme-tools/github-readme-stats-action@v2
+        with:
+          card: stats
+          options: username=RolinShmily&show_icons=true&theme=radical&hide_border=true&count_private=true&include_all_commits=true&rank_icon=github
+          path: stats/stats.svg
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate top languages card
+        uses: readme-tools/github-readme-stats-action@v2
+        with:
+          card: top-langs
+          options: username=RolinShmily&layout=compact&theme=radical&hide_border=true&langs_count=8
+          path: stats/top-langs.svg
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit cards
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add stats/*.svg
+          git commit -m "Update stats cards" || exit 0
+          git push
