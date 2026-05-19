@@ -19,7 +19,7 @@
 
 <table>
   <tr>
-    <td width="60%">
+    <td width="48%">
       <h3>
         <img src="https://cdn.jsdelivr.net/gh/RolinShmily/SrP-CFG_ForCS2@refs/heads/main/app/website/public/favicon.ico" width="24" alt="icon">
         SrP-CFG_ForCS2
@@ -55,7 +55,7 @@
         </ul>
       </details>
     </td>
-    <td width="40%" align="center">
+    <td width="52%" align="center">
       <a href="https://cfg.srprolin.top/">
         <img src="https://cdn.jsdelivr.net/gh/RolinShmily/SrP-CFG_ForCS2@refs/heads/main/app/website/public/image.png" width="100%" alt="SrP-CFG Website" />
       </a>
