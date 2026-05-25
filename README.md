@@ -91,7 +91,7 @@
 ### 🛠️ Tech Stack
 
 <p align="center">
-  <img src="https://skillicons.dev/icons?i=html,css,js,ts,md,react,astro,electron,vite,nodejs,cloudflare,vscode,git,github,python,c,cmake,linux,arch,nginx,docker,mysql&perline=11" />
+  <img src="https://skillicons.dev/icons?i=html,css,js,ts,md,react,astro,electron,vite,nodejs,cloudflare,vscode,git,github,python,c,cmake,linux,arch,nginx,docker,postgresql&perline=11" />
 </p>
 
 ---
