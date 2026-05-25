@@ -20,6 +20,7 @@ function initNavigation() {
   toggle.addEventListener("click", () => {
     links.classList.toggle("open");
     toggle.classList.toggle("active");
+    toggle.setAttribute("aria-expanded", links.classList.contains("open"));
   });
 
   // Close mobile menu on link click
@@ -27,6 +28,7 @@ function initNavigation() {
     a.addEventListener("click", () => {
       links.classList.remove("open");
       toggle.classList.remove("active");
+      toggle.setAttribute("aria-expanded", "false");
     });
   });
 
