@@ -754,3 +754,32 @@ a:hover {
     grid-template-columns: 1fr;
   }
 }
+
+/* === Footer === */
+#footer {
+  border-top: 1px solid rgba(124, 58, 237, 0.15);
+  padding: 2rem 0;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.footer-text {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.footer-counter img {
+  height: 24px;
+  opacity: 0.6;
+}
