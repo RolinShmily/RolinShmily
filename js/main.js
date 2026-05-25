@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initScrollReveal();
   initTypewriter();
   initProjects();
+  initTimeline();
 });
 
 /* === Navigation === */
@@ -302,4 +303,65 @@ function renderProjectGrid(repos) {
     { threshold: 0.1 }
   );
   el.querySelectorAll(".reveal").forEach((node) => observer.observe(node));
+}
+
+/* === Timeline === */
+const TIMELINE_DATA = [
+  {
+    date: "2022",
+    title: "Started at HAUT",
+    desc: "Began studying Electronic Information Engineering at Henan University of Technology.",
+  },
+  {
+    date: "2023",
+    title: "Dove into Linux",
+    desc: "Installed Arch Linux as daily driver. Fell in love with the terminal — bash, zsh, fastfetch, btop.",
+  },
+  {
+    date: "2023",
+    title: "First Open Source Project",
+    desc: "Started building tools and sharing on GitHub. Explored TypeScript, React, and Electron.",
+  },
+  {
+    date: "2024",
+    title: "SrP-CFG_ForCS2",
+    desc: "Launched CS2 config manager with Electron desktop app — auto Steam detection, one-click install.",
+  },
+  {
+    date: "2024",
+    title: "Picked up Guitar",
+    desc: "Started learning guitar. Explored ESP, Gibson, Fender, and PRS instruments. ACG music is the best practice motivation.",
+  },
+  {
+    date: "2025",
+    title: "Personal Homepage",
+    desc: "Building this site — a place to aggregate all my projects, interests, and journey.",
+  },
+];
+
+function initTimeline() {
+  const container = document.getElementById("timeline-container");
+  if (!container) return;
+
+  container.innerHTML = TIMELINE_DATA.map(
+    (item, i) => `
+    <div class="timeline-item reveal" style="transition-delay: ${i * 0.1}s">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">${esc(item.date)}</div>
+      <h3 class="timeline-title">${esc(item.title)}</h3>
+      <p class="timeline-desc">${esc(item.desc)}</p>
+    </div>
+  `
+  ).join("");
+
+  // Observe new reveal elements
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("visible");
+      });
+    },
+    { threshold: 0.1 }
+  );
+  container.querySelectorAll(".reveal").forEach((node) => observer.observe(node));
 }
