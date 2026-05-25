@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initParticles();
   initScrollReveal();
   initTypewriter();
+  initProjects();
 });
 
 /* === Navigation === */
@@ -180,4 +181,98 @@ function initTypewriter() {
     }
   }
   setTimeout(type, 500);
+}
+
+/* === GitHub Projects === */
+const LANG_COLORS = {
+  JavaScript: "#f1e05a", TypeScript: "#3178c6", Python: "#3572A5",
+  HTML: "#e34c26", CSS: "#563d7c", Shell: "#89e051", C: "#555555",
+  "C++": "#f34b7d", Rust: "#dea584", Go: "#00ADD8", Java: "#b07219",
+};
+
+const FEATURED_NAME = "SrP-CFG_ForCS2";
+const FEATURED_IMAGE = "https://cdn.jsdelivr.net/gh/RolinShmily/SrP-CFG_ForCS2@refs/heads/main/app/website/public/image.png";
+
+async function initProjects() {
+  const repos = await fetchRepos();
+  if (!repos) return;
+
+  const featured = repos.find((r) => r.name === FEATURED_NAME);
+  const others = repos.filter((r) => r.name !== FEATURED_NAME);
+
+  if (featured) renderFeatured(featured);
+  renderProjectGrid(others);
+}
+
+async function fetchRepos() {
+  const cached = sessionStorage.getItem("gh-repos");
+  if (cached) return JSON.parse(cached);
+
+  try {
+    const res = await fetch(
+      "https://api.github.com/users/RolinShmily/repos?sort=stars&per_page=10&direction=desc"
+    );
+    if (!res.ok) throw new Error(res.status);
+    const data = await res.json();
+    sessionStorage.setItem("gh-repos", JSON.stringify(data));
+    return data;
+  } catch (e) {
+    console.warn("GitHub API fetch failed:", e);
+    return null;
+  }
+}
+
+function renderFeatured(repo) {
+  const el = document.getElementById("featured-project");
+  if (!el) return;
+  el.innerHTML = `
+    <div class="featured-card">
+      <div class="featured-info">
+        <span class="featured-label">Featured Project</span>
+        <h3 class="featured-name"><a href="${repo.html_url}" target="_blank" rel="noopener">${repo.name}</a></h3>
+        <p class="featured-desc">${repo.description || ""}</p>
+        <div class="featured-tags">
+          ${(repo.topics || []).map((t) => `<span class="tag">${t}</span>`).join("")}
+          ${repo.language ? `<span class="tag">${repo.language}</span>` : ""}
+        </div>
+        <div class="featured-meta">
+          <span><svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg> ${repo.stargazers_count}</span>
+          ${repo.homepage ? `<a href="${repo.homepage}" target="_blank" rel="noopener" style="color:var(--accent-bright)">Website</a>` : ""}
+        </div>
+      </div>
+      <div class="featured-preview">
+        <img src="${FEATURED_IMAGE}" alt="${repo.name}" loading="lazy" onerror="this.parentElement.innerHTML='<span style=\\'color:var(--text-secondary)\\'>Preview</span>'">
+      </div>
+    </div>
+  `;
+}
+
+function renderProjectGrid(repos) {
+  const el = document.getElementById("project-grid");
+  if (!el) return;
+  el.innerHTML = repos
+    .map(
+      (r) => `
+    <a href="${r.html_url}" target="_blank" rel="noopener" class="card project-card reveal">
+      <h4 class="project-card-name">${r.name}</h4>
+      <p class="project-card-desc">${r.description || "No description."}</p>
+      <div class="project-card-meta">
+        ${r.language ? `<span><span class="lang-dot" style="background:${LANG_COLORS[r.language] || "#ccc"}"></span>${r.language}</span>` : ""}
+        <span><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg> ${r.stargazers_count}</span>
+      </div>
+    </a>
+  `
+    )
+    .join("");
+
+  // Re-observe newly added reveal elements
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("visible");
+      });
+    },
+    { threshold: 0.1 }
+  );
+  el.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 }
