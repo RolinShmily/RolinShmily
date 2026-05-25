@@ -367,3 +367,53 @@ a:hover {
     font-size: 2rem;
   }
 }
+
+/* === Sites === */
+.sites-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.site-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem;
+  padding: 2rem 1.5rem;
+  color: var(--text-primary);
+}
+
+.site-card:hover {
+  color: var(--text-primary);
+}
+
+.site-icon {
+  color: var(--accent-pink);
+  margin-bottom: 0.25rem;
+}
+
+.site-name {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.site-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+@media (max-width: 1024px) {
+  .sites-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .sites-grid {
+    grid-template-columns: 1fr;
+  }
+}
