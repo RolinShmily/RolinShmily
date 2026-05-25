@@ -154,11 +154,16 @@ function initParticles() {
 
 /* === Scroll Reveal === */
 function initScrollReveal() {
+  let revealIndex = 0;
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
+          const delay = entry.target.dataset.revealDelay || 0;
+          setTimeout(() => {
+            entry.target.classList.add("visible");
+          }, delay);
+          observer.unobserve(entry.target);
         }
       });
     },
@@ -166,6 +171,8 @@ function initScrollReveal() {
   );
 
   document.querySelectorAll(".reveal").forEach((el) => {
+    el.dataset.revealDelay = revealIndex * 80;
+    revealIndex++;
     observer.observe(el);
   });
 }
@@ -299,7 +306,10 @@ function renderProjectGrid(repos) {
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) entry.target.classList.add("visible");
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
       });
     },
     { threshold: 0.1 }
@@ -360,7 +370,10 @@ function initTimeline() {
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) entry.target.classList.add("visible");
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
       });
     },
     { threshold: 0.1 }
