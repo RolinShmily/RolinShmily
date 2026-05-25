@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initNavigation();
   initParticles();
   initScrollReveal();
+  initTypewriter();
 });
 
 /* === Navigation === */
@@ -163,4 +164,20 @@ function initScrollReveal() {
   document.querySelectorAll(".reveal").forEach((el) => {
     observer.observe(el);
   });
+}
+
+/* === Typewriter === */
+function initTypewriter() {
+  const el = document.querySelector(".typing-text");
+  if (!el) return;
+  const text = el.dataset.text;
+  let i = 0;
+  function type() {
+    if (i < text.length) {
+      el.textContent += text[i];
+      i++;
+      setTimeout(type, 120);
+    }
+  }
+  setTimeout(type, 500);
 }
