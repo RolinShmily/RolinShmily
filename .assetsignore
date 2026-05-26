@@ -1,0 +1,12 @@
+.git
+.claude
+.github
+docs
+.wrangler
+.gitignore
+.wrangler
+package.json
+package-lock.json
+node_modules
+about.md
+README.md

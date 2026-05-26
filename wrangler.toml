@@ -1,0 +1,4 @@
+name = "rolin-shmily"
+compatibility_date = "2024-09-23"
+assets = { directory = "." }
+route = "www.srprolin.top/*"

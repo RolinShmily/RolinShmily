@@ -6,8 +6,8 @@ document.addEventListener("DOMContentLoaded", () => {
   initScrollReveal();
   initTypewriter();
   initScrollEffects();
+
   initWorks();
-  initTimeline();
   initBackToTop();
 });
 
@@ -207,6 +207,11 @@ function initScrollEffects() {
   const topHighlight = document.getElementById("top-highlight");
   const bodyBefore = document.body;
 
+  // On mobile, show navbar immediately
+  if (navbar && window.innerWidth <= 768) {
+    navbar.classList.remove("hidden");
+  }
+
   let ticking = false;
   let navWasHidden = true;
 
@@ -232,8 +237,9 @@ function initScrollEffects() {
       const hlProgress = Math.min(Math.max((progress - 0.3) / 0.4, 0), 1);
       if (topHighlight) topHighlight.style.opacity = hlProgress;
 
-      // Navbar appears after 30% scroll
-      if (navbar) {
+      // Navbar appears after 30% scroll (skip on mobile)
+      const isMobile = window.innerWidth <= 768;
+      if (navbar && !isMobile) {
         const showNav = progress > 0.3;
         if (showNav) {
           navbar.classList.remove("hidden");
@@ -268,7 +274,7 @@ const LANG_COLORS = {
 };
 
 const FEATURED_REPOS = [
-  { name: "SrP-CFG_ForCS2", image: "https://cdn.jsdelivr.net/gh/RolinShmily/SrP-CFG_ForCS2@refs/heads/main/app/website/public/image.png" },
+  { name: "SrP-CFG_ForCS2", image: "https://cdn.jsdelivr.net/gh/RolinShmily/SrP-CFG_ForCS2@main/app/desktop/resources/image1.png" },
   { name: "SrP-IMG", image: "https://cdn.jsdelivr.net/gh/RolinShmily/SrP-IMG@main/preview.png" },
 ];
 const FEATURED_NAMES = FEATURED_REPOS.map(r => r.name);
@@ -286,40 +292,25 @@ function safeUrl(url) {
   } catch { return ""; }
 }
 
+
 async function initWorks() {
-  const repos = await fetchRepos();
-  if (!repos) {
-    const container = document.getElementById("featured-projects");
-    const grid = document.getElementById("project-grid");
-    if (container) container.innerHTML = '<p style="color:var(--text-secondary)">Unable to load projects.</p>';
-    if (grid) grid.innerHTML = '';
-    return;
-  }
+  const featuredRepos = await Promise.all(
+    FEATURED_REPOS.map(spec => fetchRepo(spec.name))
+  );
 
-  const featuredRepos = FEATURED_REPOS.map(spec => repos.find(r => r.name === spec.name)).filter(Boolean);
-  const others = repos.filter(r => !FEATURED_NAMES.includes(r.name));
-
-  renderFeatured(featuredRepos);
-  renderProjectGrid(others);
+  renderFeatured(featuredRepos.filter(Boolean));
 }
 
-async function fetchRepos() {
-  try {
-    const cached = sessionStorage.getItem("gh-repos");
-    if (cached) return JSON.parse(cached);
-  } catch { /* corrupted cache, re-fetch */ }
-
+async function fetchRepo(name) {
   try {
     const res = await fetch(
-      "https://api.github.com/users/RolinShmily/repos?sort=stars&per_page=10&direction=desc",
+      `https://api.github.com/repos/RolinShmily/${name}`,
       { headers: { Accept: "application/vnd.github.v3+json" } }
     );
     if (!res.ok) throw new Error(res.status);
-    const data = await res.json();
-    sessionStorage.setItem("gh-repos", JSON.stringify(data));
-    return data;
+    return await res.json();
   } catch (e) {
-    console.warn("GitHub API fetch failed:", e);
+    console.warn(`GitHub API fetch failed for ${name}:`, e);
     return null;
   }
 }
@@ -389,70 +380,6 @@ function renderProjectGrid(repos) {
     { threshold: 0.1 }
   );
   el.querySelectorAll(".reveal").forEach((node) => observer.observe(node));
-}
-
-/* === Timeline === */
-const TIMELINE_DATA = [
-  {
-    date: "2022",
-    title: "Started at HAUT",
-    desc: "Began studying Electronic Information Engineering at Henan University of Technology.",
-  },
-  {
-    date: "2023",
-    title: "Dove into Linux",
-    desc: "Installed Arch Linux as daily driver. Fell in love with the terminal — bash, zsh, fastfetch, btop.",
-  },
-  {
-    date: "2023",
-    title: "First Open Source Project",
-    desc: "Started building tools and sharing on GitHub. Explored TypeScript, React, and Electron.",
-  },
-  {
-    date: "2024",
-    title: "SrP-CFG_ForCS2",
-    desc: "Launched CS2 config manager with Electron desktop app — auto Steam detection, one-click install.",
-  },
-  {
-    date: "2024",
-    title: "Picked up Guitar",
-    desc: "Started learning guitar. Explored ESP, Gibson, Fender, and PRS instruments. ACG music is the best practice motivation.",
-  },
-  {
-    date: "2025",
-    title: "Personal Homepage",
-    desc: "Building this site — a place to aggregate all my projects, interests, and journey.",
-  },
-];
-
-function initTimeline() {
-  const container = document.getElementById("timeline-container");
-  if (!container) return;
-
-  container.innerHTML = TIMELINE_DATA.map(
-    (item, i) => `
-    <div class="timeline-item reveal" style="transition-delay: ${i * 0.1}s">
-      <div class="timeline-dot"></div>
-      <div class="timeline-date">${esc(item.date)}</div>
-      <h3 class="timeline-title">${esc(item.title)}</h3>
-      <p class="timeline-desc">${esc(item.desc)}</p>
-    </div>
-  `
-  ).join("");
-
-  // Observe new reveal elements
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.1 }
-  );
-  container.querySelectorAll(".reveal").forEach((node) => observer.observe(node));
 }
 
 /* === Back to Top === */
