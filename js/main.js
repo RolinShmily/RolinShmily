@@ -5,40 +5,38 @@ document.addEventListener("DOMContentLoaded", () => {
   initParticles();
   initScrollReveal();
   initTypewriter();
-  initProjects();
+  initScrollEffects();
+  initWorks();
   initTimeline();
+  initBackToTop();
 });
 
 /* === Navigation === */
 function initNavigation() {
   const navbar = document.getElementById("navbar");
   const toggle = document.querySelector(".nav-toggle");
-  const links = document.querySelector(".nav-links");
-  const navAnchors = document.querySelectorAll(".nav-links a");
+  const pill = document.querySelector(".nav-pill");
+  const navItems = document.querySelectorAll(".nav-item");
 
   // Mobile toggle
   toggle.addEventListener("click", () => {
-    links.classList.toggle("open");
+    pill.classList.toggle("open");
     toggle.classList.toggle("active");
-    toggle.setAttribute("aria-expanded", links.classList.contains("open"));
+    toggle.setAttribute("aria-expanded", pill.classList.contains("open"));
   });
 
   // Close mobile menu on link click
-  navAnchors.forEach((a) => {
+  navItems.forEach((a) => {
     a.addEventListener("click", () => {
-      links.classList.remove("open");
+      pill.classList.remove("open");
       toggle.classList.remove("active");
       toggle.setAttribute("aria-expanded", "false");
     });
   });
 
-  // Scroll: update navbar style + active link
+  // Scroll: update active link
   const sections = document.querySelectorAll(".section, #hero");
   window.addEventListener("scroll", () => {
-    // Navbar background
-    navbar.classList.toggle("scrolled", window.scrollY > 50);
-
-    // Active section highlight
     let current = "";
     sections.forEach((sec) => {
       const top = sec.offsetTop - 100;
@@ -46,13 +44,13 @@ function initNavigation() {
         current = sec.getAttribute("id");
       }
     });
-    navAnchors.forEach((a) => {
+    navItems.forEach((a) => {
       a.classList.toggle(
         "active",
         a.getAttribute("href") === `#${current}`
       );
     });
-  });
+  }, { passive: true });
 }
 
 /* === Particle Canvas === */
@@ -110,7 +108,6 @@ function initParticles() {
     ctx.save();
     ctx.translate(x, y);
     ctx.rotate(rot);
-    // Simple eighth note shape
     ctx.beginPath();
     ctx.arc(0, 0, r * 0.4, 0, Math.PI * 2);
     ctx.fill();
@@ -141,7 +138,6 @@ function initParticles() {
         ctx.fill();
       }
 
-      // Reset when out of bounds
       if (p.y > canvas.height + 20) {
         Object.assign(p, createParticle());
       }
@@ -182,15 +178,86 @@ function initTypewriter() {
   const el = document.querySelector(".typing-text");
   if (!el) return;
   const text = el.dataset.text;
+  let displayText = "";
   let i = 0;
+
   function type() {
     if (i < text.length) {
-      el.textContent += text[i];
+      displayText += text[i];
+      el.textContent = displayText;
+      el.style.animation = "none";
+      setTimeout(() => {
+        el.style.animation = "charPulse 0.3s ease-out";
+      }, 10);
       i++;
-      setTimeout(type, 120);
+      setTimeout(type, 100);
+    } else {
+      el.style.animation = "";
     }
   }
-  setTimeout(type, 500);
+
+  setTimeout(type, 400);
+}
+
+/* === Scroll Effects === */
+function initScrollEffects() {
+  const navbar = document.getElementById("navbar");
+  const navPill = document.querySelector(".nav-pill");
+  const gridOverlay = document.getElementById("grid-overlay");
+  const topHighlight = document.getElementById("top-highlight");
+  const bodyBefore = document.body;
+
+  let ticking = false;
+  let navWasHidden = true;
+
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+
+    requestAnimationFrame(() => {
+      const scrollY = window.scrollY;
+      const heroH = window.innerHeight;
+
+      // Progress 0→1 as user scrolls through the hero
+      const progress = Math.min(scrollY / heroH, 1);
+
+      // Grid overlay fades out: 1 → 0.3 over 0%~50% scroll
+      const gridOpacity = Math.max(1 - progress * 2, 0.3);
+      if (gridOverlay) gridOverlay.style.opacity = gridOpacity;
+
+      // Bottom glow fades out completely (same range)
+      bodyBefore.style.setProperty("--glow-opacity", Math.max(1 - progress * 2, 0));
+
+      // Top highlight fades in: 0 → 1 over 30%~70% scroll
+      const hlProgress = Math.min(Math.max((progress - 0.3) / 0.4, 0), 1);
+      if (topHighlight) topHighlight.style.opacity = hlProgress;
+
+      // Navbar appears after 30% scroll
+      if (navbar) {
+        const showNav = progress > 0.3;
+        if (showNav) {
+          navbar.classList.remove("hidden");
+          if (navWasHidden) {
+            navWasHidden = false;
+            navPill.classList.remove("animate-in");
+            void navPill.offsetWidth;
+            navPill.classList.add("animate-in");
+          }
+        } else {
+          navbar.classList.add("hidden");
+          navWasHidden = true;
+          navPill.classList.remove("animate-in");
+        }
+      }
+
+      ticking = false;
+    });
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  // Apply initial state
+  onScroll();
 }
 
 /* === GitHub Projects === */
@@ -200,8 +267,11 @@ const LANG_COLORS = {
   "C++": "#f34b7d", Rust: "#dea584", Go: "#00ADD8", Java: "#b07219",
 };
 
-const FEATURED_NAME = "SrP-CFG_ForCS2";
-const FEATURED_IMAGE = "https://cdn.jsdelivr.net/gh/RolinShmily/SrP-CFG_ForCS2@refs/heads/main/app/website/public/image.png";
+const FEATURED_REPOS = [
+  { name: "SrP-CFG_ForCS2", image: "https://cdn.jsdelivr.net/gh/RolinShmily/SrP-CFG_ForCS2@refs/heads/main/app/website/public/image.png" },
+  { name: "SrP-IMG", image: "https://cdn.jsdelivr.net/gh/RolinShmily/SrP-IMG@main/preview.png" },
+];
+const FEATURED_NAMES = FEATURED_REPOS.map(r => r.name);
 
 function esc(s) {
   const d = document.createElement("div");
@@ -216,18 +286,20 @@ function safeUrl(url) {
   } catch { return ""; }
 }
 
-async function initProjects() {
+async function initWorks() {
   const repos = await fetchRepos();
   if (!repos) {
+    const container = document.getElementById("featured-projects");
     const grid = document.getElementById("project-grid");
-    if (grid) grid.innerHTML = '<p style="color:var(--text-secondary);text-align:center">Unable to load projects.</p>';
+    if (container) container.innerHTML = '<p style="color:var(--text-secondary)">Unable to load projects.</p>';
+    if (grid) grid.innerHTML = '';
     return;
   }
 
-  const featured = repos.find((r) => r.name === FEATURED_NAME);
-  const others = repos.filter((r) => r.name !== FEATURED_NAME);
+  const featuredRepos = FEATURED_REPOS.map(spec => repos.find(r => r.name === spec.name)).filter(Boolean);
+  const others = repos.filter(r => !FEATURED_NAMES.includes(r.name));
 
-  if (featured) renderFeatured(featured);
+  renderFeatured(featuredRepos);
   renderProjectGrid(others);
 }
 
@@ -252,12 +324,18 @@ async function fetchRepos() {
   }
 }
 
-function renderFeatured(repo) {
-  const el = document.getElementById("featured-project");
-  if (!el) return;
-  const homepage = safeUrl(repo.homepage);
-  el.innerHTML = `
+function renderFeatured(repos) {
+  const el = document.getElementById("featured-projects");
+  if (!el || !repos.length) return;
+  el.innerHTML = repos.map((repo) => {
+    const spec = FEATURED_REPOS.find(r => r.name === repo.name);
+    const imageUrl = spec ? spec.image : "";
+    const homepage = safeUrl(repo.homepage);
+    return `
     <div class="featured-card">
+      <div class="featured-preview">
+        <img src="${esc(imageUrl)}" alt="${esc(repo.name)}" loading="lazy">
+      </div>
       <div class="featured-info">
         <span class="featured-label">Featured Project</span>
         <h3 class="featured-name"><a href="${esc(repo.html_url)}" target="_blank" rel="noopener">${esc(repo.name)}</a></h3>
@@ -271,17 +349,13 @@ function renderFeatured(repo) {
           ${homepage ? `<a href="${esc(homepage)}" target="_blank" rel="noopener" style="color:var(--accent-bright)">Website</a>` : ""}
         </div>
       </div>
-      <div class="featured-preview">
-        <img src="${FEATURED_IMAGE}" alt="${esc(repo.name)}" loading="lazy">
-      </div>
-    </div>
-  `;
-  const img = el.querySelector(".featured-preview img");
-  if (img) {
+    </div>`;
+  }).join("");
+  el.querySelectorAll(".featured-preview img").forEach((img) => {
     img.addEventListener("error", () => {
       img.parentElement.innerHTML = '<span style="color:var(--text-secondary)">Preview</span>';
     });
-  }
+  });
 }
 
 function renderProjectGrid(repos) {
@@ -379,4 +453,25 @@ function initTimeline() {
     { threshold: 0.1 }
   );
   container.querySelectorAll(".reveal").forEach((node) => observer.observe(node));
+}
+
+/* === Back to Top === */
+function initBackToTop() {
+  const btn = document.getElementById("back-to-top");
+  if (!btn) return;
+
+  let ticking = false;
+
+  window.addEventListener("scroll", () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      btn.classList.toggle("visible", window.scrollY > window.innerHeight * 0.5);
+      ticking = false;
+    });
+  }, { passive: true });
+
+  btn.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
 }
