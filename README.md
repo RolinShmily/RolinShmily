@@ -6,7 +6,7 @@
 
 <p>
   <a href="https://blog.srprolin.top"><img src="assets/badges/blog-badge.svg" alt="Blog"></a>
-  <a href="mailto:RolinShmily@outlook.com"><img src="assets/badges/email-badge.svg" alt="Email"></a>
+  <a href="mailto:RolinShmily@srprolin.top"><img src="assets/badges/email-badge.svg" alt="Email"></a>
   <a href="https://space.bilibili.com/422744280"><img src="assets/badges/bilibili-badge.svg" alt="Bilibili"></a>
   <a href="https://steamcommunity.com/profiles/76561199516828933/"><img src="assets/badges/steam-badge.svg" alt="Steam"></a>
 </p>
@@ -55,10 +55,40 @@
         </ul>
       </details>
     </td>
-    <td width="52%" align="center">
-      <a href="https://cfg.srprolin.top/">
-        <img src="https://cdn.jsdelivr.net/gh/RolinShmily/SrP-CFG_ForCS2@refs/heads/main/app/website/public/image.png" width="100%" alt="SrP-CFG Website" />
-      </a>
+    <td width="4%">
+    </td>
+    <td width="48%">
+      <h3>
+        <img src="https://cdn.jsdelivr.net/gh/RolinShmily/SrP-IMG@main/public/icon.svg" width="24" alt="icon">
+        SrP-IMG
+      </h3>
+      <sub>Random image API with multi-category support and a modern gallery UI, deployed on Cloudflare Pages/Workers at zero cost.</sub>
+      <br><br>
+      <p>
+        <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript">
+        <img src="https://img.shields.io/badge/Next.js-000000?style=flat-square&logo=next.js&logoColor=white" alt="Next.js">
+        <img src="https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python">
+        <img src="https://img.shields.io/badge/Cloudflare-F38020?style=flat-square&logo=cloudflare&logoColor=white" alt="Cloudflare">
+      </p>
+      <p>
+        <a href="https://github.com/RolinShmily/SrP-IMG">
+          <img src="https://img.shields.io/github/stars/RolinShmily/SrP-IMG?style=flat-square&color=yellow" alt="Stars">
+        </a>
+        <a href="https://eo-img.srprolin.top">
+          <img src="https://img.shields.io/badge/Website-eo--img.srprolin.top-1a73e8?style=flat-square" alt="Website">
+        </a>
+      </p>
+      <details>
+        <summary><b>Key Features</b></summary>
+        <br>
+        <ul>
+          <li>Zero-cost deployment on Cloudflare Pages/Workers, no server or database needed</li>
+          <li>Multi-category support: landscape (h), portrait (v) and custom categories</li>
+          <li>Dual-mode API: JS redirect (API mode) and URL rewrite (transparent mode)</li>
+          <li>Auto-generated gallery adapts categories, counts and formats via counts.json</li>
+          <li>Python pre-build pipeline hashes images and generates metadata automatically</li>
+        </ul>
+      </details>
     </td>
   </tr>
 </table>
