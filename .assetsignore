@@ -10,3 +10,5 @@ package-lock.json
 node_modules
 about.md
 README.md
+.dev.vars
+worker

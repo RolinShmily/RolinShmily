@@ -277,7 +277,6 @@ const FEATURED_REPOS = [
   { name: "SrP-CFG_ForCS2", image: "https://cdn.jsdelivr.net/gh/RolinShmily/SrP-CFG_ForCS2@main/app/desktop/resources/image1.png" },
   { name: "SrP-IMG", image: "https://cdn.jsdelivr.net/gh/RolinShmily/SrP-IMG@main/preview.png" },
 ];
-const FEATURED_NAMES = FEATURED_REPOS.map(r => r.name);
 
 function esc(s) {
   const d = document.createElement("div");
@@ -294,25 +293,60 @@ function safeUrl(url) {
 
 
 async function initWorks() {
-  const featuredRepos = await Promise.all(
+  const container = document.getElementById("featured-projects");
+  if (!container) return;
+
+  showLoading(container);
+
+  const results = await Promise.all(
     FEATURED_REPOS.map(spec => fetchRepo(spec.name))
   );
 
-  renderFeatured(featuredRepos.filter(Boolean));
+  const repos = results.filter(Boolean);
+
+  if (repos.length === 0) {
+    showError(container);
+    return;
+  }
+
+  renderFeatured(repos);
 }
 
-async function fetchRepo(name) {
+function showLoading(container) {
+  container.innerHTML = '<div class="works-status works-loading">Loading works…</div>';
+}
+
+function showError(container) {
+  container.innerHTML =
+    '<div class="works-status works-error">Failed to load works. ' +
+    '<button onclick="initWorks()" class="retry-btn">Retry</button></div>';
+}
+
+async function fetchWithTimeout(url, opts = {}, timeout = 8000) {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), timeout);
   try {
-    const res = await fetch(
-      `https://api.github.com/repos/RolinShmily/${name}`,
-      { headers: { Accept: "application/vnd.github.v3+json" } }
-    );
-    if (!res.ok) throw new Error(res.status);
-    return await res.json();
-  } catch (e) {
-    console.warn(`GitHub API fetch failed for ${name}:`, e);
-    return null;
+    const res = await fetch(url, { ...opts, signal: ctrl.signal });
+    return res;
+  } finally {
+    clearTimeout(timer);
   }
+}
+
+async function fetchRepo(name, retries = 2) {
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    try {
+      const res = await fetchWithTimeout(`/api/github/${name}`);
+      if (!res.ok) throw new Error(res.status);
+      return await res.json();
+    } catch (e) {
+      console.warn(`GitHub proxy fetch failed for ${name} (attempt ${attempt + 1}):`, e);
+      if (attempt < retries) {
+        await new Promise(r => setTimeout(r, 800 * (attempt + 1)));
+      }
+    }
+  }
+  return null;
 }
 
 function renderFeatured(repos) {
