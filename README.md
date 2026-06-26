@@ -17,10 +17,16 @@
 - 🤖 **Using & sharing awesome skills:** [skill.srprolin.top](https://skill.srprolin.top/)
 
 ### 📊 GitHub Stats
+<p>
 <img align="top" height="165" src="stats/stats.svg" alt="GitHub Stats" />
 <img align="top" height="165" src="stats/top-langs.svg" alt="Most Used Languages" />
+</p>
 
 ---
+
+<p align="center">
+  <img src="https://count.getloli.com/@RolinShmily" alt="Counter" />
+</p>
 
 <p align="center">
   <picture>
@@ -28,10 +34,6 @@
     <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/RolinShmily/RolinShmily/output/github-contribution-grid-snake.svg" />
     <img src="https://raw.githubusercontent.com/RolinShmily/RolinShmily/output/github-contribution-grid-snake-dark.svg" alt="Contribution Snake Animation" width="95%" />
   </picture>
-</p>
-
-<p align="center">
-  <img src="https://count.getloli.com/@RolinShmily" alt="Counter" />
 </p>
 
 <p align="center">
