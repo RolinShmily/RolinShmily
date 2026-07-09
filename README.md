@@ -14,7 +14,6 @@
 ### 🧐 What I'm doing now
 - ✏️ **Writing something on my blog:** [blog.srprolin.top](https://blog.srprolin.top/)
 - 🎸 **Playing guitar & sharing tabs:** [sheet.srprolin.top](https://sheet.srprolin.top/)
-- 🤖 **Using & sharing awesome skills:** [skill.srprolin.top](https://skill.srprolin.top/)
 
 ### 📊 GitHub Stats
 <p>
