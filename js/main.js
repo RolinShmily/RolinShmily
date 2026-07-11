@@ -274,7 +274,7 @@ const LANG_COLORS = {
 };
 
 const FEATURED_REPOS = [
-  { name: "SrP-CFG_ForCS2", image: "https://cdn.jsdelivr.net/gh/RolinShmily/SrP-CFG_ForCS2@main/app/desktop/resources/image1.png" },
+  { name: "SrP-CFG_ForCS2", image: "https://cdn.jsdelivr.net/gh/RolinShmily/SrP-CFG_ForCS2@main/app/website/src/assets/desktop-user-config.png" },
   { name: "SrP-IMG", image: "https://cdn.jsdelivr.net/gh/RolinShmily/SrP-IMG@main/preview.png" },
 ];
 
