@@ -5,10 +5,13 @@
 <a href="https://space.bilibili.com/422744280"><img src="assets/badges/bilibili-badge.svg" alt="Bilibili"></a>
 <a href="https://wakatime.com/@5e624e25-7f7d-42db-98db-c7c8468b7bb4"><img src="https://wakatime.com/badge/user/5e624e25-7f7d-42db-98db-c7c8468b7bb4.svg" alt="Total time coded since Oct 17 2025" /></a>
 
-<details>
+<details open>
   <summary><b>🛠️ Tech Stack</b></summary>
   <br/>
-  <img src="https://skillicons.dev/icons?i=html,css,js,ts,md,react,astro,electron,vite,nodejs,cloudflare,vscode,git,github,python,c,cmake,linux,arch,nginx,docker,postgresql&perline=11" />
+  <p>
+    <i><small>Continuously learning & progressing</small></i>
+  </p>
+  <img src="https://skillicons.dev/icons?i=html,css,js,ts,react,nextjs,nodejs,postgres,nginx,cloudflare,git,docker,python,c,vscode,arch&perline=8" />
 </details>
 
 ### 🧐 What I'm doing now
