@@ -11,7 +11,7 @@
   <p>
     <i><small>Continuously learning & progressing</small></i>
   </p>
-  <img src="https://skillicons.dev/icons?i=html,css,js,ts,react,nextjs,nodejs,postgres,nginx,cloudflare,git,docker,python,c,vscode,arch&perline=8" />
+  <img src="https://skillicons.dev/icons?i=html,css,js,ts,react,vite,nextjs,nodejs,postgres,nginx,cloudflare,git,docker,python,vscode,arch&perline=8" />
 </details>
 
 ### 🧐 What I'm doing now
