@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   initWorks();
   initBackToTop();
+  initEmailButtons();
 });
 
 /* === Navigation === */
@@ -434,5 +435,63 @@ function initBackToTop() {
 
   btn.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}
+
+/* === Email Button: copy address to clipboard with pink feedback === */
+function initEmailButtons() {
+  const EMAIL = "rol1n@srprolin.top";
+  const FEEDBACK_MS = 1500; // how long the "Copied!" feedback stays visible
+  const buttons = document.querySelectorAll(".email-btn");
+  const checkSvg = `<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"></path></svg>`;
+
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", async (e) => {
+      e.preventDefault();
+      if (btn.dataset.copied) return; // avoid double-fire during feedback
+      btn.dataset.copied = "1";
+      const email = btn.dataset.email || EMAIL;
+
+      let copied = false;
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(email);
+          copied = true;
+        } else {
+          const ta = document.createElement("textarea");
+          ta.value = email;
+          ta.style.position = "fixed";
+          ta.style.left = "-9999px";
+          document.body.appendChild(ta);
+          ta.focus();
+          ta.select();
+          copied = document.execCommand("copy");
+          document.body.removeChild(ta);
+        }
+      } catch (err) {
+        console.error("Failed to copy email: ", err);
+      }
+
+      if (!copied) {
+        delete btn.dataset.copied;
+        return;
+      }
+
+      // Feedback: swap every email button to a pink "Copied!" state
+      const originals = new Map();
+      buttons.forEach((b) => {
+        originals.set(b, b.innerHTML);
+        b.classList.add("copied");
+        b.innerHTML = `<span>Copied!</span>${checkSvg}`;
+      });
+
+      setTimeout(() => {
+        buttons.forEach((b) => {
+          b.classList.remove("copied");
+          b.innerHTML = originals.get(b);
+        });
+        delete btn.dataset.copied;
+      }, FEEDBACK_MS);
+    });
   });
 }
