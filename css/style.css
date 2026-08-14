@@ -989,6 +989,7 @@ a:hover {
   margin: 0 auto;
   padding: 0 2rem;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   gap: 1rem;
@@ -998,6 +999,36 @@ a:hover {
 .footer-text {
   font-size: 0.8rem;
   color: var(--text-secondary);
+}
+
+.footer-beian {
+  flex-basis: 100%;
+  text-align: center;
+  font-size: 0.72rem;
+}
+
+.footer-beian-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.18rem 0.55rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  color: var(--text-secondary);
+  transition: color 0.3s, border-color 0.3s, background-color 0.3s;
+}
+
+.footer-beian-link img {
+  width: 16px;
+  height: 15px;
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
+.footer-beian-link:hover {
+  color: var(--accent-bright);
+  border-color: rgba(247, 92, 126, 0.35);
+  background-color: rgba(247, 92, 126, 0.08);
 }
 
 .footer-counter img {
@@ -1206,6 +1237,11 @@ a:hover {
     flex-direction: column;
     gap: 0.5rem;
     padding: 0 1rem;
+  }
+
+  .footer-beian {
+    flex-basis: auto;
+    order: 3;
   }
 
   .footer-counter img {
