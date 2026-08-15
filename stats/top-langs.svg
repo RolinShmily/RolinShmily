@@ -190,7 +190,7 @@
           data-testid="lang-progress"
           x="249.15"
           y="0"
-          width="10.6"
+          width="10.61"
           height="8"
           fill="#663399"
         />
@@ -198,7 +198,7 @@
         <rect
           mask="url(#rect-mask)"
           data-testid="lang-progress"
-          x="249.75"
+          x="249.76000000000002"
           y="0"
           width="10.24"
           height="8"
