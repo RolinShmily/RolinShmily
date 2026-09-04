@@ -276,8 +276,10 @@ const LANG_COLORS = {
 };
 
 const FEATURED_REPOS = [
-  { name: "SrP-CFG_ForCS2", image: "https://cdn.jsdelivr.net/gh/RolinShmily/SrP-CFG_ForCS2@main/app/website/src/assets/desktop-user-config.png" },
+  { name: "SrP-CFG_ForCS2", image: "https://cdn.jsdelivr.net/gh/RolinShmily/SrP-CFG_ForCS2@main/app/shared/images/desktop-1.png" },
   { name: "SrP-IMG", image: "https://cdn.jsdelivr.net/gh/RolinShmily/SrP-IMG@main/preview.png" },
+  { name: "porter-skill", image: "https://opengraph.githubassets.com/1/RolinShmily/porter-skill" },
+  { name: "20-Fruit_Recognition_System", image: "https://opengraph.githubassets.com/1/RolinShmily/20-Fruit_Recognition_System" },
 ];
 
 function esc(s) {
