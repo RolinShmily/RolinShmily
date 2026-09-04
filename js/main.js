@@ -533,14 +533,14 @@ function initBrandCanvas() {
 
     // Dynamic typography fitting
     let fontSize = Math.min(width * 0.2, height * 0.78);
-    offCtx.font = `900 ${fontSize}px "Public Sans", "Inter", "Noto Sans SC", system-ui, sans-serif`;
+    offCtx.font = `900 ${fontSize}px "Maple Mono NF CN", "Maple Mono SC NF", "Maple Mono CN", "Maple Mono", "Public Sans", "Inter", "Noto Sans SC", system-ui, sans-serif`;
 
     // Adjust font size to fit width constraint
     let textMetrics = offCtx.measureText(BRAND_TEXT);
     const maxTextWidth = width * 0.92;
     if (textMetrics.width > maxTextWidth) {
       fontSize = fontSize * (maxTextWidth / textMetrics.width);
-      offCtx.font = `900 ${fontSize}px "Public Sans", "Inter", "Noto Sans SC", system-ui, sans-serif`;
+      offCtx.font = `900 ${fontSize}px "Maple Mono NF CN", "Maple Mono SC NF", "Maple Mono CN", "Maple Mono", "Public Sans", "Inter", "Noto Sans SC", system-ui, sans-serif`;
     }
 
     // Clean solid pale text fill matching the reference design

@@ -7,6 +7,19 @@
   box-sizing: border-box;
 }
 
+/* === Local Font Fallbacks === */
+@font-face {
+  font-family: "Maple Mono NF CN";
+  src: local("Maple Mono NF CN"),
+       local("Maple Mono SC NF"),
+       local("MapleMono NF CN"),
+       local("MapleMono-NF-CN"),
+       local("Maple Mono CN"),
+       local("Maple Mono");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
 :root {
   --bg-primary: #0f0a1a;
   --bg-card: rgba(30, 20, 50, 0.7);
@@ -16,11 +29,15 @@
   --gradient: linear-gradient(135deg, #f75c7e, #7c3aed);
   --text-primary: #e8e0f0;
   --text-secondary: #a09bb5;
-  --font-heading: "Noto Sans SC", "PingFang SC", sans-serif;
-  --font-body: "Noto Sans SC", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", "Cascadia Code", monospace;
+  --font-heading: "Maple Mono NF CN", "Maple Mono SC NF", "Maple Mono CN", "Maple Mono", "Noto Sans SC", "PingFang SC", sans-serif;
+  --font-body: "Maple Mono NF CN", "Maple Mono SC NF", "Maple Mono CN", "Maple Mono", "Noto Sans SC", system-ui, sans-serif;
+  --font-mono: "Maple Mono NF CN", "Maple Mono SC NF", "Maple Mono CN", "Maple Mono", "JetBrains Mono", "Cascadia Code", monospace;
   --nav-height: 88px;
   --section-padding: 138px 0;
+}
+
+button, input, textarea, select {
+  font-family: inherit;
 }
 
 html {
@@ -607,7 +624,7 @@ a:hover {
 }
 
 .hero-social a:last-child .social-label {
-  font-family: 'Noto Sans SC', sans-serif;
+  font-family: var(--font-mono);
 }
 
 .hero-social a:hover {
