@@ -1,5 +1,7 @@
 .git
 .claude
+.pi
+.memory
 .github
 docs
 .wrangler
