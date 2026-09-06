@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initTypewriter();
   initScrollEffects();
 
-  initWorks();
+  // Works are now 100% static HTML (0-JS) with local assets
   initBrandCanvas();
   initBackToTop();
   initEmailButtons();
@@ -15,43 +15,65 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /* === Navigation === */
 function initNavigation() {
-  const navbar = document.getElementById("navbar");
   const toggle = document.querySelector(".nav-toggle");
   const pill = document.querySelector(".nav-pill");
   const navItems = document.querySelectorAll(".nav-item");
 
   // Mobile toggle
-  toggle.addEventListener("click", () => {
-    pill.classList.toggle("open");
-    toggle.classList.toggle("active");
-    toggle.setAttribute("aria-expanded", pill.classList.contains("open"));
-  });
-
-  // Close mobile menu on link click
-  navItems.forEach((a) => {
-    a.addEventListener("click", () => {
-      pill.classList.remove("open");
-      toggle.classList.remove("active");
-      toggle.setAttribute("aria-expanded", "false");
+  if (toggle && pill) {
+    toggle.addEventListener("click", () => {
+      pill.classList.toggle("open");
+      toggle.classList.toggle("active");
+      toggle.setAttribute("aria-expanded", pill.classList.contains("open"));
     });
-  });
 
-  // Scroll: update active link
+    // Close mobile menu on link click
+    navItems.forEach((a) => {
+      a.addEventListener("click", () => {
+        pill.classList.remove("open");
+        toggle.classList.remove("active");
+        toggle.setAttribute("aria-expanded", "false");
+      });
+    });
+  }
+
+  // Scroll: update active link (cached & RAF throttled to eliminate jitter)
   const sections = document.querySelectorAll(".section, #hero");
-  window.addEventListener("scroll", () => {
+  let currentActiveId = "";
+  let navSpyTicking = false;
+
+  function updateActiveNav() {
     let current = "";
+    const scrollPos = window.scrollY + 140;
+
     sections.forEach((sec) => {
-      const top = sec.offsetTop - 100;
-      if (window.scrollY >= top) {
+      const top = sec.offsetTop;
+      const height = sec.offsetHeight;
+      if (scrollPos >= top && scrollPos < top + height) {
         current = sec.getAttribute("id");
       }
     });
-    navItems.forEach((a) => {
-      a.classList.toggle(
-        "active",
-        a.getAttribute("href") === `#${current}`
-      );
-    });
+
+    if (!current && window.scrollY < 200) {
+      current = "hero";
+    }
+
+    if (current && current !== currentActiveId) {
+      currentActiveId = current;
+      navItems.forEach((a) => {
+        a.classList.toggle("active", a.getAttribute("href") === `#${current}`);
+      });
+    }
+  }
+
+  window.addEventListener("scroll", () => {
+    if (!navSpyTicking) {
+      navSpyTicking = true;
+      requestAnimationFrame(() => {
+        updateActiveNav();
+        navSpyTicking = false;
+      });
+    }
   }, { passive: true });
 }
 
@@ -152,25 +174,23 @@ function initParticles() {
 
 /* === Scroll Reveal === */
 function initScrollReveal() {
-  let revealIndex = 0;
   const observer = new IntersectionObserver(
     (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const delay = entry.target.dataset.revealDelay || 0;
-          setTimeout(() => {
-            entry.target.classList.add("visible");
-          }, delay);
-          observer.unobserve(entry.target);
-        }
+      const intersecting = entries.filter((e) => e.isIntersecting);
+      intersecting.forEach((entry, idx) => {
+        const target = entry.target;
+        // Batch stagger delay: elements in the same viewport batch enter with 80ms increments
+        const delay = idx * 80;
+        setTimeout(() => {
+          target.classList.add("visible");
+        }, delay);
+        observer.unobserve(target);
       });
     },
-    { threshold: 0.1 }
+    { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
   );
 
   document.querySelectorAll(".reveal").forEach((el) => {
-    el.dataset.revealDelay = revealIndex * 80;
-    revealIndex++;
     observer.observe(el);
   });
 }
@@ -198,7 +218,7 @@ function initTypewriter() {
     }
   }
 
-  setTimeout(type, 400);
+  setTimeout(type, 650);
 }
 
 /* === Scroll Effects === */
@@ -207,6 +227,7 @@ function initScrollEffects() {
   const navPill = document.querySelector(".nav-pill");
   const gridOverlay = document.getElementById("grid-overlay");
   const topHighlight = document.getElementById("top-highlight");
+  const bottomAmbientGlow = document.getElementById("bottom-ambient-glow");
   const bodyBefore = document.body;
 
   // On mobile, show navbar immediately
@@ -215,7 +236,7 @@ function initScrollEffects() {
   }
 
   let ticking = false;
-  let navWasHidden = true;
+  let isNavVisible = false;
 
   function onScroll() {
     if (ticking) return;
@@ -239,22 +260,34 @@ function initScrollEffects() {
       const hlProgress = Math.min(Math.max((progress - 0.3) / 0.4, 0), 1);
       if (topHighlight) topHighlight.style.opacity = hlProgress;
 
-      // Navbar appears after 30% scroll (skip on mobile)
+      // Bottom ambient horizon glow (Hakadao cubic bloom as user scrolls to bottom)
+      if (bottomAmbientGlow) {
+        const docH = document.documentElement.scrollHeight;
+        const winH = window.innerHeight;
+        const maxScroll = docH - winH;
+        if (maxScroll > 0) {
+          const bloomRange = Math.min(winH * 1.4, maxScroll * 0.75);
+          const distFromBottom = Math.max(0, maxScroll - scrollY);
+          if (distFromBottom <= bloomRange) {
+            const ratio = (bloomRange - distFromBottom) / bloomRange;
+            const glowOpacity = (1 - Math.pow(1 - ratio, 2.5)) * 0.95;
+            bottomAmbientGlow.style.opacity = glowOpacity.toFixed(3);
+          } else {
+            bottomAmbientGlow.style.opacity = "0";
+          }
+        }
+      }
+
+      // Navbar appears after scrolling down, with hysteresis to prevent jitter/flicker
       const isMobile = window.innerWidth <= 768;
       if (navbar && !isMobile) {
-        const showNav = progress > 0.3;
-        if (showNav) {
+        // Hysteresis deadzone: show when > 0.30, hide only when < 0.12
+        if (!isNavVisible && progress > 0.30) {
+          isNavVisible = true;
           navbar.classList.remove("hidden");
-          if (navWasHidden) {
-            navWasHidden = false;
-            navPill.classList.remove("animate-in");
-            void navPill.offsetWidth;
-            navPill.classList.add("animate-in");
-          }
-        } else {
+        } else if (isNavVisible && progress < 0.12) {
+          isNavVisible = false;
           navbar.classList.add("hidden");
-          navWasHidden = true;
-          navPill.classList.remove("animate-in");
         }
       }
 
@@ -266,158 +299,6 @@ function initScrollEffects() {
 
   // Apply initial state
   onScroll();
-}
-
-/* === GitHub Projects === */
-const LANG_COLORS = {
-  JavaScript: "#f1e05a", TypeScript: "#3178c6", Python: "#3572A5",
-  HTML: "#e34c26", CSS: "#563d7c", Shell: "#89e051", C: "#555555",
-  "C++": "#f34b7d", Rust: "#dea584", Go: "#00ADD8", Java: "#b07219",
-};
-
-const FEATURED_REPOS = [
-  { name: "SrP-CFG_ForCS2", image: "https://cdn.jsdelivr.net/gh/RolinShmily/SrP-CFG_ForCS2@main/app/shared/images/desktop-1.png" },
-  { name: "SrP-IMG", image: "https://cdn.jsdelivr.net/gh/RolinShmily/SrP-IMG@main/preview.png" },
-  { name: "porter-skill", image: "https://opengraph.githubassets.com/1/RolinShmily/porter-skill" },
-  { name: "20-Fruit_Recognition_System", image: "https://opengraph.githubassets.com/1/RolinShmily/20-Fruit_Recognition_System" },
-];
-
-function esc(s) {
-  const d = document.createElement("div");
-  d.textContent = s;
-  return d.innerHTML;
-}
-
-function safeUrl(url) {
-  try {
-    const u = new URL(url);
-    return u.protocol === "http:" || u.protocol === "https:" ? url : "";
-  } catch { return ""; }
-}
-
-
-async function initWorks() {
-  const container = document.getElementById("featured-projects");
-  if (!container) return;
-
-  showLoading(container);
-
-  const results = await Promise.all(
-    FEATURED_REPOS.map(spec => fetchRepo(spec.name))
-  );
-
-  const repos = results.filter(Boolean);
-
-  if (repos.length === 0) {
-    showError(container);
-    return;
-  }
-
-  renderFeatured(repos);
-}
-
-function showLoading(container) {
-  container.innerHTML = '<div class="works-status works-loading">Loading works…</div>';
-}
-
-function showError(container) {
-  container.innerHTML =
-    '<div class="works-status works-error">Failed to load works. ' +
-    '<button onclick="initWorks()" class="retry-btn">Retry</button></div>';
-}
-
-async function fetchWithTimeout(url, opts = {}, timeout = 8000) {
-  const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), timeout);
-  try {
-    const res = await fetch(url, { ...opts, signal: ctrl.signal });
-    return res;
-  } finally {
-    clearTimeout(timer);
-  }
-}
-
-async function fetchRepo(name, retries = 2) {
-  for (let attempt = 0; attempt <= retries; attempt++) {
-    try {
-      const res = await fetchWithTimeout(`/api/github/${name}`);
-      if (!res.ok) throw new Error(res.status);
-      return await res.json();
-    } catch (e) {
-      console.warn(`GitHub proxy fetch failed for ${name} (attempt ${attempt + 1}):`, e);
-      if (attempt < retries) {
-        await new Promise(r => setTimeout(r, 800 * (attempt + 1)));
-      }
-    }
-  }
-  return null;
-}
-
-function renderFeatured(repos) {
-  const el = document.getElementById("featured-projects");
-  if (!el || !repos.length) return;
-  el.innerHTML = repos.map((repo) => {
-    const spec = FEATURED_REPOS.find(r => r.name === repo.name);
-    const imageUrl = spec ? spec.image : "";
-    const homepage = safeUrl(repo.homepage);
-    return `
-    <div class="featured-card">
-      <div class="featured-preview">
-        <img src="${esc(imageUrl)}" alt="${esc(repo.name)}" loading="lazy">
-      </div>
-      <div class="featured-info">
-        <span class="featured-label">Featured Project</span>
-        <h3 class="featured-name"><a href="${esc(repo.html_url)}" target="_blank" rel="noopener">${esc(repo.name)}</a></h3>
-        <p class="featured-desc">${esc(repo.description || "")}</p>
-        <div class="featured-tags">
-          ${(repo.topics || []).map((t) => `<span class="tag">${esc(t)}</span>`).join("")}
-          ${repo.language ? `<span class="tag">${esc(repo.language)}</span>` : ""}
-        </div>
-        <div class="featured-meta">
-          <span><svg viewBox="0 0 16 16" width="14" height="14" fill="currentColor"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg> ${repo.stargazers_count}</span>
-          ${homepage ? `<a href="${esc(homepage)}" target="_blank" rel="noopener" style="color:var(--accent-bright)">Website</a>` : ""}
-        </div>
-      </div>
-    </div>`;
-  }).join("");
-  el.querySelectorAll(".featured-preview img").forEach((img) => {
-    img.addEventListener("error", () => {
-      img.parentElement.innerHTML = '<span style="color:var(--text-secondary)">Preview</span>';
-    });
-  });
-}
-
-function renderProjectGrid(repos) {
-  const el = document.getElementById("project-grid");
-  if (!el) return;
-  el.innerHTML = repos
-    .map(
-      (r) => `
-    <a href="${esc(r.html_url)}" target="_blank" rel="noopener" class="card project-card reveal">
-      <h4 class="project-card-name">${esc(r.name)}</h4>
-      <p class="project-card-desc">${esc(r.description || "No description.")}</p>
-      <div class="project-card-meta">
-        ${r.language ? `<span><span class="lang-dot" style="background:${LANG_COLORS[r.language] || "#ccc"}"></span>${esc(r.language)}</span>` : ""}
-        <span><svg viewBox="0 0 16 16" width="12" height="12" fill="currentColor"><path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"/></svg> ${r.stargazers_count}</span>
-      </div>
-    </a>
-  `
-    )
-    .join("");
-
-  // Re-observe newly added reveal elements
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.1 }
-  );
-  el.querySelectorAll(".reveal").forEach((node) => observer.observe(node));
 }
 
 /* === Back to Top === */
