@@ -1456,8 +1456,22 @@ a:hover {
     gap: 0.35rem;
   }
 
+  .nav-logo {
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .nav-avatar {
+    width: 34px;
+    height: 34px;
+  }
+
   .nav-name {
-    display: none;
+    display: inline-block;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    white-space: nowrap;
   }
 
   .section-title {
