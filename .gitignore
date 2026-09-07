@@ -40,3 +40,4 @@ docs/
 .claude/
 .pi/
 .memory/
+pi-session*

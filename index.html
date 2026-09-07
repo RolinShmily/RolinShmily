@@ -59,8 +59,9 @@
     <div class="hero-split">
       <div class="hero-left">
         <div class="hero-avatar-large">
-          <div class="avatar-ring-lg">
-            <img src="assets/avatar.jpg" alt="RoL1n_SrP avatar">
+          <div class="pixel-avatar" id="pixel-avatar" role="img" aria-label="RoL1n_SrP 3D pixel avatar">
+            <canvas class="pixel-canvas" id="pixel-canvas"></canvas>
+            <img class="pixel-fallback" src="assets/avatar.jpg" alt="RoL1n_SrP avatar">
           </div>
         </div>
       </div>
@@ -302,5 +303,6 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script type="module" src="js/pixel-avatar.js"></script>
 </body>
 </html>
