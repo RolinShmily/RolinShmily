@@ -150,6 +150,8 @@ import * as THREE from "./vendor/three.module.min.js";
     });
   } catch (e) {
     console.warn("WebGL not supported:", e);
+    container.classList.remove("has-gl", "is-loading");
+    container.classList.add("is-fallback");
     return;
   }
 
@@ -249,6 +251,14 @@ import * as THREE from "./vendor/three.module.min.js";
     (tex) => {
       tex.colorSpace = THREE.SRGBColorSpace;
       tex.anisotropy = 4;
+      container.classList.remove("is-loading");
+      container.classList.add("is-ready");
+    },
+    undefined,
+    (error) => {
+      console.warn("Avatar texture failed to load:", error);
+      container.classList.remove("has-gl", "is-loading");
+      container.classList.add("is-fallback");
     }
   );
   const frontMesh = new THREE.Mesh(

@@ -394,13 +394,24 @@ a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  opacity: 0;
-  animation: avatar-enter 0.6s cubic-bezier(.34, 1.56, .64, 1) 0.1s forwards;
 }
 
-@keyframes avatar-enter {
-  0% { opacity: 0; transform: scale(0.92); }
-  100% { opacity: 1; transform: scale(1); }
+@keyframes avatar-card-in {
+  0% {
+    opacity: 0;
+    transform: translate3d(-46px, 22px, 0) scale(0.82) rotate(-7deg);
+  }
+  52% {
+    opacity: 1;
+    transform: translate3d(10px, -8px, 0) scale(1.045) rotate(2deg);
+  }
+  74% {
+    transform: translate3d(-4px, 3px, 0) scale(0.98) rotate(-0.7deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  }
 }
 
 .pixel-avatar {
@@ -425,7 +436,45 @@ a:hover {
   display: block;
 }
 
-.pixel-avatar.has-gl .pixel-fallback {
+.pixel-avatar.has-gl .pixel-fallback,
+.pixel-avatar.is-loading .pixel-fallback {
+  display: none;
+}
+
+.pixel-avatar.is-fallback .pixel-fallback {
+  display: block;
+}
+
+/* Keep the raw image and the WebGL card out of the first paint until the
+   real texture is ready, then reveal only the finished 3D card. */
+.pixel-avatar.is-loading {
+  visibility: hidden;
+}
+
+.pixel-avatar .pixel-canvas {
+  opacity: 0;
+  transition: none;
+}
+
+.pixel-avatar.is-ready {
+  visibility: visible;
+  animation: avatar-card-in 0.98s cubic-bezier(0.22, 1, 0.36, 1) 0.28s both;
+}
+
+.pixel-avatar.is-ready .pixel-canvas {
+  opacity: 1;
+}
+
+.pixel-avatar.is-fallback {
+  visibility: visible;
+}
+
+.pixel-avatar.is-loading .pixel-canvas,
+.pixel-avatar.is-fallback .pixel-canvas {
+  pointer-events: none;
+}
+
+.pixel-avatar.is-fallback .pixel-canvas {
   display: none;
 }
 
