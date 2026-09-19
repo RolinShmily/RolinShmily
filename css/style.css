@@ -18,7 +18,7 @@
   --text-secondary: #a09bb5;
   --font-heading: "Noto Sans SC", "PingFang SC", sans-serif;
   --font-body: "Noto Sans SC", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", "Cascadia Code", "Noto Sans SC", monospace;
+  --font-mono: "JetBrains Mono", "Cascadia Code", monospace;
   --nav-height: 80px;
   --section-padding: 115px 0;
 }
