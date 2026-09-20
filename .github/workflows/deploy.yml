@@ -21,12 +21,17 @@ jobs:
       - name: Install dependencies
         run: npm ci --ignore-scripts --no-audit --no-fund
 
-      # Assembles `fonts/` (fonts.css plus the woff2 slices) from the
-      # @fontsource-variable packages installed above, so the site serves its own
-      # webfonts and never asks fonts.googleapis.com for anything. Must run before the
-      # upload: `fonts/` is git-ignored, so a fresh checkout does not contain it.
-      - name: Build self-hosted webfont payload
-        run: npm run build:fonts
+      # wrangler bundles the worker with esbuild, which strips types without checking them —
+      # so a typo like `env.GH_TOKEM` would otherwise ship and only surface as a 500.
+      - name: Type-check the worker
+        run: npm run typecheck
+
+      # Generates the two git-ignored asset sets the site serves from its own origin:
+      #   fonts/                webfont slices, assembled from @fontsource-variable/*
+      #   js/vendor/three*.js   the three.js bundle, built from the npm `three` package
+      # Both must exist before the upload, because a fresh checkout contains neither.
+      - name: Build generated assets (fonts + three.js)
+        run: npm run build
 
       - uses: cloudflare/wrangler-action@v3
         with:

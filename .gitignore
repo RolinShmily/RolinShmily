@@ -13,6 +13,9 @@
 # generated webfont payload (see scripts/build-fonts.mjs)
 /fonts/
 
+# generated three.js bundle (see scripts/build-vendor.mjs)
+/js/vendor/
+
 # misc
 .DS_Store
 *.pem

@@ -17,16 +17,14 @@ const CACHE_TTL = 1800; // 30 min
 async function handleGitHubProxy(url: URL, env: { GH_TOKEN: string }): Promise<Response> {
   const segments = url.pathname.replace("/api/github/", "").split("/");
 
-  let owner: string;
-  let repo: string;
-
-  if (segments.length >= 2) {
-    owner = segments[0];
-    repo = segments[1];
-  } else {
-    owner = "RolinShmily";
-    repo = segments[0];
-  }
+  // Two accepted shapes: `/api/github/<repo>` against this owner, and
+  // `/api/github/<owner>/<repo>` against any repo. `split` always yields at least one
+  // element, but the compiler cannot prove the indices are in range — hence the explicit
+  // fallbacks, which also spell out what a missing or empty segment does: `repo` ends up
+  // falsy and the guard below answers 400 rather than asking GitHub for a nameless repo.
+  const hasOwnerSegment = segments.length >= 2;
+  const owner = (hasOwnerSegment ? segments[0] : undefined) ?? "RolinShmily";
+  const repo = (hasOwnerSegment ? segments[1] : segments[0]) ?? "";
 
   if (!repo) {
     return new Response(JSON.stringify({ error: "Missing repo name" }), {

@@ -8,6 +8,7 @@ docs
 .gitignore
 package.json
 package-lock.json
+tsconfig.json
 node_modules
 README.md
 .dev.vars
