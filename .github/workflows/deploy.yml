@@ -1,4 +1,4 @@
-name: Deploy to Cloudflare Pages
+name: Deploy to Cloudflare Workers
 
 on:
   push:
@@ -11,6 +11,22 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      # `--ignore-scripts` blocks dependency lifecycle scripts (supply-chain hygiene).
+      - name: Install dependencies
+        run: npm ci --ignore-scripts --no-audit --no-fund
+
+      # Assembles `fonts/` (fonts.css plus the woff2 slices) from the
+      # @fontsource-variable packages installed above, so the site serves its own
+      # webfonts and never asks fonts.googleapis.com for anything. Must run before the
+      # upload: `fonts/` is git-ignored, so a fresh checkout does not contain it.
+      - name: Build self-hosted webfont payload
+        run: npm run build:fonts
 
       - uses: cloudflare/wrangler-action@v3
         with:

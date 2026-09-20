@@ -7,11 +7,37 @@
      free 3D drag rotation, hover parallax, idle breathing motion
    ============================================================ */
 import * as THREE from "./vendor/three.module.min.js";
+import { prefersReducedMotion } from "./motion.js";
 
 (() => {
   const container = document.getElementById("pixel-avatar");
   const canvas = document.getElementById("pixel-canvas");
   if (!container || !canvas) return;
+
+  /*
+   * The card breathes, drifts and scrolls its ticker continuously, so honour the motion
+   * preference by falling back to the static avatar the CSS already provides, rather
+   * than building a WebGL scene whose entire point is that idle animation.
+   */
+  if (prefersReducedMotion()) {
+    container.classList.remove("is-loading");
+    container.classList.add("is-fallback");
+    return;
+  }
+
+  /*
+   * Canvas needs a literal font shorthand, so — as in `brand-canvas.js` — read the
+   * families back out of the custom properties `css/style.css` owns. The backplate text
+   * used to ask for bare `monospace`, which quietly rendered it in the OS default face
+   * instead of the site's JetBrains Mono.
+   */
+  const MONO_STACK = (() => {
+    const css = getComputedStyle(document.documentElement);
+    const families = ["--font-mono-latin", "--font-cjk"]
+      .map((name) => css.getPropertyValue(name).trim())
+      .filter(Boolean);
+    return [...families, "ui-monospace", "monospace"].join(", ");
+  })();
 
   /* ------------------------------------------------------------
      1. Link definitions (shared by backplate painter & raycast)
@@ -29,7 +55,7 @@ import * as THREE from "./vendor/three.module.min.js";
       d: "M237.9 461.4C237.9 463.4 235.6 465 232.7 465C229.4 465.3 227.1 463.7 227.1 461.4C227.1 459.4 229.4 457.8 232.3 457.8C235.3 457.5 237.9 459.1 237.9 461.4zM206.8 456.9C206.1 458.9 208.1 461.2 211.1 461.8C213.7 462.8 216.7 461.8 217.3 459.8C217.9 457.8 216 455.5 213 454.6C210.4 453.9 207.5 454.9 206.8 456.9zM251 455.2C248.1 455.9 246.1 457.8 246.4 460.1C246.7 462.1 249.3 463.4 252.3 462.7C255.2 462 257.2 460.1 256.9 458.1C256.6 456.2 253.9 454.9 251 455.2zM316.8 72C178.1 72 72 177.3 72 316C72 426.9 141.8 521.8 241.5 555.2C254.3 557.5 258.8 549.6 258.8 543.1C258.8 536.9 258.5 502.7 258.5 481.7C258.5 481.7 188.5 496.7 173.8 451.9C173.8 451.9 162.4 422.8 146 415.3C146 415.3 123.1 399.6 147.6 399.9C147.6 399.9 172.5 401.9 186.2 425.7C208.1 464.3 244.8 453.2 259.1 446.6C261.4 430.6 267.9 419.5 275.1 412.9C219.2 406.7 162.8 398.6 162.8 302.4C162.8 274.9 170.4 261.1 186.4 243.5C183.8 237 175.3 210.2 189 175.6C209.9 169.1 258 202.6 258 202.6C278 197 299.5 194.1 320.8 194.1C342.1 194.1 363.6 197 383.6 202.6C383.6 202.6 431.7 169 452.6 175.6C466.3 210.3 457.8 237 455.2 243.5C471.2 261.2 481 275 481 302.4C481 398.9 422.1 406.6 366.2 412.9C375.4 420.8 383.2 435.8 383.2 459.3C383.2 493 382.9 534.7 382.9 542.9C382.9 549.4 387.5 557.3 400.2 555C500.2 521.8 568 426.9 568 316C568 177.3 455.5 72 316.8 72z" },
     { label: "Steam",    url: "https://steamcommunity.com/profiles/76561199516828933/", color: "#66c0f4", vb: 640,
       d: "M568 320C568 457 456.8 568 319.6 568C205.8 568 110 491.7 80.6 387.6L175.8 426.9C182.2 459 210.7 483.3 244.7 483.3C283.9 483.3 316.6 450.9 314.9 409.8L399.4 349.6C451.5 350.9 495.2 308.7 495.2 256.1C495.2 204.5 453.2 162.6 401.5 162.6C349.8 162.6 307.8 204.6 307.8 256.1L307.8 257.3L248.6 343C233.1 342.1 217.9 346.4 205.1 355.1L72 300.1C82.2 172.4 189.1 72 319.6 72C456.8 72 568 183 568 320zM227.7 448.3L197.2 435.7C202.8 447.3 212.5 456.5 224.4 461.5C251.3 472.7 282.2 459.9 293.4 433.1C298.8 420.1 298.9 405.8 293.5 392.8C288.1 379.8 278 369.6 265 364.2C252.1 358.8 238.3 359 226.1 363.6L257.6 376.6C277.4 384.8 286.8 407.5 278.5 427.3C270.2 447.2 247.5 456.5 227.7 448.3zM401.5 193.8C435.9 193.8 463.8 221.7 463.8 256.1C463.8 290.5 435.9 318.4 401.5 318.4C367.1 318.4 339.2 290.5 339.2 256.1C339.2 221.7 367.1 193.8 401.5 193.8zM401.6 302.8C427.4 302.8 448.4 281.8 448.4 256C448.4 230.2 427.4 209.2 401.6 209.2C375.8 209.2 354.8 230.2 354.8 256C354.8 281.8 375.8 302.8 401.6 302.8z" },
-    { label: "抖音",     url: "https://www.douyin.com/user/MS4wLjABAAAAo7eM2TrNX4lzekpyIIorhn-fs4GzMpkY7OUQzzGjjXup0nMk6PGqNqHFa4FnY2O_", color: "#25f4ee", vb: 640,
+    { label: "DouYin",  url: "https://www.douyin.com/user/MS4wLjABAAAAo7eM2TrNX4lzekpyIIorhn-fs4GzMpkY7OUQzzGjjXup0nMk6PGqNqHFa4FnY2O_", color: "#25f4ee", vb: 640,
       d: "M544.5 273.9C500.5 274 457.5 260.3 421.7 234.7L421.7 413.4C421.7 446.5 411.6 478.8 392.7 506C373.8 533.2 347.1 554 316.1 565.6C285.1 577.2 251.3 579.1 219.2 570.9C187.1 562.7 158.3 545 136.5 520.1C114.7 495.2 101.2 464.1 97.5 431.2C93.8 398.3 100.4 365.1 116.1 336C131.8 306.9 156.1 283.3 185.7 268.3C215.3 253.3 248.6 247.8 281.4 252.3L281.4 342.2C266.4 337.5 250.3 337.6 235.4 342.6C220.5 347.6 207.5 357.2 198.4 369.9C189.3 382.6 184.4 398 184.5 413.8C184.6 429.6 189.7 444.8 199 457.5C208.3 470.2 221.4 479.6 236.4 484.4C251.4 489.2 267.5 489.2 282.4 484.3C297.3 479.4 310.4 469.9 319.6 457.2C328.8 444.5 333.8 429.1 333.8 413.4L333.8 64L421.8 64C421.7 71.4 422.4 78.9 423.7 86.2C426.8 102.5 433.1 118.1 442.4 131.9C451.7 145.7 463.7 157.5 477.6 166.5C497.5 179.6 520.8 186.6 544.6 186.6L544.6 274z" },
     { label: "Bilibili", url: "https://space.bilibili.com/422744280", color: "#00a1d6", vb: 24,
       d: "M4.977 3.561a1.31 1.31 0 111.818-1.884l2.828 2.728c.08.078.149.163.205.254h4.277a1.32 1.32 0 01.205-.254l2.828-2.728a1.31 1.31 0 011.818 1.884L17.82 4.66h.848A5.333 5.333 0 0124 9.992v7.34a5.333 5.333 0 01-5.333 5.334H5.333A5.333 5.333 0 010 17.333V9.992a5.333 5.333 0 015.333-5.333h.781L4.977 3.56zm.356 3.67a2.667 2.667 0 00-2.666 2.667v7.529a2.667 2.667 0 002.666 2.666h13.334a2.667 2.667 0 002.666-2.666v-7.53a2.667 2.667 0 00-2.666-2.666H5.333zm1.334 5.192a1.333 1.333 0 112.666 0v1.192a1.333 1.333 0 11-2.666 0v-1.192zM16 11.09c-.736 0-1.333.597-1.333 1.333v1.192a1.333 1.333 0 102.666 0v-1.192c0-.736-.597-1.333-1.333-1.333z" },
@@ -76,7 +102,7 @@ import * as THREE from "./vendor/three.module.min.js";
 
     // Header
     ctx.textAlign = "center";
-    ctx.font = "bold 32px monospace";
+    ctx.font = `bold 32px ${MONO_STACK}`;
     try { ctx.letterSpacing = "3px"; } catch { /* older canvas */ }
     ctx.fillStyle = "#ffffff";
     ctx.fillText("RoL1n_SrP", S / 2, 102);
@@ -124,7 +150,7 @@ import * as THREE from "./vendor/three.module.min.js";
 
       // Label vertically centered
       ctx.fillStyle = "rgba(255, 255, 255, 0.92)";
-      ctx.font = "600 18px monospace";
+      ctx.font = `600 18px ${MONO_STACK}`;
       ctx.textAlign = "left";
       ctx.textBaseline = "middle";
       ctx.fillText(link.label, cellX + padX + iconSize + 12, cellY + CELL_H / 2 + 1);

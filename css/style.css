@@ -7,18 +7,46 @@
   box-sizing: border-box;
 }
 
+/* The inline icon sprite exists only so repeated glyphs can be referenced through <use>
+   instead of each carrying a copy of their path data. It must stay out of layout. */
+.svg-sprite {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
 :root {
   --bg-primary: #0f0a1a;
   --bg-card: rgba(30, 20, 50, 0.7);
   --accent-pink: #f75c7e;
   --accent-violet: #7c3aed;
   --accent-bright: #ff7eb3;
+
+  /* RGB triplets for the three accent hues above, so every glow and shadow alpha is
+     written `rgba(var(--accent-pink-rgb), 0.25)`. Without these the channel values were
+     restated at 26 call sites, which made re-theming a hunt rather than an edit. */
+  --accent-pink-rgb: 247, 92, 126;
+  --accent-violet-rgb: 124, 58, 237;
+  --accent-bright-rgb: 255, 126, 179;
   --gradient: linear-gradient(135deg, #f75c7e, #7c3aed);
   --text-primary: #e8e0f0;
   --text-secondary: #a09bb5;
-  --font-heading: "Noto Sans SC", "PingFang SC", sans-serif;
-  --font-body: "Noto Sans SC", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", "Cascadia Code", monospace;
+  /* === Type system ===
+     All faces are self-hosted from /fonts, generated at build time by
+     scripts/build-fonts.mjs — so a reader in mainland China never waits on
+     fonts.googleapis.com, which is unreliable there.
+
+     Composition is per-glyph: each Latin face carries Latin/digits only, so a Han
+     character finds no glyph in it and falls through to Noto Sans SC
+     (Source Han Sans / 思源黑体). System faces are the final safety net. */
+  --font-latin: "Inter Variable";
+  --font-cjk: "Noto Sans SC Variable";
+  --font-mono-latin: "JetBrains Mono Variable";
+
+  --font-heading: var(--font-latin), var(--font-cjk), "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-body: var(--font-latin), var(--font-cjk), system-ui, -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-mono: var(--font-mono-latin), var(--font-cjk), ui-monospace, "Cascadia Code", Menlo, Consolas, monospace;
   --nav-height: 80px;
   --section-padding: 115px 0;
 }
@@ -48,8 +76,8 @@ body {
   z-index: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(to right, rgba(124, 58, 237, 0.08) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(124, 58, 237, 0.08) 1px, transparent 1px);
+    linear-gradient(to right, rgba(var(--accent-violet-rgb), 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(var(--accent-violet-rgb), 0.08) 1px, transparent 1px);
   background-size: 40px 40px;
   opacity: 1;
   transition: opacity 0.1s linear;
@@ -65,7 +93,7 @@ body::before {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background: radial-gradient(ellipse 90% 40% at 50% 100%, rgba(247, 92, 126, 0.12), transparent 70%);
+  background: radial-gradient(ellipse 90% 40% at 50% 100%, rgba(var(--accent-pink-rgb), 0.12), transparent 70%);
   opacity: var(--glow-opacity);
   transition: opacity 0.1s linear;
 }
@@ -79,7 +107,7 @@ body::before {
   bottom: 0;
   z-index: 0;
   pointer-events: none;
-  background: radial-gradient(ellipse 90% 35% at 50% 0%, rgba(124, 58, 237, 0.12), transparent 70%);
+  background: radial-gradient(ellipse 90% 35% at 50% 0%, rgba(var(--accent-violet-rgb), 0.12), transparent 70%);
   opacity: 0;
   transition: opacity 0.1s linear;
 }
@@ -322,8 +350,8 @@ a:hover {
 
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 0 40px rgba(247, 92, 126, 0.12);
-  border-color: rgba(247, 92, 126, 0.25);
+  box-shadow: 0 0 40px rgba(var(--accent-pink-rgb), 0.12);
+  border-color: rgba(var(--accent-pink-rgb), 0.25);
 }
 
 /* === Scroll reveal === */
@@ -577,7 +605,7 @@ a:hover {
   font-weight: 300;
   animation: blink 1s step-end infinite;
   color: var(--accent-bright);
-  text-shadow: 0 0 8px rgba(255, 126, 179, 0.8), 0 0 20px rgba(255, 126, 179, 0.4);
+  text-shadow: 0 0 8px rgba(var(--accent-bright-rgb), 0.8), 0 0 20px rgba(var(--accent-bright-rgb), 0.4);
 }
 
 @keyframes blink {
@@ -594,11 +622,6 @@ a:hover {
   margin-bottom: 0.75rem;
   opacity: 0;
   animation: heroRowIn 0.78s cubic-bezier(0.22, 1, 0.36, 1) 0.65s forwards;
-}
-
-.terminal-bracket {
-  color: var(--text-secondary);
-  opacity: 0.5;
 }
 
 .tag-item {
@@ -621,12 +644,6 @@ a:hover {
   line-height: 1.6;
   opacity: 0;
   animation: heroRowIn 0.78s cubic-bezier(0.22, 1, 0.36, 1) 0.85s forwards;
-}
-
-.hero-subtitle {
-  font-size: 1rem;
-  color: var(--text-secondary);
-  font-style: italic;
 }
 
 /* ==========================================================================
@@ -668,7 +685,7 @@ a:hover {
   gap: 0.5rem;
   padding: 0.45rem 1rem;
   border-radius: 9999px;
-  background-color: rgba(247, 92, 126, 0.12);
+  background-color: rgba(var(--accent-pink-rgb), 0.12);
   border: none;
   color: #ff6e8e;
   font-family: var(--font-mono);
@@ -698,7 +715,7 @@ a:hover {
 .hero-site-btn .site-arrow {
   width: 14px;
   height: 14px;
-  color: rgba(247, 92, 126, 0.85);
+  color: rgba(var(--accent-pink-rgb), 0.85);
   flex-shrink: 0;
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease;
 }
@@ -1010,8 +1027,8 @@ a:hover {
 }
 
 .featured-card:hover {
-  border-color: rgba(247, 92, 126, 0.4);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45), 0 0 25px rgba(247, 92, 126, 0.15);
+  border-color: rgba(var(--accent-pink-rgb), 0.4);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45), 0 0 25px rgba(var(--accent-pink-rgb), 0.15);
   transform: translateY(-3px);
 }
 
@@ -1131,8 +1148,8 @@ a:hover {
   padding: 0.18rem 0.6rem;
   margin: 0.1rem 0.25rem;
   border-radius: 0.5rem;
-  background-color: rgba(247, 92, 126, 0.12);
-  border: 1px solid rgba(247, 92, 126, 0.28);
+  background-color: rgba(var(--accent-pink-rgb), 0.12);
+  border: 1px solid rgba(var(--accent-pink-rgb), 0.28);
   color: var(--accent-pink);
   text-decoration: none;
   font-size: 0.9em;
@@ -1147,10 +1164,10 @@ a:hover {
 }
 
 .link-tag:hover {
-  background-color: rgba(247, 92, 126, 0.22);
-  border-color: rgba(247, 92, 126, 0.5);
+  background-color: rgba(var(--accent-pink-rgb), 0.22);
+  border-color: rgba(var(--accent-pink-rgb), 0.5);
   color: #ffffff;
-  box-shadow: 0 0 14px rgba(247, 92, 126, 0.35);
+  box-shadow: 0 0 14px rgba(var(--accent-pink-rgb), 0.35);
   transform: translateY(-1px);
 }
 
@@ -1177,7 +1194,7 @@ a:hover {
   will-change: opacity;
   transform: translateZ(0);
   background-image:
-    radial-gradient(130% 90% at 50% 100%, rgba(124, 58, 237, 0.28) 0%, rgba(247, 92, 126, 0.20) 28%, rgba(0, 217, 255, 0.12) 55%, transparent 75%);
+    radial-gradient(130% 90% at 50% 100%, rgba(var(--accent-violet-rgb), 0.28) 0%, rgba(var(--accent-pink-rgb), 0.20) 28%, rgba(0, 217, 255, 0.12) 55%, transparent 75%);
   transition: opacity 0.15s ease-out;
 }
 
@@ -1189,9 +1206,9 @@ a:hover {
   margin-top: 5rem;
   overflow: hidden;
   background:
-    radial-gradient(ellipse 120% 80% at 25% 100%, rgba(247, 92, 126, 0.22), transparent 52%),
+    radial-gradient(ellipse 120% 80% at 25% 100%, rgba(var(--accent-pink-rgb), 0.22), transparent 52%),
     radial-gradient(ellipse 105% 65% at 75% 92%, rgba(0, 217, 255, 0.18), transparent 58%),
-    radial-gradient(ellipse 95% 75% at 50% 82%, rgba(124, 58, 237, 0.28), transparent 65%),
+    radial-gradient(ellipse 95% 75% at 50% 82%, rgba(var(--accent-violet-rgb), 0.28), transparent 65%),
     radial-gradient(ellipse 110% 50% at 15% 105%, rgba(255, 180, 0, 0.10), transparent 42%),
     linear-gradient(180deg, transparent 0%, rgba(6, 3, 13, 0.95) 85%);
 }
@@ -1204,8 +1221,8 @@ a:hover {
   width: 125%;
   height: 120%;
   background:
-    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(247, 92, 126, 0.32), transparent 70%),
-    radial-gradient(ellipse 55% 42% at 30% 90%, rgba(124, 58, 237, 0.38), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(var(--accent-pink-rgb), 0.32), transparent 70%),
+    radial-gradient(ellipse 55% 42% at 30% 90%, rgba(var(--accent-violet-rgb), 0.38), transparent 60%),
     radial-gradient(ellipse 60% 40% at 72% 95%, rgba(0, 217, 255, 0.24), transparent 65%);
   filter: blur(55px);
   -webkit-filter: blur(55px);
@@ -1380,8 +1397,8 @@ a:hover {
 
 .footer-beian-link:hover {
   color: var(--accent-bright);
-  border-color: rgba(247, 92, 126, 0.35);
-  background-color: rgba(247, 92, 126, 0.08);
+  border-color: rgba(var(--accent-pink-rgb), 0.35);
+  background-color: rgba(var(--accent-pink-rgb), 0.08);
 }
 
 .footer-counter img {
@@ -1455,7 +1472,7 @@ a:hover {
 
 /* === Selection === */
 ::selection {
-  background: rgba(247, 92, 126, 0.3);
+  background: rgba(var(--accent-pink-rgb), 0.3);
 }
 
 /* === Responsive: Mobile === */
@@ -1707,5 +1724,27 @@ a:hover {
     right: 1rem;
     width: 40px;
     height: 40px;
+  }
+}
+
+/* === Reduced motion ===
+   Honour the OS-level "minimise motion" preference. `js/motion.js` handles the half CSS
+   cannot reach — the particle, brand-wordmark and three.js animation loops, plus the
+   typewriter. This block neutralises everything CSS owns (eleven keyframe sets, every
+   transition, smooth scrolling) in one place instead of bolting a reduced-motion variant
+   onto each rule.
+
+   Durations collapse to 0.01ms rather than 0 so that transitionend / animationend still
+   fire: a script waiting on one would otherwise hang forever. `animation-fill-mode:
+   forwards` keeps elements that animate in from `opacity: 0` at their end state, so
+   nothing is left invisible. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

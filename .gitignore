@@ -10,6 +10,9 @@
 # production
 /build
 
+# generated webfont payload (see scripts/build-fonts.mjs)
+/fonts/
+
 # misc
 .DS_Store
 *.pem

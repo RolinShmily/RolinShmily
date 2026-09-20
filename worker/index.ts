@@ -79,7 +79,10 @@ async function handleGitHubProxy(url: URL, env: { GH_TOKEN: string }): Promise<R
     await cache.put(cacheKey, response.clone());
 
     return response;
-  } catch {
+  } catch (error) {
+    // Log the real cause rather than swallowing it — a bare `catch {}` here turns every
+    // distinct upstream failure into the same anonymous 502, leaving nothing to debug.
+    console.error(`[github-proxy] fetch failed for ${githubUrl}:`, error);
     return new Response(JSON.stringify({ error: "Fetch failed" }), {
       status: 502,
       headers: { "Content-Type": "application/json" },
