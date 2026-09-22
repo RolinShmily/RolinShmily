@@ -38,5 +38,3 @@
 <p align="center">
   <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=22&pause=1000&color=1a73e8&center=true&vCenter=true&multiline=true&repeat=true&width=500&height=100&lines=Thanks+for+visiting!;Let's+build+something+better+together!" alt="Typing SVG" />
 </p>
-
-<sub>© 2024–2026 RoL1n_SrP · Public for reading, but **not** open source — all rights reserved. The site itself lives at [srprolin.top](https://www.srprolin.top).</sub>
