@@ -2,7 +2,7 @@
   "//": [
     "Type-checks `worker/index.ts`. Nothing here emits — wrangler bundles the worker with",
     "esbuild, which strips types WITHOUT checking them, so without this config a typo like",
-    "`env.GH_TOKEM` compiles happily and only fails in production as a 500.",
+    "`env.ASSSETS` compiles happily and only fails in production as a 500.",
     "`types` is scoped to the Workers runtime globals (Fetcher, ExportedHandler, caches, …)",
     "instead of pulling in DOM, which the worker does not have."
   ],

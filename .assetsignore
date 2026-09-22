@@ -1,16 +1,38 @@
+# What wrangler must NOT publish to www.srprolin.top.
+#
+# READ THIS BEFORE ADDING A FILE HERE OR IN .gitignore
+# wrangler does not read .gitignore. It excludes exactly two things: its own built-ins
+# (.git, node_modules) and the patterns in this file. The whole directory tree is
+# uploaded as-is, so a scratch file that is merely git-ignored still ships to the public
+# site. That is how a 16 MB pi-session-*.html transcript came within one local
+# `npm run deploy` of being served. "Keep it out of git" and "keep it off the site" are
+# two different lists, and this is the one that decides what visitors can download.
+#
+# Corollary: do NOT add fonts/ or js/vendor/ below. They are git-ignored but must be
+# uploaded — CI builds them from npm before every deploy.
+
 .git
+.gitignore
 .claude
 .pi
 .memory
 .github
 docs
 .wrangler
-.gitignore
+.dev.vars
+
+# Local scratch — session transcripts, logs. Never public, and never in git either.
+pi-session*
+*.log
+
+# Build configuration: nothing on the site links to it, and it only exposes the deploy
+# layout to visitors.
 package.json
 package-lock.json
 tsconfig.json
+wrangler.toml
+
 node_modules
 README.md
-.dev.vars
 worker
 scripts

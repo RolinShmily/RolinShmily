@@ -1,89 +1,27 @@
+/**
+ * Static site. Every real path is a file under `assets/`, which Cloudflare serves before
+ * this Worker is reached; this file only catches paths that match no file and forwards
+ * them to the asset binding so they get the asset layer's 404.
+ *
+ * In other words this Worker no longer does anything a plain static-assets deployment
+ * would not. It is kept only because `main` is wired into the deploy (wrangler.toml, and
+ * the typecheck step in .github/workflows/deploy.yml); dropping it entirely is a fine
+ * follow-up, not an oversight.
+ *
+ * WHAT IT USED TO DO, AND MUST NOT DO AGAIN
+ * It also served `/api/github/*`: a 30-minute-cached proxy that forwarded whatever
+ * `/api/github/<owner>/<repo>` was requested to the GitHub API, attaching a bearer token
+ * read from the Worker's environment. No caller had to authenticate to reach it, so the
+ * route existed to spend a private credential on behalf of strangers. Nothing on the site
+ * ever called it — `js/`, `css/` and `index.html` contain no `fetch()` to that path.
+ *
+ * No such token was ever bound to this Worker, so the exposure never went live; it was
+ * found and removed while still latent. The code was nevertheless shaped to hand a
+ * credential to anyone who asked, and an unused endpoint has no upside to weigh against
+ * that. It was deleted rather than restricted: do not bring it back without an allowlist.
+ */
 export default {
-  async fetch(request: Request, env: { GH_TOKEN: string; ASSETS: Fetcher }): Promise<Response> {
-    const url = new URL(request.url);
-
-    // API proxy route
-    if (url.pathname.startsWith("/api/github/")) {
-      return handleGitHubProxy(url, env);
-    }
-
-    // Everything else → static assets
+  fetch(request: Request, env: { ASSETS: Fetcher }): Promise<Response> {
     return env.ASSETS.fetch(request);
   },
-} satisfies ExportedHandler<{ GH_TOKEN: string; ASSETS: Fetcher }>;
-
-const CACHE_TTL = 1800; // 30 min
-
-async function handleGitHubProxy(url: URL, env: { GH_TOKEN: string }): Promise<Response> {
-  const segments = url.pathname.replace("/api/github/", "").split("/");
-
-  // Two accepted shapes: `/api/github/<repo>` against this owner, and
-  // `/api/github/<owner>/<repo>` against any repo. `split` always yields at least one
-  // element, but the compiler cannot prove the indices are in range — hence the explicit
-  // fallbacks, which also spell out what a missing or empty segment does: `repo` ends up
-  // falsy and the guard below answers 400 rather than asking GitHub for a nameless repo.
-  const hasOwnerSegment = segments.length >= 2;
-  const owner = (hasOwnerSegment ? segments[0] : undefined) ?? "RolinShmily";
-  const repo = (hasOwnerSegment ? segments[1] : segments[0]) ?? "";
-
-  if (!repo) {
-    return new Response(JSON.stringify({ error: "Missing repo name" }), {
-      status: 400,
-      headers: { "Content-Type": "application/json" },
-    });
-  }
-
-  const githubUrl = `https://api.github.com/repos/${owner}/${repo}`;
-  const headers: Record<string, string> = {
-    Accept: "application/vnd.github.v3+json",
-    "User-Agent": "rolin-shmily-worker",
-  };
-
-  if (env.GH_TOKEN) {
-    headers.Authorization = `token ${env.GH_TOKEN}`;
-  }
-
-  // Check Cloudflare Cache API
-  const cache = caches.default;
-  const cacheKey = new Request(githubUrl, { method: "GET" });
-  const cached = await cache.match(cacheKey);
-  if (cached) {
-    const res = new Response(cached.body, cached);
-    res.headers.set("X-Cache", "HIT");
-    return res;
-  }
-
-  try {
-    const res = await fetch(githubUrl, { headers });
-
-    if (!res.ok) {
-      return new Response(JSON.stringify({ error: `GitHub ${res.status}` }), {
-        status: res.status,
-        headers: { "Content-Type": "application/json" },
-      });
-    }
-
-    const data = await res.json();
-
-    const response = new Response(JSON.stringify(data), {
-      headers: {
-        "Content-Type": "application/json",
-        "Cache-Control": `public, max-age=${CACHE_TTL}`,
-        "X-Cache": "MISS",
-      },
-    });
-
-    // Fire-and-forget cache write
-    await cache.put(cacheKey, response.clone());
-
-    return response;
-  } catch (error) {
-    // Log the real cause rather than swallowing it — a bare `catch {}` here turns every
-    // distinct upstream failure into the same anonymous 502, leaving nothing to debug.
-    console.error(`[github-proxy] fetch failed for ${githubUrl}:`, error);
-    return new Response(JSON.stringify({ error: "Fetch failed" }), {
-      status: 502,
-      headers: { "Content-Type": "application/json" },
-    });
-  }
-}
+} satisfies ExportedHandler<{ ASSETS: Fetcher }>;
