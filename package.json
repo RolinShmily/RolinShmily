@@ -1,7 +1,14 @@
 {
   "name": "rolin-shmily",
   "version": "1.0.0",
+  "description": "Source of www.srprolin.top, which also serves as the GitHub profile README repository.",
   "private": true,
+  "license": "UNLICENSED",
+  "author": "RoL1n_SrP <rol1n@srprolin.top>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RolinShmily/RolinShmily.git"
+  },
   "scripts": {
     "build": "npm run build:fonts && npm run build:vendor",
     "build:fonts": "node scripts/build-fonts.mjs",

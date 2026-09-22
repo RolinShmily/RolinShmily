@@ -6,18 +6,14 @@
 <a href="https://space.bilibili.com/422744280"><img src="assets/badges/bilibili-badge.svg" alt="Bilibili"></a>
 <a href="https://wakatime.com/@5e624e25-7f7d-42db-98db-c7c8468b7bb4"><img src="https://wakatime.com/badge/user/5e624e25-7f7d-42db-98db-c7c8468b7bb4.svg" alt="Total time coded since Oct 17 2025" /></a>
 
-<details open>
-  <summary><b>🛠️ Tech Stack</b></summary>
-  <br/>
-  <p>
-    <i><small>Continuously learning & progressing</small></i>
-  </p>
-  <img src="https://skillicons.dev/icons?i=html,css,js,ts,react,vite,nextjs,nodejs,postgres,nginx,cloudflare,git,docker,python,vscode,arch&perline=8" />
-</details>
+### 🛠️ Tech Stack
+*Continuously learning & progressing*
+
+<img src="https://skillicons.dev/icons?i=html,css,js,ts,react,vite,nextjs,nodejs,postgres,nginx,cloudflare,git,docker,python,vscode,arch&perline=8" alt="Tech Stack" />
 
 ### 🧐 What I'm doing now
 - ✏️ **Writing something on my blog:** [blog.srprolin.top](https://blog.srprolin.top/)
-- 🎸 **Playing guitar & sharing tabs:** [sheet.srprolin.top](https://sheet.srprolin.top/)
+- 🎸 **Playing guitar:** [electric guitar on Bilibili](https://www.bilibili.com/video/BV1kzwpeaE4h)
 
 ### 📊 GitHub Stats
 <p>
@@ -42,3 +38,5 @@
 <p align="center">
   <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=600&size=22&pause=1000&color=1a73e8&center=true&vCenter=true&multiline=true&repeat=true&width=500&height=100&lines=Thanks+for+visiting!;Let's+build+something+better+together!" alt="Typing SVG" />
 </p>
+
+<sub>© 2024–2026 RoL1n_SrP · Public for reading, but **not** open source — all rights reserved. The site itself lives at [srprolin.top](https://www.srprolin.top).</sub>
