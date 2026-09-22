@@ -29,10 +29,8 @@ pi-session*
 # layout to visitors.
 package.json
 package-lock.json
-tsconfig.json
 wrangler.toml
 
 node_modules
 README.md
-worker
 scripts
