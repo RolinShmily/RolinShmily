@@ -786,6 +786,13 @@ a:hover {
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
 }
 
+.hero-social-circle .social-brand-icon {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  filter: brightness(0) invert(1);
+}
+
 .hero-social-circle:hover {
   transform: translateY(-3px) scale(1.1);
 }
@@ -795,17 +802,37 @@ a:hover {
 }
 
 /* Individual Brand Color Themes (Clean Subtle Elevation, Zero Overblown Glow) */
-.social-qq {
-  color: #12b7f5;
-  background-color: rgba(18, 183, 245, 0.12);
+.social-wechat {
+  color: #07c160;
+  background-color: rgba(7, 193, 96, 0.12);
   border: none;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
-.social-qq:hover {
-  background-color: rgba(18, 183, 245, 0.22);
+.social-wechat:hover {
+  color: #4dd68e;
+  background-color: rgba(7, 193, 96, 0.22);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.28);
 }
 
+.social-wechat .social-brand-icon {
+  filter: none;
+}
+
+.social-afdian {
+  color: #b99bff;
+  background-color: rgba(148, 108, 230, 0.12);
+  border: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+.social-afdian:hover {
+  color: #c9b5ff;
+  background-color: rgba(148, 108, 230, 0.22);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.28);
+}
+
+.social-afdian .social-brand-icon {
+  filter: none;
+}
 .social-github {
   color: #ffffff;
   background-color: rgba(255, 255, 255, 0.10);
@@ -848,6 +875,75 @@ a:hover {
 .social-bilibili:hover {
   background-color: rgba(0, 161, 214, 0.22);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.28);
+}
+
+.wechat-dialog {
+  width: min(420px, calc(100% - 2rem));
+  max-width: none;
+  padding: 0;
+  overflow: visible;
+  color: #f8fafc;
+  background: #111018;
+  border: 1px solid rgba(7, 193, 96, 0.38);
+  border-radius: 20px;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55);
+}
+
+.wechat-dialog::backdrop {
+  background: rgba(5, 4, 10, 0.78);
+  backdrop-filter: blur(6px);
+}
+
+.wechat-dialog-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+.wechat-dialog-content h2 {
+  margin: 0 2rem 0.35rem;
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+.wechat-dialog-content p {
+  margin: 0 0 1.25rem;
+  color: #a1a1aa;
+  font-size: 0.9rem;
+}
+
+.wechat-dialog-content img {
+  display: block;
+  width: min(100%, 320px);
+  height: auto;
+  border-radius: 12px;
+  background: #fff;
+}
+
+.wechat-dialog-close {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.8rem;
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  color: #a1a1aa;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+  font: inherit;
+  font-size: 1.6rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.wechat-dialog-close:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
 }
 
 /* --------------------------------------------------------------------------
@@ -1293,6 +1389,12 @@ a:hover {
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.footer-social-tag .social-brand-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
 .footer-social-tag:hover {
   transform: translateY(-2px) scale(1.05);
 }
@@ -1316,6 +1418,7 @@ a:hover {
 .footer-connect.visible .footer-social-tag:nth-child(3) { animation-delay: 0.19s; }
 .footer-connect.visible .footer-social-tag:nth-child(4) { animation-delay: 0.26s; }
 .footer-connect.visible .footer-social-tag:nth-child(5) { animation-delay: 0.33s; }
+.footer-connect.visible .footer-social-tag:nth-child(6) { animation-delay: 0.40s; }
 
 .footer-connect.visible .footer-cta-box {
   animation: footerTagIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.42s both;

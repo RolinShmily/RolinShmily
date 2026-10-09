@@ -19,6 +19,7 @@ initScrollEffects();
 initBrandCanvas();
 initBackToTop();
 initEmailButtons();
+initWeChatDialog();
 
 /* === Navigation === */
 function initNavigation() {
@@ -334,6 +335,24 @@ function initBackToTop() {
 
   btn.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}
+
+/* === WeChat Official Account QR dialog === */
+function initWeChatDialog() {
+  const dialog = document.getElementById("wechat-dialog");
+  if (!(dialog instanceof HTMLDialogElement)) return;
+
+  const openButtons = document.querySelectorAll("[data-wechat-open]");
+  const closeButton = dialog.querySelector("[data-wechat-close]");
+
+  openButtons.forEach((button) => {
+    button.addEventListener("click", () => dialog.showModal());
+  });
+
+  closeButton?.addEventListener("click", () => dialog.close());
+  dialog.addEventListener("click", (event) => {
+    if (event.target === dialog) dialog.close();
   });
 }
 

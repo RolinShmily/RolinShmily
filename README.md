@@ -6,6 +6,11 @@
 <a href="https://space.bilibili.com/422744280"><img src="assets/badges/bilibili-badge.svg" alt="Bilibili"></a>
 <a href="https://wakatime.com/@5e624e25-7f7d-42db-98db-c7c8468b7bb4"><img src="https://wakatime.com/badge/user/5e624e25-7f7d-42db-98db-c7c8468b7bb4.svg" alt="Total time coded since Oct 17 2025" /></a>
 
+### ☕ Sponsor
+If you enjoy my work, you can support me on Afdian:
+
+<a href="https://afdian.com/a/srprolin"><img src="assets/badges/afdian-badge.svg" alt="Afdian: srprolin"></a>
+
 ### 🛠️ Tech Stack
 *Continuously learning & progressing*
 
