@@ -310,8 +310,15 @@
     <div class="wechat-dialog-content">
       <button class="wechat-dialog-close" type="button" data-wechat-close aria-label="Close QR code">&times;</button>
       <h2 id="wechat-dialog-title">WeChat Official Account</h2>
-      <p>Scan the QR code to follow</p>
-      <img src="assets/wechat-official-account.jpg" alt="WeChat Official Account QR code" width="320" height="320">
+      <p>Hover or tap the card to reveal</p>
+      <div class="wechat-qr-shell" role="group" aria-label="WeChat Official Account QR code">
+        <img id="wechat-qr-image" src="assets/wechat-official-account.jpg" alt="WeChat Official Account QR code" width="320" height="320">
+        <button class="wechat-qr-cover" type="button" aria-controls="wechat-qr-image" aria-pressed="false">
+          <span class="wechat-qr-cover-icon" aria-hidden="true">
+            <img class="wechat-qr-brand-icon" src="assets/svg/wechat.svg" alt="">
+          </span>
+        </button>
+      </div>
     </div>
   </dialog>
 

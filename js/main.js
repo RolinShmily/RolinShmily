@@ -345,12 +345,30 @@ function initWeChatDialog() {
 
   const openButtons = document.querySelectorAll("[data-wechat-open]");
   const closeButton = dialog.querySelector("[data-wechat-close]");
+  const qrShell = dialog.querySelector(".wechat-qr-shell");
+  const qrCover = dialog.querySelector(".wechat-qr-cover");
+
+  function setQrRevealed(revealed) {
+    if (!qrShell || !qrCover) return;
+    qrShell.classList.toggle("is-revealed", revealed);
+    qrCover.setAttribute("aria-pressed", String(revealed));
+    qrCover.setAttribute("aria-label", revealed ? "Hide QR code" : "Reveal QR code");
+  }
 
   openButtons.forEach((button) => {
-    button.addEventListener("click", () => dialog.showModal());
+    button.addEventListener("click", () => {
+      setQrRevealed(false);
+      dialog.showModal();
+    });
+  });
+
+  // The same click works on touch screens and on desktop when the visitor prefers it.
+  qrShell?.addEventListener("click", () => {
+    setQrRevealed(!qrShell.classList.contains("is-revealed"));
   });
 
   closeButton?.addEventListener("click", () => dialog.close());
+  dialog.addEventListener("close", () => setQrRevealed(false));
   dialog.addEventListener("click", (event) => {
     if (event.target === dialog) dialog.close();
   });
