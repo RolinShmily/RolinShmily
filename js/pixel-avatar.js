@@ -47,10 +47,8 @@ import { prefersReducedMotion } from "./motion.js";
       d: "M288 88C288 74.7 298.7 64 312 64C457.8 64 576 182.2 576 328C576 341.3 565.3 352 552 352C538.7 352 528 341.3 528 328C528 208.7 431.3 112 312 112C298.7 112 288 101.3 288 88zM144 160C170.5 160 192 181.5 192 208L192 432C192 458.5 213.5 480 240 480C266.5 480 288 458.5 288 432C288 405.5 266.5 384 240 384C231.2 384 224 376.8 224 368L224 304C224 295.2 231.2 288 240 288C319.5 288 384 352.5 384 432C384 511.5 319.5 576 240 576C160.5 576 96 511.5 96 432L96 208C96 181.5 117.5 160 144 160zM312 160C404.8 160 480 235.2 480 328C480 341.3 469.3 352 456 352C442.7 352 432 341.3 432 328C432 261.7 378.3 208 312 208C298.7 208 288 197.3 288 184C288 170.7 298.7 160 312 160z" },
     { label: "Lov3",     url: "https://love.srprolin.top/", color: "#ff8fab", vb: 640,
       d: "M333.4 66.9C329.2 65 324.7 64 320 64C315.3 64 310.8 65 306.6 66.9L118.3 146.8C96.3 156.1 79.9 177.8 80 204C80.5 303.2 121.3 484.7 293.6 567.2C310.3 575.2 329.7 575.2 346.4 567.2C518.8 484.7 559.6 303.2 560 204C560.1 177.8 543.7 156.1 521.7 146.8L333.4 66.9zM313.6 247.5L320 256L326.4 247.5C337.5 232.7 354.9 224 373.3 224C405.7 224 432 250.3 432 282.7L432 288C432 337.1 366.2 386.1 335.5 406.3C326 412.5 314 412.5 304.6 406.3C273.9 386.1 208.1 337 208.1 288L208.1 282.7C208.1 250.3 234.4 224 266.8 224C285.3 224 302.7 232.7 313.7 247.5z" },
-    { label: "Email",    url: "mailto:rol1n@srprolin.top", color: "#ea4335", vb: 640,
-      d: "M112 128C85.5 128 64 149.5 64 176C64 191.1 71.1 205.3 83.2 214.4L291.2 370.4C308.3 383.2 331.7 383.2 348.8 370.4L556.8 214.4C568.9 205.3 576 191.1 576 176C576 149.5 554.5 128 528 128L112 128zM64 260L64 448C64 483.3 92.7 512 128 512L512 512C547.3 512 576 483.3 576 448L576 260L377.6 408.8C343.5 434.4 296.5 434.4 262.4 408.8L64 260z" },
-    { label: "QQ",       url: "https://qm.qq.com/q/4eC5AuM0hi", color: "#12b7f5", vb: 640,
-      d: "M530.1 484.4C518.6 485.8 485.2 431.7 485.2 431.7C485.2 463 469.1 503.9 434.2 533.5C451 538.7 489 552.7 480 567.9C472.7 580.2 354.5 575.8 320.4 571.9C286.3 575.7 168.1 580.2 160.8 567.9C151.8 552.7 189.7 538.7 206.6 533.5C171.7 504 155.5 463.1 155.5 431.7C155.5 431.7 122.2 485.8 110.6 484.4C105.2 483.8 98.2 454.8 119.9 384.7C130.2 351.7 141.9 324.2 160 278.9C156.9 162 205.2 63.9 320.3 63.9C434 63.9 483.5 160 480.6 278.9C498.7 324.1 510.5 351.8 520.7 384.7C542.5 454.8 535.4 483.8 530 484.4z" },
+    { label: "WeChat", action: "wechat", iconSrc: "assets/svg/wechat.svg" },
+    { label: "Afdian", url: "https://afdian.com/a/srprolin", iconSrc: "assets/svg/afdian.svg" },
     { label: "GitHub",   url: "https://github.com/RolinShmily", color: "#e6edf3", vb: 640,
       d: "M237.9 461.4C237.9 463.4 235.6 465 232.7 465C229.4 465.3 227.1 463.7 227.1 461.4C227.1 459.4 229.4 457.8 232.3 457.8C235.3 457.5 237.9 459.1 237.9 461.4zM206.8 456.9C206.1 458.9 208.1 461.2 211.1 461.8C213.7 462.8 216.7 461.8 217.3 459.8C217.9 457.8 216 455.5 213 454.6C210.4 453.9 207.5 454.9 206.8 456.9zM251 455.2C248.1 455.9 246.1 457.8 246.4 460.1C246.7 462.1 249.3 463.4 252.3 462.7C255.2 462 257.2 460.1 256.9 458.1C256.6 456.2 253.9 454.9 251 455.2zM316.8 72C178.1 72 72 177.3 72 316C72 426.9 141.8 521.8 241.5 555.2C254.3 557.5 258.8 549.6 258.8 543.1C258.8 536.9 258.5 502.7 258.5 481.7C258.5 481.7 188.5 496.7 173.8 451.9C173.8 451.9 162.4 422.8 146 415.3C146 415.3 123.1 399.6 147.6 399.9C147.6 399.9 172.5 401.9 186.2 425.7C208.1 464.3 244.8 453.2 259.1 446.6C261.4 430.6 267.9 419.5 275.1 412.9C219.2 406.7 162.8 398.6 162.8 302.4C162.8 274.9 170.4 261.1 186.4 243.5C183.8 237 175.3 210.2 189 175.6C209.9 169.1 258 202.6 258 202.6C278 197 299.5 194.1 320.8 194.1C342.1 194.1 363.6 197 383.6 202.6C383.6 202.6 431.7 169 452.6 175.6C466.3 210.3 457.8 237 455.2 243.5C471.2 261.2 481 275 481 302.4C481 398.9 422.1 406.6 366.2 412.9C375.4 420.8 383.2 435.8 383.2 459.3C383.2 493 382.9 534.7 382.9 542.9C382.9 549.4 387.5 557.3 400.2 555C500.2 521.8 568 426.9 568 316C568 177.3 455.5 72 316.8 72z" },
     { label: "Steam",    url: "https://steamcommunity.com/profiles/76561199516828933/", color: "#66c0f4", vb: 640,
@@ -119,15 +117,18 @@ import { prefersReducedMotion } from "./motion.js";
     const gridY = 150;
     const iconSize = 28;
     const padX = 16;
+    const tex = new THREE.CanvasTexture(cvs);
+    tex.colorSpace = THREE.SRGBColorSpace;
+    tex.anisotropy = 4;
 
     LINKS.forEach((link, i) => {
-      const col = i < 4 ? 0 : 1; // left: personal sites + QQ, right: socials
+      const col = i < 4 ? 0 : 1; // left: personal sites + contact, right: socials
       const row = i % 4;
       const cellX = gridX + col * (CELL_W + GAP_X);
       const cellY = gridY + row * (CELL_H + GAP_Y);
 
       // Hit rect (canvas space)
-      linkRects.push({ x: cellX, y: cellY, w: CELL_W, h: CELL_H, url: link.url, label: link.label });
+      linkRects.push({ x: cellX, y: cellY, w: CELL_W, h: CELL_H, url: link.url, action: link.action, label: link.label });
 
       // Row capsule
       ctx.fillStyle = "rgba(255, 255, 255, 0.05)";
@@ -138,15 +139,25 @@ import { prefersReducedMotion } from "./motion.js";
       ctx.lineWidth = 1;
       ctx.stroke();
 
-      // Icon vertically centered (SVG path via Path2D, scaled from viewBox)
+      // Reuse the site's brand SVG files; update the canvas texture once each loads.
       const iconY = cellY + (CELL_H - iconSize) / 2;
-      const path = new Path2D(link.d);
-      ctx.save();
-      ctx.translate(cellX + padX, iconY);
-      ctx.scale(iconSize / link.vb, iconSize / link.vb);
-      ctx.fillStyle = link.color;
-      ctx.fill(path);
-      ctx.restore();
+      if (link.iconSrc) {
+        const icon = new Image();
+        icon.onload = () => {
+          ctx.drawImage(icon, cellX + padX, iconY, iconSize, iconSize);
+          tex.needsUpdate = true;
+        };
+        icon.onerror = () => console.warn("Backplate icon failed to load:", link.iconSrc);
+        icon.src = link.iconSrc;
+      } else {
+        const path = new Path2D(link.d);
+        ctx.save();
+        ctx.translate(cellX + padX, iconY);
+        ctx.scale(iconSize / link.vb, iconSize / link.vb);
+        ctx.fillStyle = link.color;
+        ctx.fill(path);
+        ctx.restore();
+      }
 
       // Label vertically centered
       ctx.fillStyle = "rgba(255, 255, 255, 0.92)";
@@ -157,9 +168,6 @@ import { prefersReducedMotion } from "./motion.js";
       ctx.textBaseline = "alphabetic";
     });
 
-    const tex = new THREE.CanvasTexture(cvs);
-    tex.colorSpace = THREE.SRGBColorSpace;
-    tex.anisotropy = 4;
     return tex;
   }
 
@@ -273,7 +281,7 @@ import { prefersReducedMotion } from "./motion.js";
 
   // 2) Front face: avatar image covering the whole face (frameless)
   const frontTexture = new THREE.TextureLoader().load(
-    "assets/avatar.jpg",
+    "assets/avatar-card.webp",
     (tex) => {
       tex.colorSpace = THREE.SRGBColorSpace;
       tex.anisotropy = 4;
@@ -500,12 +508,10 @@ import { prefersReducedMotion } from "./motion.js";
     if (dragDistance < 6) {
       updateNdc(e);
       const hit = pickLink();
-      if (hit) {
-        if (hit.url.startsWith("mailto:")) {
-          window.location.href = hit.url;
-        } else {
-          window.open(hit.url, "_blank", "noopener");
-        }
+      if (hit?.action === "wechat") {
+        document.querySelector("[data-wechat-open]")?.click();
+      } else if (hit?.url) {
+        window.open(hit.url, "_blank", "noopener");
       }
     }
   }
