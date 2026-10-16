@@ -17,8 +17,9 @@ If you enjoy my work, you can support me on Afdian:
 <img src="https://skillicons.dev/icons?i=html,css,js,ts,react,vite,nextjs,nodejs,postgres,nginx,cloudflare,git,docker,python,vscode,arch&perline=8" alt="Tech Stack" />
 
 ### 🧐 What I'm doing now
+- 📚 **Preparing for postgraduate entrance exams**
 - ✏️ **Writing something on my blog:** [blog.srprolin.top](https://blog.srprolin.top/)
-- 🎸 **Playing guitar:** [electric guitar on Bilibili](https://www.bilibili.com/video/BV1kzwpeaE4h)
+- 🎸 **Playing guitar:** [on Bilibili](https://www.bilibili.com/video/BV1kzwpeaE4h)
 
 ### 📊 GitHub Stats
 <p>
