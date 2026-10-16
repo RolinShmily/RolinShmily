@@ -1,6 +1,6 @@
 name = "rolin-shmily"
 compatibility_date = "2024-09-23"
-route = "www.srprolin.top/*"
+route = { pattern = "www.srprolin.top/*", zone_name = "srprolin.top" }
 
 # Assets-only Worker. There is no `main` script and no asset binding, because nothing
 # dynamic is left to run: the site is static files, and the last script route
