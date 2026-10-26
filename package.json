@@ -1,10 +1,10 @@
 {
   "name": "rolin-shmily",
   "version": "1.0.0",
-  "description": "Source of www.srprolin.top, which also serves as the GitHub profile README repository.",
+  "description": "Source of www.srprolin.com, which also serves as the GitHub profile README repository.",
   "private": true,
   "license": "UNLICENSED",
-  "author": "RoL1n_SrP <rol1n@srprolin.top>",
+  "author": "RoL1n_SrP <contact@srprolin.com>",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/RolinShmily/RolinShmily.git"

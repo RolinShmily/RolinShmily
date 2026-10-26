@@ -1,8 +1,8 @@
 ### Hi there 👋, I'm RoL1n!
 **An Electronic Information Engineering undergraduate.**
 
-<a href="https://www.srprolin.top"><img src="assets/badges/website-badge.svg" alt="Website"></a>
-<a href="mailto:rol1n@srprolin.top"><img src="assets/badges/email-badge.svg" alt="Email"></a>
+<a href="https://www.srprolin.com"><img src="assets/badges/website-badge.svg" alt="Website"></a>
+<a href="mailto:contact@srprolin.com"><img src="assets/badges/email-badge.svg" alt="Email"></a>
 <a href="https://space.bilibili.com/422744280"><img src="assets/badges/bilibili-badge.svg" alt="Bilibili"></a>
 <a href="https://wakatime.com/@5e624e25-7f7d-42db-98db-c7c8468b7bb4"><img src="https://wakatime.com/badge/user/5e624e25-7f7d-42db-98db-c7c8468b7bb4.svg" alt="Total time coded since Oct 17 2025" /></a>
 
@@ -18,7 +18,7 @@ If you enjoy my work, you can support me on Afdian:
 
 ### 🧐 What I'm doing now
 - 📚 **Preparing for postgraduate entrance exams**
-- ✏️ **Writing something on my blog:** [blog.srprolin.top](https://blog.srprolin.top/)
+- ✏️ **Writing something on my blog:** [blog.srprolin.com](https://blog.srprolin.com/)
 - 🎸 **Playing guitar:** [on Bilibili](https://www.bilibili.com/video/BV1kzwpeaE4h)
 
 ### 📊 GitHub Stats
