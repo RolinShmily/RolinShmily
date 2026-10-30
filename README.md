@@ -14,7 +14,7 @@ If you enjoy my work, you can support me on Afdian:
 ### 🛠️ Tech Stack
 *Continuously learning & progressing*
 
-<img src="https://skillicons.dev/icons?i=html,css,js,ts,react,vite,nextjs,nodejs,postgres,nginx,cloudflare,git,docker,python,vscode,arch&perline=8" alt="Tech Stack" />
+<img src="https://skillicons.dev/icons?i=ts,react,vite,nextjs,nodejs,python,postgres,linux,nginx,docker,git,cloudflare&perline=6" alt="Tech Stack" />
 
 ### 🧐 What I'm doing now
 - 📚 **Preparing for postgraduate entrance exams**
