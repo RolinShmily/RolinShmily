@@ -1188,21 +1188,6 @@ a:hover {
   transform: scale(1.15);
 }
 
-/* Copied feedback state for white buttons & navbar */
-.hero-action-pill.hero-action-cta.copied,
-.nav-cta-pill.copied {
-  background-color: #ffffff !important;
-  color: var(--accent-pink) !important;
-  transform: scale(1.03) !important;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
-}
-
-.hero-action-pill.hero-action-cta.copied svg,
-.nav-cta-pill.copied svg {
-  animation: none;
-  transform: none;
-}
-
 .scroll-indicator {
   color: var(--text-secondary);
   opacity: 0.6;
