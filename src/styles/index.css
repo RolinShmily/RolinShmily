@@ -1,3 +1,8 @@
+@import "@fontsource-variable/inter/wght.css";
+@import "@fontsource-variable/jetbrains-mono/wght.css";
+@import "@fontsource-variable/noto-sans-sc/wght.css";
+@import "tailwindcss";
+
 /* css/style.css */
 
 /* === Reset & Custom Properties === */
@@ -151,172 +156,250 @@ a:hover {
   pointer-events: none;
 }
 
-/* === Navigation === */
+/* === Floating Capsule Navigation (SrP-BloG Inspired) === */
 #navbar {
   position: fixed;
-  top: 0;
+  top: 1rem;
   left: 0;
   right: 0;
   z-index: 1000;
-  padding: 0.75rem 0;
-  transform: translateY(0);
-  will-change: transform, opacity;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  transition: opacity 0.32s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-#navbar::before,
-#navbar::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 140%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   pointer-events: none;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-#navbar::before {
-  z-index: -2;
-  background: linear-gradient(to bottom, rgba(15, 10, 26, 0.85), transparent);
-}
-
-#navbar::after {
-  z-index: -1;
-  mask: linear-gradient(0deg, transparent 0%, #000 80%);
-  -webkit-mask: linear-gradient(0deg, transparent 0%, #000 80%);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-}
-
-#navbar.hidden {
+#navbar.nav-hidden {
   opacity: 0;
-  transform: translateY(-10px);
+  transform: translateY(-2.5rem);
   pointer-events: none;
 }
 
-.nav-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
+#navbar.nav-retracted {
+  opacity: 0;
+  transform: translateY(-5rem);
+  pointer-events: none;
+}
+
+.nav-capsule {
+  pointer-events: auto;
+  width: min(840px, calc(100% - 2rem));
+  height: 52px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
-  transform: translateZ(0);
+  gap: 1.25rem;
+  padding: 0 1rem 0 0.85rem;
+  background: #110e1c;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.75),
+              0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.nav-capsule:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 20px 48px -10px rgba(0, 0, 0, 0.85),
+              0 0 0 1px rgba(255, 255, 255, 0.06) inset;
 }
 
 .nav-logo {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 0.6rem;
   text-decoration: none;
+  cursor: pointer;
 }
 
 .nav-avatar {
-  width: 38px;
-  height: 38px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .nav-name {
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: 1.05rem;
-  color: var(--text-primary);
+  font-size: 0.98rem;
+  color: #ffffff;
   letter-spacing: -0.01em;
 }
 
-.nav-right {
+/* Nav links: clean text + icons, NO rounded box/pill! */
+.nav-links {
   display: flex;
   align-items: center;
-  gap: 0.85rem;
+  gap: 1.1rem;
 }
 
-/* === Segmented Capsule Navigation (Hakadao Style) === */
-.nav-pill {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 3px;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(12px) brightness(1.2);
-  -webkit-backdrop-filter: blur(12px) brightness(1.2);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 9999px;
-  padding: 4px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-  transform: translateZ(0);
-  -webkit-backface-visibility: hidden;
-}
-
-.nav-seg-divider {
-  width: 1px;
-  height: 16px;
-  background-color: rgba(255, 255, 255, 0.14);
-  flex-shrink: 0;
-}
-
-.nav-item {
-  color: rgba(255, 255, 255, 0.65);
-  font-size: 0.88rem;
-  font-weight: 500;
-  padding: 0.42rem 1.15rem;
-  border-radius: 9999px;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-  white-space: nowrap;
-  text-decoration: none;
-  mix-blend-mode: lighten;
-}
-
-.nav-item:hover {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.12);
-}
-
-.nav-item.active {
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.22);
-  font-weight: 600;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
-}
-
-/* Standalone CTA Button in Navbar */
-.nav-cta-pill {
+.nav-link {
   display: inline-flex;
   align-items: center;
-  gap: 0.45rem;
-  padding: 0.45rem 1.15rem;
-  border-radius: 9999px;
-  font-size: 0.88rem;
-  font-weight: 600;
-  background: #ffffff;
-  color: #0b0714;
+  gap: 0.4rem;
+  padding: 0.3rem 0.45rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-family: var(--font-mono);
+  font-size: 0.84rem;
+  font-weight: 500;
   text-decoration: none;
-  cursor: pointer;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
   white-space: nowrap;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: color 0.2s ease;
 }
 
-.nav-cta-pill:hover {
-  background: #f4f4f6;
-  color: #000000;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.22);
+.nav-link-icon {
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.nav-link:hover {
+  color: #ffffff;
+}
+
+.nav-link:hover .nav-link-icon {
+  color: #ffffff;
   transform: translateY(-1px);
 }
 
-.nav-cta-pill svg {
-  flex-shrink: 0;
-  transition: transform 0.25s ease;
+.nav-link.active {
+  color: #ffffff;
+  font-weight: 600;
 }
 
-.nav-cta-pill:hover svg {
-  transform: scale(1.12);
+.nav-link.active .nav-link-icon {
+  color: var(--accent-pink);
+}
+
+/* Right cluster */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Frameless language toggle and GitHub source link - NO ROUNDED BOXES! */
+.nav-lang-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.25rem 0.35rem;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0;
+  box-shadow: none !important;
+  outline: none;
+  color: rgba(255, 255, 255, 0.55);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.nav-lang-btn:hover,
+.nav-lang-btn:focus,
+.nav-lang-btn:active {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none;
+  color: #ffffff;
+}
+
+.nav-lang-btn .lang-opt.active {
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.nav-lang-btn .lang-sep {
+  opacity: 0.35;
+  font-size: 0.72rem;
+}
+
+.nav-source-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.35rem;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0;
+  box-shadow: none !important;
+  outline: none;
+  color: rgba(255, 255, 255, 0.65);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.nav-source-link:hover,
+.nav-source-link:focus,
+.nav-source-link:active {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none;
+  color: #ffffff;
+}
+
+.nav-source-link svg {
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.nav-source-link:hover svg:first-child {
+  transform: scale(1.1);
+}
+
+/* Mobile dropdown */
+.nav-mobile-menu {
+  pointer-events: auto;
+  width: min(840px, calc(100% - 2rem));
+  margin-top: 0.5rem;
+  padding: 0.65rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  background: #110e1c;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.75);
+  animation: mobileMenuIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes mobileMenuIn {
+  from { opacity: 0; transform: translateY(-8px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.nav-mobile-item {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 0.6rem 1rem;
+  border-radius: 12px;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.nav-mobile-item.active,
+.nav-mobile-item:hover {
+  color: #ffffff;
 }
 
 .nav-toggle {
@@ -739,7 +822,7 @@ a:hover {
 }
 
 /* --------------------------------------------------------------------------
-   Row 2: Social Net Profiles (Hakadao Circular Brand Icons)
+   Row 2: Social Net Profiles (Circular Brand Icons)
    -------------------------------------------------------------------------- */
 .hero-social-row {
   display: flex;
@@ -877,207 +960,155 @@ a:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.28);
 }
 
-.wechat-dialog {
+.social-xiaoheihe {
+  color: #f1f2f4;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+.social-xiaoheihe:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.20);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.28);
+}
+.social-xiaoheihe .social-brand-icon {
+  filter: none;
+}
+
+/* ==========================================================================
+   WeChat Speech Bubble Popover (Spring Motion Anchor)
+   ========================================================================== */
+.wechat-bubble-popover {
   position: fixed;
-  inset: auto;
-  top: 50%;
-  left: 50%;
-  width: min(420px, calc(100% - 2rem));
-  max-width: none;
-  max-height: calc(100dvh - 2rem);
-  margin: 0;
-  padding: 0;
-  overflow: visible;
-  color: #f8fafc;
-  background: #111018;
-  border: 1px solid rgba(7, 193, 96, 0.38);
-  border-radius: 20px;
-  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.04) inset;
-  transform: translate(-50%, -50%);
+  z-index: 999;
+  pointer-events: auto;
 }
 
-.wechat-dialog[open] .wechat-dialog-content {
-  animation: wechat-dialog-content-in 0.46s cubic-bezier(0.16, 1, 0.3, 1) both;
+.wechat-bubble-popover.place-top {
+  transform: translate(-50%, -100%);
+  transform-origin: 50% 100%;
 }
 
-@keyframes wechat-dialog-content-in {
-  from {
+.wechat-bubble-popover.place-bottom {
+  transform: translate(-50%, 0);
+  transform-origin: 50% 0%;
+}
+
+/* Motion: Spring bounce pop-in */
+.wechat-bubble-popover.is-popping.place-top {
+  animation: bubblePopInTop 0.34s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.wechat-bubble-popover.is-popping.place-bottom {
+  animation: bubblePopInBottom 0.34s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes bubblePopInTop {
+  0% {
     opacity: 0;
-    transform: translateY(22px) scale(0.94);
+    transform: translate(-50%, -100%) scale(0.2) translateY(16px);
   }
-  to {
+  70% {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translate(-50%, -100%) scale(1.04) translateY(-2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -100%) scale(1) translateY(0);
   }
 }
 
-.wechat-dialog::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  z-index: -1;
-  border-radius: inherit;
-  background: linear-gradient(135deg, rgba(7, 193, 96, 0.32), transparent 42%, rgba(124, 58, 237, 0.28));
-  filter: blur(18px);
-  opacity: 0.7;
+@keyframes bubblePopInBottom {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 0) scale(0.2) translateY(-16px);
+  }
+  70% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1.04) translateY(2px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1) translateY(0);
+  }
 }
 
-.wechat-dialog::backdrop {
-  background: rgba(5, 4, 10, 0.78);
-  backdrop-filter: blur(10px) saturate(0.85);
-  animation: wechat-backdrop-in 0.42s ease both;
+/* Motion: Smooth retract back into anchor */
+.wechat-bubble-popover.is-retracting.place-top {
+  animation: bubbleRetractTop 0.22s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-@keyframes wechat-backdrop-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+.wechat-bubble-popover.is-retracting.place-bottom {
+  animation: bubbleRetractBottom 0.22s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
-.wechat-dialog-content {
+@keyframes bubbleRetractTop {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -100%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -100%) scale(0.2) translateY(14px);
+  }
+}
+
+@keyframes bubbleRetractBottom {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, 0) scale(0.2) translateY(-14px);
+  }
+}
+
+.wechat-qr-card-direct {
   position: relative;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
-  max-height: calc(100dvh - 2rem);
-  overflow: auto;
-  padding: 2rem;
-  text-align: center;
+  width: 200px;
+  height: 200px;
+  padding: 8px;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 18px 48px -6px rgba(0, 0, 0, 0.75),
+              0 0 0 1px rgba(0, 0, 0, 0.08);
 }
 
-.wechat-dialog-content h2 {
-  margin: 0 2rem 0.35rem;
-  color: #fff;
-  font-size: 1.2rem;
-}
-
-.wechat-dialog-content p {
-  margin: 0 0 1.25rem;
-  color: #a1a1aa;
-  font-size: 0.9rem;
-}
-
-.wechat-qr-shell {
-  position: relative;
-  width: min(100%, 320px);
-  aspect-ratio: 1;
-  overflow: hidden;
-  border-radius: 14px;
-  background: #fff;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28), inset 0 0 0 1px rgba(0, 0, 0, 0.08);
-  isolation: isolate;
-  cursor: pointer;
-}
-
-.wechat-qr-shell::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: inherit;
-  pointer-events: none;
-}
-
-.wechat-qr-shell > img {
+.wechat-qr-img-direct {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  opacity: 0.3;
-  filter: none;
-  transform: scale(1);
-  transition: opacity 0.3s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 10px;
+  object-fit: contain;
 }
 
-.wechat-qr-cover {
+/* Caret / Beak pointing to anchor */
+.wechat-bubble-beak-direct {
   position: absolute;
-  inset: 0;
-  z-index: 3;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.55rem;
-  padding: 1rem;
-  color: #27272a;
-  background: transparent;
-  border: 0;
-  font: inherit;
-  cursor: pointer;
-  transition: opacity 0.35s ease, visibility 0.35s ease;
-}
-
-.wechat-qr-cover-icon {
-  display: grid;
-  width: 80px;
-  height: 80px;
-  place-items: center;
-}
-
-.wechat-qr-brand-icon {
-  display: block;
-  width: 80px;
-  height: 80px;
-}
-
-.wechat-qr-shell.is-revealed > img {
-  opacity: 1;
-  filter: none;
-  transform: scale(1);
-}
-
-.wechat-qr-shell.is-revealed .wechat-qr-cover {
-  opacity: 0;
-  visibility: hidden;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  background: #ffffff;
   pointer-events: none;
+  z-index: 1;
 }
 
-@media (hover: hover) {
-  .wechat-qr-shell > img {
-    filter: blur(4px);
-  }
-
-  .wechat-qr-shell:hover > img {
-    opacity: 1;
-    filter: none;
-    transform: scale(1);
-  }
-
-  .wechat-qr-shell:hover .wechat-qr-cover {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-  }
+.place-top .wechat-bubble-beak-direct {
+  bottom: -6px;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.12);
 }
 
-.wechat-dialog-close {
-  position: absolute;
-  top: 0.7rem;
-  right: 0.8rem;
-  z-index: 4;
-  display: grid;
-  width: 2rem;
-  height: 2rem;
-  place-items: center;
-  color: #a1a1aa;
-  background: transparent;
-  border: 0;
-  border-radius: 50%;
-  font: inherit;
-  font-size: 1.6rem;
-  line-height: 1;
-  cursor: pointer;
-  transition: color 0.2s ease, background 0.2s ease, transform 0.2s ease;
-}
-
-.wechat-dialog-close:hover {
-  color: #fff;
-  background: rgba(255, 255, 255, 0.1);
-  transform: rotate(90deg);
+.place-bottom .wechat-bubble-beak-direct {
+  top: -6px;
+  box-shadow: -3px -3px 6px rgba(0, 0, 0, 0.12);
 }
 
 /* --------------------------------------------------------------------------
-   Row 3: In-site Actions & CTA (Hakadao Action Pills Archetype)
+   Row 3: In-site Actions & CTA (Action Pills)
    -------------------------------------------------------------------------- */
 .hero-actions-row {
   display: flex;
@@ -1100,7 +1131,7 @@ a:hover {
   }
 }
 
-/* About & Works: Frosted Glass Capsule (Subtle, Clean) */
+/* About & Works: Borderless Soft Pill (Matches BloG/Lov3 aesthetic) */
 .hero-action-pill {
   display: inline-flex;
   align-items: center;
@@ -1109,7 +1140,7 @@ a:hover {
   padding: 0.52rem 1.25rem;
   border-radius: 9999px;
   background-color: rgba(255, 255, 255, 0.08);
-  border: none;
+  border: 1px solid transparent; /* No pre-drawn outline! */
   color: #ffffff;
   font-family: inherit;
   font-size: 0.95rem;
@@ -1139,10 +1170,15 @@ a:hover {
   flex-shrink: 0;
 }
 
-/* Hover: Subtle Background Shift + Clean Physical Shadow (Zero White Fog) */
+/* Hover: White Glowing Ring Halo around border edge */
 .hero-action-pill:hover {
-  background-color: rgba(255, 255, 255, 0.16);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.14);
+  border-color: #ffffff;
+  box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.9),
+              0 0 16px rgba(255, 255, 255, 0.5),
+              0 0 32px rgba(255, 255, 255, 0.25),
+              0 4px 14px rgba(0, 0, 0, 0.35);
   transform: translateY(-2px);
 }
 
@@ -1211,7 +1247,7 @@ a:hover {
 }
 
 
-/* === Works (Hakadao Showcase Style) === */
+/* === Works (Showcase Grid) === */
 .featured-projects {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -1333,7 +1369,7 @@ a:hover {
 }
 
 
-/* === About (Hakadao Refined Style) === */
+/* === About Section === */
 .about-content {
   width: 100%;
   font-size: 1.05rem;
@@ -1351,7 +1387,7 @@ a:hover {
   margin-bottom: 0;
 }
 
-/* Hakadao-style Inline Highlight Capsules (.link-tag) */
+/* Inline Highlight Capsules (.link-tag) */
 .link-tag {
   display: inline-flex;
   align-items: center;
@@ -1393,7 +1429,7 @@ a:hover {
   transform: scale(1.18);
 }
 
-/* === Bottom Ambient Horizon Glow (Hakadao Inspired Full-Viewport Bloom) === */
+/* === Bottom Ambient Horizon Glow (Full-Viewport Bloom) === */
 #bottom-ambient-glow {
   position: fixed;
   inset: 0;
@@ -1457,7 +1493,7 @@ a:hover {
   }
 }
 
-/* === Footer Connect & Expanded Social Pills (Hakadao Footer Matrix) === */
+/* === Footer Connect & Expanded Social Pills === */
 .footer-connect {
   max-width: 1200px;
   margin: 0 auto 2.5rem;
@@ -1484,7 +1520,8 @@ a:hover {
   gap: 0.55rem;
   padding: 0.45rem 1.1rem;
   border-radius: 9999px;
-  border: none;
+  border: 1px solid transparent; /* No pre-drawn outline! */
+  background-color: rgba(255, 255, 255, 0.06);
   font-family: var(--font-mono);
   font-size: 0.88rem;
   font-weight: 500;
@@ -1492,16 +1529,17 @@ a:hover {
   text-decoration: none;
   cursor: pointer;
   user-select: none;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-              background-color 0.3s ease,
-              box-shadow 0.3s ease;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.25s ease;
 }
 
 .footer-social-tag svg {
   width: 18px;
   height: 18px;
   flex-shrink: 0;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .footer-social-tag .social-brand-icon {
@@ -1511,11 +1549,110 @@ a:hover {
 }
 
 .footer-social-tag:hover {
-  transform: translateY(-2px) scale(1.05);
+  transform: translateY(-2px) scale(1.04);
 }
 
 .footer-social-tag:active {
   transform: translateY(0) scale(0.98);
+}
+
+/* Individual Brand Glowing Halo Rings on hover (Text retains brand color) */
+.footer-social-tag.social-wechat {
+  color: #07c160;
+  background-color: rgba(7, 193, 96, 0.10);
+  border-color: transparent;
+}
+.footer-social-tag.social-wechat:hover {
+  color: #07c160;
+  background-color: rgba(7, 193, 96, 0.16);
+  border-color: #07c160;
+  box-shadow: 0 0 0 1.5px rgba(7, 193, 96, 0.9),
+              0 0 15px rgba(7, 193, 96, 0.6),
+              0 0 30px rgba(7, 193, 96, 0.3);
+}
+
+.footer-social-tag.social-github {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: transparent;
+}
+.footer-social-tag.social-github:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.14);
+  border-color: #ffffff;
+  box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.9),
+              0 0 15px rgba(255, 255, 255, 0.5),
+              0 0 30px rgba(255, 255, 255, 0.25);
+}
+
+.footer-social-tag.social-steam {
+  color: #66c0f4;
+  background-color: rgba(102, 192, 244, 0.10);
+  border-color: transparent;
+}
+.footer-social-tag.social-steam:hover {
+  color: #66c0f4;
+  background-color: rgba(102, 192, 244, 0.16);
+  border-color: #66c0f4;
+  box-shadow: 0 0 0 1.5px rgba(102, 192, 244, 0.9),
+              0 0 15px rgba(102, 192, 244, 0.6),
+              0 0 30px rgba(102, 192, 244, 0.3);
+}
+
+.footer-social-tag.social-douyin {
+  color: #fe2c55;
+  background-color: rgba(254, 44, 85, 0.10);
+  border-color: transparent;
+}
+.footer-social-tag.social-douyin:hover {
+  color: #fe2c55;
+  background-color: rgba(254, 44, 85, 0.16);
+  border-color: #fe2c55;
+  box-shadow: 0 0 0 1.5px rgba(254, 44, 85, 0.9),
+              0 0 15px rgba(254, 44, 85, 0.6),
+              0 0 30px rgba(254, 44, 85, 0.3);
+}
+
+.footer-social-tag.social-bilibili {
+  color: #00a1d6;
+  background-color: rgba(0, 161, 214, 0.10);
+  border-color: transparent;
+}
+.footer-social-tag.social-bilibili:hover {
+  color: #00a1d6;
+  background-color: rgba(0, 161, 214, 0.16);
+  border-color: #00a1d6;
+  box-shadow: 0 0 0 1.5px rgba(0, 161, 214, 0.9),
+              0 0 15px rgba(0, 161, 214, 0.6),
+              0 0 30px rgba(0, 161, 214, 0.3);
+}
+
+.footer-social-tag.social-afdian {
+  color: #b99bff;
+  background-color: rgba(148, 108, 230, 0.10);
+  border-color: transparent;
+}
+.footer-social-tag.social-afdian:hover {
+  color: #b99bff;
+  background-color: rgba(148, 108, 230, 0.16);
+  border-color: #b99bff;
+  box-shadow: 0 0 0 1.5px rgba(185, 155, 255, 0.9),
+              0 0 15px rgba(185, 155, 255, 0.6),
+              0 0 30px rgba(185, 155, 255, 0.3);
+}
+
+.footer-social-tag.social-xiaoheihe {
+  color: #f1f2f4;
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: transparent;
+}
+.footer-social-tag.social-xiaoheihe:hover {
+  color: #f1f2f4;
+  background-color: rgba(255, 255, 255, 0.14);
+  border-color: #ffffff;
+  box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.9),
+              0 0 15px rgba(255, 255, 255, 0.5),
+              0 0 30px rgba(255, 255, 255, 0.25);
 }
 
 /* Stagger entrance when scrolling into bottom view */
@@ -1534,9 +1671,10 @@ a:hover {
 .footer-connect.visible .footer-social-tag:nth-child(4) { animation-delay: 0.26s; }
 .footer-connect.visible .footer-social-tag:nth-child(5) { animation-delay: 0.33s; }
 .footer-connect.visible .footer-social-tag:nth-child(6) { animation-delay: 0.40s; }
+.footer-connect.visible .footer-social-tag:nth-child(7) { animation-delay: 0.47s; }
 
 .footer-connect.visible .footer-cta-box {
-  animation: footerTagIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.42s both;
+  animation: footerTagIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.52s both;
 }
 
 @keyframes footerTagIn {
@@ -1709,42 +1847,12 @@ a:hover {
     padding-right: 1rem;
   }
 
-  .nav-toggle {
-    display: flex;
-  }
-
-  .nav-pill {
-    position: fixed;
-    top: calc(0.75rem + 0.75rem + 50px);
-    left: 1rem;
-    right: 1rem;
-    flex-direction: column;
-    padding: 0.6rem;
-    gap: 0.25rem;
-    background: rgba(18, 12, 32, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6);
-    border-radius: 1.25rem;
-    transform: translateY(-20px);
-    opacity: 0;
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
-    pointer-events: none;
-  }
-
-  .nav-seg-divider {
+  .nav-capsule .nav-pill {
     display: none;
   }
 
-  .nav-pill.open {
-    transform: translateY(0);
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .nav-pill.open .nav-item {
-    width: 100%;
-    text-align: center;
-    padding: 0.65rem 1rem;
+  .nav-capsule .nav-toggle {
+    display: flex;
   }
 
   .nav-cta-pill {
@@ -1776,8 +1884,9 @@ a:hover {
   }
 
   /* Navbar: show immediately on mobile */
-  #navbar.hidden {
+  #navbar.nav-hidden {
     opacity: 1;
+    transform: translateY(0);
     pointer-events: auto;
   }
 

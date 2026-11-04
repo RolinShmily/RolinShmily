@@ -1,0 +1,60 @@
+import { SocialLink } from "../types";
+
+export const SOCIAL_LINKS: SocialLink[] = [
+  {
+    id: "wechat",
+    label: "WeChat",
+    action: "wechat",
+    iconType: "svg-file",
+    iconSrc: "assets/svg/wechat.svg",
+    ariaLabel: "Open WeChat Official Account QR code",
+  },
+  {
+    id: "github",
+    label: "GitHub",
+    url: "https://github.com/RolinShmily",
+    iconType: "symbol",
+    iconHref: "#icon-github",
+    ariaLabel: "GitHub: RolinShmily",
+  },
+  {
+    id: "steam",
+    label: "Steam",
+    url: "https://steamcommunity.com/profiles/76561199516828933/",
+    iconType: "symbol",
+    iconHref: "#icon-steam",
+    ariaLabel: "Steam: RoL1n",
+  },
+  {
+    id: "douyin",
+    label: "DouYin",
+    url: "https://www.douyin.com/user/MS4wLjABAAAAo7eM2TrNX4lzekpyIIorhn-fs4GzMpkY7OUQzzGjjXup0nMk6PGqNqHFa4FnY2O_",
+    iconType: "symbol",
+    iconHref: "#icon-douyin",
+    ariaLabel: "DouYin",
+  },
+  {
+    id: "bilibili",
+    label: "Bilibili",
+    url: "https://space.bilibili.com/422744280",
+    iconType: "symbol",
+    iconHref: "#icon-bilibili",
+    ariaLabel: "Bilibili: RoL1n_SrP",
+  },
+  {
+    id: "afdian",
+    label: "Afdian",
+    url: "https://afdian.com/a/srprolin",
+    iconType: "svg-file",
+    iconSrc: "assets/svg/afdian.svg",
+    ariaLabel: "Afdian: srprolin",
+  },
+  {
+    id: "xiaoheihe",
+    label: "Heybox",
+    url: "https://www.xiaoheihe.cn/app/user/profile/58982380",
+    iconType: "symbol",
+    iconHref: "#icon-xiaoheihe",
+    ariaLabel: "Xiaoheihe: RoL1n",
+  },
+];

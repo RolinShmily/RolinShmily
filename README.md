@@ -4,6 +4,7 @@
 <a href="https://www.srprolin.com"><img src="assets/badges/website-badge.svg" alt="Website"></a>
 <a href="mailto:contact@srprolin.com"><img src="assets/badges/email-badge.svg" alt="Email"></a>
 <a href="https://space.bilibili.com/422744280"><img src="assets/badges/bilibili-badge.svg" alt="Bilibili"></a>
+<a href="https://www.xiaoheihe.cn/app/user/profile/58982380"><img src="assets/badges/xiaoheihe-badge.svg" alt="Xiaoheihe"></a>
 <a href="https://wakatime.com/@5e624e25-7f7d-42db-98db-c7c8468b7bb4"><img src="https://wakatime.com/badge/user/5e624e25-7f7d-42db-98db-c7c8468b7bb4.svg" alt="Total time coded since Oct 17 2025" /></a>
 
 ### ☕ Sponsor

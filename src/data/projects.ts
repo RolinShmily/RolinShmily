@@ -1,0 +1,60 @@
+import { ProjectCardData } from "../types";
+
+export const PROJECTS: ProjectCardData[] = [
+  {
+    id: "pi-kit",
+    title: "pi-kit",
+    url: "https://github.com/RolinShmily/pi-kit",
+    image: "assets/works/pi-kit.webp",
+    alt: "pi-kit modular extensions & skills for Pi Coding Agent",
+    description: "Modular extensions, prompt templates & skills for Pi Coding Agent (@rol1n/pi-kit)",
+  },
+  {
+    id: "srp-blog",
+    title: "SrP-BloG",
+    url: "https://blog.srprolin.com",
+    image: "assets/works/srp-blog.webp",
+    alt: "SrP-BloG personal tech blog",
+    description: "Personal tech blog sharing hands-on guides across Linux, DevOps, networking & web development",
+  },
+  {
+    id: "srp-cfg",
+    title: "SrP-CFG_ForCS2",
+    url: "https://cfg.srprolin.com",
+    image: "assets/works/srp-cfg-overview-zh.webp",
+    alt: "SrP-CFG desktop app overview",
+    description: "Modular CS2 CFG Runtime, Desktop Installer & Searchable Knowledge Base",
+  },
+  {
+    id: "sekiro-mod-manager",
+    title: "Sekiro Mod Manager",
+    url: "https://sekiro.srprolin.com",
+    image: "assets/works/sekiro-mod-manager.webp",
+    alt: "Sekiro Mod Manager module management screen",
+    description: "Zero-copy NTFS mod deployment, conflict resolution & portable mod packs for Sekiro",
+  },
+  {
+    id: "srp-img",
+    title: "SrP-IMG",
+    url: "https://img.srprolin.com",
+    image: "assets/works/srp-img.webp",
+    alt: "SrP-IMG",
+    description: "Full-featured multi-category random image API & modern waterfall gallery on Cloudflare Pages/Workers",
+  },
+  {
+    id: "porter-workflow",
+    title: "porter-workflow",
+    url: "https://github.com/RolinShmily/porter-workflow",
+    image: "assets/works/porter-workflow.webp",
+    alt: "porter-workflow",
+    description: "Bilingual video localization with Whisper & FFmpeg — CLI, MCP, WebUI & Agent Skill",
+  },
+  {
+    id: "20-fruit-recognition",
+    title: "20-Fruit_Recognition_System",
+    url: "https://github.com/RolinShmily/20-Fruit_Recognition_System",
+    image: "assets/works/fruit-recognition.webp",
+    alt: "20-Fruit_Recognition_System",
+    description: "Deep Learning-Based 20-Fruit Classification with ResNet18 + CBAM Attention",
+  },
+];

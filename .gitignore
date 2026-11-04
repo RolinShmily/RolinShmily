@@ -9,6 +9,7 @@
 
 # production
 /build
+/dist
 
 # generated webfont payload (see scripts/build-fonts.mjs)
 /fonts/
@@ -46,4 +47,5 @@ docs/
 .claude/
 .pi/
 .memory/
+.playwright-mcp/
 pi-session*

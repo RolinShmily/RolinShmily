@@ -4,13 +4,6 @@ route = { pattern = "www.srprolin.com/*", zone_name = "srprolin.com" }
 workers_dev = false
 preview_urls = false
 
-# Assets-only Worker. There is no `main` script and no asset binding, because nothing
-# dynamic is left to run: the site is static files, and the last script route
-# (`/api/github/*`) was deleted in fdd5717. Both omissions are required rather than
-# stylistic — wrangler rejects `binding = "ASSETS"` when there is no script to consume it
-# ("Cannot use assets with a binding in an assets-only Worker").
-#
-# `directory = "."` means .assetsignore — never .gitignore — decides what is published.
-# See .assetsignore for why that distinction matters.
+# Assets-only Worker. Serves the Vite production build output from dist/.
 [assets]
-directory = "."
+directory = "dist"
