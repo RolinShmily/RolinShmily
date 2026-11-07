@@ -127,7 +127,9 @@ export const Hero: React.FC<HeroProps> = React.memo(({ onOpenWeChat }) => {
                     title="WeChat Official Account"
                     aria-label={link.ariaLabel}
                   >
-                    <img className="social-brand-icon" src={link.iconSrc} alt="" />
+                    <svg width="22" height="22">
+                      <use href={link.iconHref} />
+                    </svg>
                   </button>
                 );
               }
@@ -142,13 +144,9 @@ export const Hero: React.FC<HeroProps> = React.memo(({ onOpenWeChat }) => {
                   title={link.label}
                   aria-label={link.ariaLabel}
                 >
-                  {link.iconType === "symbol" ? (
-                    <svg width="22" height="22">
-                      <use href={link.iconHref} />
-                    </svg>
-                  ) : (
-                    <img className="social-brand-icon" src={link.iconSrc} alt="" />
-                  )}
+                  <svg width="22" height="22">
+                    <use href={link.iconHref} />
+                  </svg>
                 </a>
               );
             })}

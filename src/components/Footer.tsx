@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { BrandCanvas } from "./BrandCanvas";
 import { SOCIAL_LINKS } from "../data/socials";
 import { useI18n } from "../i18n/context";
@@ -10,7 +10,6 @@ interface FooterProps {
 export const Footer: React.FC<FooterProps> = ({ onOpenWeChat }) => {
   const { t } = useI18n();
   const [showBackToTop, setShowBackToTop] = useState(false);
-  const footerRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     let ticking = false;
@@ -32,36 +31,12 @@ export const Footer: React.FC<FooterProps> = ({ onOpenWeChat }) => {
     };
   }, []);
 
-  useEffect(() => {
-    const el = footerRef.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
-    );
-
-    const reveals = el.querySelectorAll(".reveal");
-    reveals.forEach((r) => observer.observe(r));
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
-
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
-    <footer id="footer" ref={footerRef}>
+    <footer id="footer">
       <div className="footer-glow" aria-hidden="true" />
 
       {/* Expanded Social Network & Contact Tags */}
@@ -79,7 +54,9 @@ export const Footer: React.FC<FooterProps> = ({ onOpenWeChat }) => {
                   onClick={(e) => onOpenWeChat(e.currentTarget)}
                   title={label}
                 >
-                  <img className="social-brand-icon" src={link.iconSrc} alt="" />
+                  <svg width="18" height="18">
+                    <use href={link.iconHref} />
+                  </svg>
                   <span>{label}</span>
                 </button>
               );
@@ -94,13 +71,9 @@ export const Footer: React.FC<FooterProps> = ({ onOpenWeChat }) => {
                 rel="noopener noreferrer"
                 title={label}
               >
-                {link.iconType === "symbol" ? (
-                  <svg width="18" height="18">
-                    <use href={link.iconHref} />
-                  </svg>
-                ) : (
-                  <img className="social-brand-icon" src={link.iconSrc} alt="" />
-                )}
+                <svg width="18" height="18">
+                  <use href={link.iconHref} />
+                </svg>
                 <span>{label}</span>
               </a>
             );

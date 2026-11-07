@@ -1,40 +1,12 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { PROJECTS } from "../data/projects";
 import { useI18n } from "../i18n/context";
 
 export const Works: React.FC = () => {
   const { t } = useI18n();
-  const sectionRef = useRef<HTMLElement | null>(null);
-
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const intersecting = entries.filter((e) => e.isIntersecting);
-        intersecting.forEach((entry, idx) => {
-          const target = entry.target;
-          const delay = idx * 80;
-          setTimeout(() => {
-            target.classList.add("visible");
-          }, delay);
-          observer.unobserve(target);
-        });
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
-    );
-
-    const reveals = el.querySelectorAll(".reveal");
-    reveals.forEach((r) => observer.observe(r));
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
 
   return (
-    <section id="works" className="section" ref={sectionRef}>
+    <section id="works" className="section">
       <h2 className="section-title reveal">{t.works.title}</h2>
       <div id="featured-projects" className="featured-projects">
         {PROJECTS.map((project) => {

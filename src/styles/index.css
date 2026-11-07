@@ -192,7 +192,9 @@ a:hover {
   justify-content: space-between;
   gap: 1.25rem;
   padding: 0 1rem 0 0.85rem;
-  background: #110e1c;
+  background: rgba(17, 14, 28, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 9999px;
   box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.75),
@@ -365,59 +367,134 @@ a:hover {
   transform: scale(1.1);
 }
 
-/* Mobile dropdown */
-.nav-mobile-menu {
-  pointer-events: auto;
-  width: min(840px, calc(100% - 2rem));
-  margin-top: 0.5rem;
-  padding: 0.65rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  background: #110e1c;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 18px;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.75);
-  animation: mobileMenuIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+/* Mobile dropdown & backdrop */
+.nav-mobile-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: 998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
 }
 
-@keyframes mobileMenuIn {
-  from { opacity: 0; transform: translateY(-8px) scale(0.98); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
+.nav-mobile-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.nav-mobile-menu {
+  pointer-events: none;
+  width: min(840px, calc(100% - 1.5rem));
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  background: rgba(17, 14, 28, 0.94);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  box-shadow: 0 20px 48px -10px rgba(0, 0, 0, 0.85),
+              0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  opacity: 0;
+  transform: translateY(-8px) scale(0.97);
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 1000;
+}
+
+.nav-mobile-menu.open {
+  pointer-events: auto;
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
 .nav-mobile-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0.95rem;
+  border-radius: 12px;
   color: rgba(255, 255, 255, 0.7);
+  font-family: var(--font-mono);
   font-size: 0.9rem;
   font-weight: 500;
-  padding: 0.6rem 1rem;
-  border-radius: 12px;
-  text-align: center;
   text-decoration: none;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  background: transparent;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.nav-mobile-item.active,
-.nav-mobile-item:hover {
+.nav-mobile-item:hover,
+.nav-mobile-item:focus {
   color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+.nav-mobile-item:active {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: scale(0.99);
+}
+
+.nav-mobile-item.active {
+  color: #ffffff;
+  font-weight: 600;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.nav-mobile-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.nav-mobile-item.active .nav-mobile-icon {
+  color: var(--accent-pink);
+}
+
+.nav-mobile-divider {
+  height: 1px;
+  margin: 0.2rem 0.4rem;
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
 .nav-toggle {
   display: none;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 5px;
-  background: none;
+  width: 36px;
+  height: 36px;
+  background: transparent;
   border: none;
   cursor: pointer;
-  padding: 4px;
+  padding: 6px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.nav-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
 .nav-toggle span {
   display: block;
-  width: 24px;
+  width: 20px;
   height: 2px;
   background: var(--text-primary);
-  transition: transform 0.3s, opacity 0.3s;
+  border-radius: 2px;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.25s ease;
+  transform-origin: center;
 }
 
 /* === Card base === */
@@ -970,9 +1047,6 @@ a:hover {
   color: #ffffff;
   background-color: rgba(255, 255, 255, 0.20);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.28);
-}
-.social-xiaoheihe .social-brand-icon {
-  filter: none;
 }
 
 /* ==========================================================================
@@ -1797,15 +1871,16 @@ a:hover {
 
 /* === Hamburger animation === */
 .nav-toggle.active span:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
+  transform: translateY(7px) rotate(45deg);
 }
 
 .nav-toggle.active span:nth-child(2) {
   opacity: 0;
+  transform: scaleX(0);
 }
 
 .nav-toggle.active span:nth-child(3) {
-  transform: rotate(-45deg) translate(5px, -5px);
+  transform: translateY(-7px) rotate(-45deg);
 }
 
 /* === Custom Scrollbar === */
@@ -1847,18 +1922,23 @@ a:hover {
     padding-right: 1rem;
   }
 
-  .nav-capsule .nav-pill {
-    display: none;
+  .nav-capsule .nav-links {
+    display: none !important;
   }
 
   .nav-capsule .nav-toggle {
     display: flex;
   }
 
-  .nav-cta-pill {
-    padding: 0.32rem 0.75rem;
-    font-size: 0.8rem;
-    gap: 0.35rem;
+  .nav-capsule {
+    width: min(840px, calc(100% - 1.5rem));
+    height: 48px;
+    padding: 0 0.85rem 0 0.75rem;
+    gap: 0.75rem;
+  }
+
+  .nav-right {
+    gap: 0.5rem;
   }
 
   .nav-logo {
@@ -1867,8 +1947,8 @@ a:hover {
   }
 
   .nav-avatar {
-    width: 34px;
-    height: 34px;
+    width: 32px;
+    height: 32px;
   }
 
   .nav-name {
@@ -1883,11 +1963,11 @@ a:hover {
     font-size: 1.5rem;
   }
 
-  /* Navbar: show immediately on mobile */
+  /* Navbar: show immediately on mobile, but keep container pointer-events: none */
   #navbar.nav-hidden {
     opacity: 1;
     transform: translateY(0);
-    pointer-events: auto;
+    pointer-events: none;
   }
 
   /* Hero mobile */
@@ -2051,6 +2131,24 @@ a:hover {
     right: 1rem;
     width: 40px;
     height: 40px;
+  }
+}
+
+@media (max-width: 640px) {
+  .nav-source-link span,
+  .nav-source-link svg:last-child {
+    display: none;
+  }
+
+  .nav-source-link {
+    padding: 0.3rem 0.35rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .nav-mobile-menu,
+  .nav-mobile-backdrop {
+    display: none !important;
   }
 }
 

@@ -5,8 +5,8 @@ export const SOCIAL_LINKS: SocialLink[] = [
     id: "wechat",
     label: "WeChat",
     action: "wechat",
-    iconType: "svg-file",
-    iconSrc: "assets/svg/wechat.svg",
+    iconType: "symbol",
+    iconHref: "#icon-wechat",
     ariaLabel: "Open WeChat Official Account QR code",
   },
   {
@@ -45,8 +45,8 @@ export const SOCIAL_LINKS: SocialLink[] = [
     id: "afdian",
     label: "Afdian",
     url: "https://afdian.com/a/srprolin",
-    iconType: "svg-file",
-    iconSrc: "assets/svg/afdian.svg",
+    iconType: "symbol",
+    iconHref: "#icon-afdian",
     ariaLabel: "Afdian: srprolin",
   },
   {

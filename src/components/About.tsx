@@ -1,36 +1,11 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { useI18n } from "../i18n/context";
 
 export const About: React.FC = () => {
   const { t } = useI18n();
-  const sectionRef = useRef<HTMLElement | null>(null);
-
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
-    );
-
-    const reveals = el.querySelectorAll(".reveal");
-    reveals.forEach((r) => observer.observe(r));
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
 
   return (
-    <section id="about" className="section" ref={sectionRef}>
+    <section id="about" className="section">
       <h2 className="section-title reveal">{t.about.title}</h2>
       <div id="about-content" className="about-content reveal">
         <p>
