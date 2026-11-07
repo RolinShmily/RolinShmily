@@ -11,21 +11,6 @@ export const About: React.FC = () => {
         <p>
           {t.about.p1_pre}
           <a
-            href="https://www.haut.edu.cn/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="link-tag"
-            title="Henan University of Technology"
-          >
-            <span>{t.about.p1_school}</span>
-            <img
-              src="assets/haut-emblem.png"
-              alt=""
-              className="w-[1.15em] h-[1.15em] rounded-full object-contain shrink-0"
-            />
-          </a>
-          {t.about.p1_mid}
-          <a
             href="https://github.com/RolinShmily/pi-kit"
             target="_blank"
             rel="noopener noreferrer"

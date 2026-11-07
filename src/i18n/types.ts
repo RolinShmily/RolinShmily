@@ -28,8 +28,6 @@ export interface I18nDictionary {
   about: {
     title: string;
     p1_pre: string;
-    p1_school: string;
-    p1_mid: string;
     p1_tool: string;
     p1_post: string;
     p2_pre: string;

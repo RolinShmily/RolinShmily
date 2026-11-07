@@ -22,9 +22,7 @@ export const en: I18nDictionary = {
   },
   about: {
     title: "About Me",
-    p1_pre: "Hey, I'm RoL1n — an electronic info undergrad at ",
-    p1_school: "HAUT",
-    p1_mid: ". I spend most of my time on Windows + WSL, always leaning into Linux and the open-web world. Fueled by genuine curiosity, I build with TypeScript and Python alongside ",
+    p1_pre: "Hey, I'm RoL1n — an electronic info undergrad. I spend most of my time on Windows + WSL, always leaning into Linux and the open-web world. Fueled by genuine curiosity, I build with TypeScript and Python alongside ",
     p1_tool: "pi-coding-agent",
     p1_post: ", just trying to understand computers and everything built on top of them.",
     p2_pre: "When I step away from code, my downtime is pretty simple: writing tech notes and thoughts on ",

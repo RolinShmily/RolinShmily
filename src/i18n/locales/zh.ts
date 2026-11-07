@@ -22,9 +22,7 @@ export const zh: I18nDictionary = {
   },
   about: {
     title: "关于我",
-    p1_pre: "你好，我是 RoL1n — 河南工业大学（",
-    p1_school: "HAUT",
-    p1_mid: "）电子信息工程在读本科生。我的主要开发环境是 Windows + WSL，始终热衷于探索 Linux 与开源开放网络世界。在真正的好奇心驱动下，我常年使用 TypeScript 和 Python，并深度结合 ",
+    p1_pre: "你好，我是 RoL1n — 一名电子信息工程在读本科生。我的主要开发环境是 Windows + WSL，始终热衷于探索 Linux 与开源开放网络世界。在真正的好奇心驱动下，我常年使用 TypeScript 和 Python，并深度结合 ",
     p1_tool: "pi-coding-agent",
     p1_post: " 打造工具与项目，探索计算机与构建于其上的一切。",
     p2_pre: "闲暇之余，我的生活十分纯粹：在 ",
