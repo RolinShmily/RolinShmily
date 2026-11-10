@@ -18,8 +18,8 @@ If you enjoy my work, you can support me on Afdian:
 
 ### 🧐 What I'm doing now
 - 📚 **Preparing for postgraduate entrance exams**
-- ✏️ **Writing something on my blog:** [blog.srprolin.com](https://blog.srprolin.com/)
-- 🎸 **Playing guitar:** [on Bilibili](https://www.bilibili.com/video/BV1kzwpeaE4h)
+- ✏️ **Writing something on my** [blog.srprolin.com](https://blog.srprolin.com/)
+- 🎸 **Playing guitar on** [Bilibili @BV1kzwpeaE4h](https://www.bilibili.com/video/BV1kzwpeaE4h)
 
 ### 📊 GitHub Stats
 <p>
