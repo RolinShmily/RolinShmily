@@ -8,6 +8,12 @@ export interface SocialLink {
   iconHref?: string;
   iconSrc?: string;
   ariaLabel?: string;
+  /**
+   * Temporarily hidden from all UI surfaces.
+   * Config, icon sprite, CSS and i18n strings are kept, so flipping this
+   * back to `false` (or removing it) re-enables the link without other edits.
+   */
+  hidden?: boolean;
 }
 
 export interface ProjectCardData {

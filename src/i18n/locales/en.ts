@@ -73,6 +73,7 @@ export const en: I18nDictionary = {
     wechat: "WeChat",
     github: "GitHub",
     steam: "Steam",
+    // Kept for future re-enablement; the DouYin link is currently hidden.
     douyin: "DouYin",
     bilibili: "Bilibili",
     afdian: "Afdian",

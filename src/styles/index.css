@@ -1015,6 +1015,8 @@ a:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.28);
 }
 
+/* DouYin (抖音) styles kept as a resource: the link is hidden via
+   `hidden: true` in src/data/socials.ts. Do not delete. */
 .social-douyin {
   color: #fe2c55;
   background-color: rgba(254, 44, 85, 0.12);
@@ -1673,6 +1675,7 @@ a:hover {
               0 0 30px rgba(102, 192, 244, 0.3);
 }
 
+/* DouYin (抖音) footer-tag styles kept as a resource (see above). */
 .footer-social-tag.social-douyin {
   color: #fe2c55;
   background-color: rgba(254, 44, 85, 0.10);

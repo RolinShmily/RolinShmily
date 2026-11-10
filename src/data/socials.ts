@@ -1,6 +1,15 @@
 import { SocialLink } from "../types";
 
-export const SOCIAL_LINKS: SocialLink[] = [
+/**
+ * Full social link roster, including temporarily hidden platforms.
+ *
+ * To hide a platform, set `hidden: true` on its entry. All of its resources
+ * (sprite symbol in SvgSprite.tsx, `.social-<id>` styles in index.css,
+ * `t.socials.<id>` translations) stay in place, so re-enabling is a one-flag flip.
+ *
+ * Currently hidden: DouYin (抖音) — kept for future re-enablement.
+ */
+const ALL_SOCIAL_LINKS: SocialLink[] = [
   {
     id: "wechat",
     label: "WeChat",
@@ -32,6 +41,7 @@ export const SOCIAL_LINKS: SocialLink[] = [
     iconType: "symbol",
     iconHref: "#icon-douyin",
     ariaLabel: "DouYin",
+    hidden: true,
   },
   {
     id: "bilibili",
@@ -58,3 +68,6 @@ export const SOCIAL_LINKS: SocialLink[] = [
     ariaLabel: "Xiaoheihe: RoL1n",
   },
 ];
+
+/** Visible social links, consumed by Hero and Footer. */
+export const SOCIAL_LINKS: SocialLink[] = ALL_SOCIAL_LINKS.filter((link) => !link.hidden);

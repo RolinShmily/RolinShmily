@@ -73,6 +73,7 @@ export const zh: I18nDictionary = {
     wechat: "微信",
     github: "GitHub",
     steam: "Steam",
+    // 保留：抖音链接已暂时下线，日后可直接重新启用。
     douyin: "抖音",
     bilibili: "哔哩哔哩",
     afdian: "爱发电",

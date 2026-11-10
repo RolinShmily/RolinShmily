@@ -43,8 +43,20 @@ export const PixelAvatar: React.FC<PixelAvatarProps> = React.memo(({ onOpenWeCha
 
     /* ------------------------------------------------------------
        1. Link definitions (shared by backplate painter & raycast)
+       - Set `hidden: true` to take an entry off the 3D backplate while
+         keeping its icon data for later re-enablement.
        ------------------------------------------------------------ */
-    const LINKS = [
+    interface BackplateLinkDef {
+      label: string;
+      url?: string;
+      action?: "wechat";
+      color: string;
+      vb: number;
+      d: string;
+      hidden?: boolean;
+    }
+
+    const LINK_DEFS: BackplateLinkDef[] = [
       {
         label: "BloG",
         url: "https://blog.srprolin.com",
@@ -92,6 +104,7 @@ export const PixelAvatar: React.FC<PixelAvatarProps> = React.memo(({ onOpenWeCha
         url: "https://www.douyin.com/user/MS4wLjABAAAAo7eM2TrNX4lzekpyIIorhn-fs4GzMpkY7OUQzzGjjXup0nMk6PGqNqHFa4FnY2O_",
         color: "#25f4ee",
         vb: 640,
+        hidden: true, // DouYin (抖音) temporarily off the backplate; icon data kept
         d: "M544.5 273.9C500.5 274 457.5 260.3 421.7 234.7L421.7 413.4C421.7 446.5 411.6 478.8 392.7 506C373.8 533.2 347.1 554 316.1 565.6C285.1 577.2 251.3 579.1 219.2 570.9C187.1 562.7 158.3 545 136.5 520.1C114.7 495.2 101.2 464.1 97.5 431.2C93.8 398.3 100.4 365.1 116.1 336C131.8 306.9 156.1 283.3 185.7 268.3C215.3 253.3 248.6 247.8 281.4 252.3L281.4 342.2C266.4 337.5 250.3 337.6 235.4 342.6C220.5 347.6 207.5 357.2 198.4 369.9C189.3 382.6 184.4 398 184.5 413.8C184.6 429.6 189.7 444.8 199 457.5C208.3 470.2 221.4 479.6 236.4 484.4C251.4 489.2 267.5 489.2 282.4 484.3C297.3 479.4 310.4 469.9 319.6 457.2C328.8 444.5 333.8 429.1 333.8 413.4L333.8 64L421.8 64C421.7 71.4 422.4 78.9 423.7 86.2C426.8 102.5 433.1 118.1 442.4 131.9C451.7 145.7 463.7 157.5 477.6 166.5C497.5 179.6 520.8 186.6 544.6 186.6L544.6 274z",
       },
       {
@@ -109,6 +122,8 @@ export const PixelAvatar: React.FC<PixelAvatarProps> = React.memo(({ onOpenWeCha
         d: "M 228.00 94.00 Q 228.00 82.00 238.39 88.00 L 383.88 172.00 Q 396.00 179.00 396.00 193.00 L 396.00 319.00 Q 396.00 333.00 383.84 339.95 L 350.42 359.05 Q 340.00 365.00 340.00 353.00 L 340.00 217.00 Q 340.00 211.00 334.79 208.02 L 289.21 181.98 Q 284.00 179.00 284.00 185.00 L 284.00 220.00 Q 284.00 228.00 276.00 228.00 L 236.00 228.00 Q 228.00 228.00 228.00 220.00 Z M 284.00 418.00 Q 284.00 430.00 273.61 424.00 L 128.12 340.00 Q 116.00 333.00 116.00 319.00 L 116.00 193.00 Q 116.00 179.00 128.16 172.05 L 161.58 152.95 Q 172.00 147.00 172.00 159.00 L 172.00 295.00 Q 172.00 301.00 177.21 303.98 L 222.79 330.02 Q 228.00 333.00 228.00 327.00 L 228.00 292.00 Q 228.00 284.00 236.00 284.00 L 276.00 284.00 Q 284.00 284.00 284.00 292.00 Z",
       },
     ];
+
+    const LINKS = LINK_DEFS.filter((link) => !link.hidden);
 
     interface LinkHitRect {
       x: number;
@@ -191,15 +206,16 @@ export const PixelAvatar: React.FC<PixelAvatarProps> = React.memo(({ onOpenWeCha
         /* older canvas */
       }
 
-      /* Two-column link grid: 5 rows x 2 cols, centered */
-      const ROWS = 5;
+      /* Two-column link grid (rows auto-derived), vertically centered on the
+         original 5-row baseline so the composition holds when links are hidden */
       const CELL_W = 190;
       const CELL_H = 50;
       const GAP_X = 16;
       const GAP_Y = 12;
+      const ROWS = Math.max(1, Math.ceil(LINKS.length / 2));
       const gridW = CELL_W * 2 + GAP_X;
       const gridX = (S - gridW) / 2;
-      const gridY = 138;
+      const gridY = 138 + ((5 - ROWS) * (CELL_H + GAP_Y)) / 2;
       const iconSize = 26;
       const padX = 16;
       const tex = new THREE.CanvasTexture(cvs);
