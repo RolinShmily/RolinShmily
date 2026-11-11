@@ -1,11 +1,3 @@
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/banners/hero-dark.webp" />
-    <source media="(prefers-color-scheme: light)" srcset="assets/banners/hero-light.webp" />
-    <img src="assets/banners/hero-dark.webp" alt="RoL1n SrP — developer, gamer, guitarist" width="100%" />
-  </picture>
-</p>
-
 ### Hi there 👋, I'm RoL1n!
 **An Electronic Information Engineering undergraduate.**
 
@@ -22,7 +14,7 @@ If you enjoy my work, you can support me on Afdian:
 ### 🛠️ Tech Stack
 *Continuously learning & progressing*
 
-<img src="https://skillicons.dev/icons?i=ts,react,vite,nextjs,nodejs,python,postgres,linux,nginx,docker,git,cloudflare&perline=6" alt="Tech Stack" />
+<img src="https://skillicons.dev/icons?i=ts,react,vite,nodejs,go,python,postgres,linux,nginx,docker,git,cloudflare&perline=6" alt="Tech Stack" />
 
 ### 🧐 What I'm doing now
 - 📚 **Preparing for postgraduate entrance exams**
