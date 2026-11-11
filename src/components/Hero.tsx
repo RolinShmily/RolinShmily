@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { PixelAvatar } from "./PixelAvatar";
 import { SOCIAL_LINKS } from "../data/socials";
 import { prefersReducedMotion } from "../utils/motion";
@@ -6,17 +6,14 @@ import { useI18n } from "../i18n/context";
 
 interface HeroProps {
   onOpenWeChat: (el: HTMLElement) => void;
+  avatarInk: boolean;
+  onAvatarSideChange: (side: "front" | "back") => void;
 }
 
-export const Hero: React.FC<HeroProps> = React.memo(({ onOpenWeChat }) => {
+export const Hero: React.FC<HeroProps> = React.memo(({ onOpenWeChat, avatarInk, onAvatarSideChange }) => {
   const { t } = useI18n();
   const fullText = "RoL1n_SrP";
   const [displayText, setDisplayText] = useState("");
-
-  const handleAvatarWeChat = useCallback(() => {
-    const el = document.querySelector(".hero-social-row .social-wechat") as HTMLElement;
-    if (el) onOpenWeChat(el);
-  }, [onOpenWeChat]);
 
   useEffect(() => {
     if (prefersReducedMotion()) {
@@ -50,7 +47,7 @@ export const Hero: React.FC<HeroProps> = React.memo(({ onOpenWeChat }) => {
     <section id="hero" className="section">
       <div className="hero-split">
         <div className="hero-left">
-          <PixelAvatar onOpenWeChat={handleAvatarWeChat} />
+          <PixelAvatar ink={avatarInk} onSideChange={onAvatarSideChange} />
         </div>
 
         <div className="hero-right">

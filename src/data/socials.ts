@@ -7,17 +7,9 @@ import { SocialLink } from "../types";
  * (sprite symbol in SvgSprite.tsx, `.social-<id>` styles in index.css,
  * `t.socials.<id>` translations) stay in place, so re-enabling is a one-flag flip.
  *
- * Currently hidden: DouYin (抖音) — kept for future re-enablement.
+ * Currently hidden: none.
  */
 const ALL_SOCIAL_LINKS: SocialLink[] = [
-  {
-    id: "wechat",
-    label: "WeChat",
-    action: "wechat",
-    iconType: "symbol",
-    iconHref: "#icon-wechat",
-    ariaLabel: "Open WeChat Official Account QR code",
-  },
   {
     id: "github",
     label: "GitHub",
@@ -35,15 +27,6 @@ const ALL_SOCIAL_LINKS: SocialLink[] = [
     ariaLabel: "Steam: RoL1n",
   },
   {
-    id: "douyin",
-    label: "DouYin",
-    url: "https://www.douyin.com/user/MS4wLjABAAAAo7eM2TrNX4lzekpyIIorhn-fs4GzMpkY7OUQzzGjjXup0nMk6PGqNqHFa4FnY2O_",
-    iconType: "symbol",
-    iconHref: "#icon-douyin",
-    ariaLabel: "DouYin",
-    hidden: true,
-  },
-  {
     id: "bilibili",
     label: "Bilibili",
     url: "https://space.bilibili.com/422744280",
@@ -52,12 +35,20 @@ const ALL_SOCIAL_LINKS: SocialLink[] = [
     ariaLabel: "Bilibili: RoL1n_SrP",
   },
   {
-    id: "afdian",
-    label: "Afdian",
-    url: "https://afdian.com/a/srprolin",
+    id: "douyin",
+    label: "DouYin",
+    url: "https://www.douyin.com/user/MS4wLjABAAAAo7eM2TrNX4lzekpyIIorhn-fs4GzMpkY7OUQzzGjjXup0nMk6PGqNqHFa4FnY2O_",
     iconType: "symbol",
-    iconHref: "#icon-afdian",
-    ariaLabel: "Afdian: srprolin",
+    iconHref: "#icon-douyin",
+    ariaLabel: "DouYin",
+  },
+  {
+    id: "x",
+    label: "X",
+    url: "https://x.com/SrP9601",
+    iconType: "symbol",
+    iconHref: "#icon-x",
+    ariaLabel: "X (Twitter): @SrP9601",
   },
   {
     id: "xiaoheihe",
@@ -66,6 +57,22 @@ const ALL_SOCIAL_LINKS: SocialLink[] = [
     iconType: "symbol",
     iconHref: "#icon-xiaoheihe",
     ariaLabel: "Xiaoheihe: RoL1n",
+  },
+  {
+    id: "wechat",
+    label: "WeChat",
+    action: "wechat",
+    iconType: "symbol",
+    iconHref: "#icon-wechat",
+    ariaLabel: "Open WeChat Official Account QR code",
+  },
+  {
+    id: "afdian",
+    label: "Afdian",
+    url: "https://afdian.com/a/srprolin",
+    iconType: "symbol",
+    iconHref: "#icon-afdian",
+    ariaLabel: "Afdian: srprolin",
   },
 ];
 

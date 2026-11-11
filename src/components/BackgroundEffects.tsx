@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { prefersReducedMotion } from "../utils/motion";
+import { InkLandscape } from "./InkLandscape";
 
 export const BackgroundEffects: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -178,6 +179,7 @@ export const BackgroundEffects: React.FC = () => {
 
   return (
     <>
+      <InkLandscape />
       <canvas ref={canvasRef} id="particles" aria-hidden="true" />
       <div ref={gridOverlayRef} id="grid-overlay" aria-hidden="true" />
       <div ref={topHighlightRef} id="top-highlight" aria-hidden="true" />

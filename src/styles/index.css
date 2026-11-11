@@ -1015,8 +1015,7 @@ a:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.28);
 }
 
-/* DouYin (抖音) styles kept as a resource: the link is hidden via
-   `hidden: true` in src/data/socials.ts. Do not delete. */
+/* DouYin (抖音) */
 .social-douyin {
   color: #fe2c55;
   background-color: rgba(254, 44, 85, 0.12);
@@ -1036,6 +1035,18 @@ a:hover {
 }
 .social-bilibili:hover {
   background-color: rgba(0, 161, 214, 0.22);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.28);
+}
+
+/* X is monochrome, so it shares GitHub's neutral treatment. */
+.social-x {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.10);
+  border: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+.social-x:hover {
+  background-color: rgba(255, 255, 255, 0.20);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.28);
 }
 
@@ -1594,7 +1605,7 @@ a:hover {
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
-  padding: 0.45rem 1.1rem;
+  padding: 0.45rem 0.85rem;
   border-radius: 9999px;
   border: 1px solid transparent; /* No pre-drawn outline! */
   background-color: rgba(255, 255, 255, 0.06);
@@ -1675,7 +1686,7 @@ a:hover {
               0 0 30px rgba(102, 192, 244, 0.3);
 }
 
-/* DouYin (抖音) footer-tag styles kept as a resource (see above). */
+/* DouYin (抖音) footer tag */
 .footer-social-tag.social-douyin {
   color: #fe2c55;
   background-color: rgba(254, 44, 85, 0.10);
@@ -1702,6 +1713,20 @@ a:hover {
   box-shadow: 0 0 0 1.5px rgba(0, 161, 214, 0.9),
               0 0 15px rgba(0, 161, 214, 0.6),
               0 0 30px rgba(0, 161, 214, 0.3);
+}
+
+.footer-social-tag.social-x {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: transparent;
+}
+.footer-social-tag.social-x:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.14);
+  border-color: #ffffff;
+  box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.9),
+              0 0 15px rgba(255, 255, 255, 0.5),
+              0 0 30px rgba(255, 255, 255, 0.25);
 }
 
 .footer-social-tag.social-afdian {
@@ -1749,6 +1774,7 @@ a:hover {
 .footer-connect.visible .footer-social-tag:nth-child(5) { animation-delay: 0.33s; }
 .footer-connect.visible .footer-social-tag:nth-child(6) { animation-delay: 0.40s; }
 .footer-connect.visible .footer-social-tag:nth-child(7) { animation-delay: 0.47s; }
+.footer-connect.visible .footer-social-tag:nth-child(8) { animation-delay: 0.54s; }
 
 .footer-connect.visible .footer-cta-box {
   animation: footerTagIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.52s both;
@@ -2137,6 +2163,16 @@ a:hover {
   }
 }
 
+@media (max-width: 440px) {
+  /* Eight circles no longer fit on one line; use two balanced rows of four. */
+  .hero-social-row {
+    display: grid;
+    grid-template-columns: repeat(4, 38px);
+    justify-content: space-between;
+    gap: 0.55rem 0;
+  }
+}
+
 @media (max-width: 640px) {
   .nav-source-link span,
   .nav-source-link svg:last-child {
@@ -2175,4 +2211,734 @@ a:hover {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* ==========================================================================
+   Ink-Paper Mode
+   A second palette pulled from the graphite sketch on the card's back:
+   warm rice paper, soft graphite, the muted red of the beret and guitar,
+   and the pine green of the gem. The palette flips under the fog, so these
+   rules can switch hard without a mid-transition colour lag.
+   ========================================================================== */
+
+.pixel-avatar:focus-visible {
+  outline: 2px solid rgba(var(--accent-pink-rgb), 0.85);
+  outline-offset: 10px;
+  border-radius: 28px;
+}
+
+/* --- Fog transition -------------------------------------------------------
+   Ten multi-lobed cloud banks rise from the lower edge and the corners at
+   different speeds while the hero loses focus. The palette flips under a
+   short breath of denser mist at the peak; then the banks lift and the new
+   theme comes back into focus. */
+
+.ink-fog {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  overflow: hidden;
+  isolation: isolate;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  background: var(--fog-base);
+  -webkit-backdrop-filter: blur(var(--fog-blur, 0px));
+  backdrop-filter: blur(var(--fog-blur, 0px));
+  will-change: opacity;
+}
+
+.ink-fog.is-ink {
+  --fog-base: rgba(196, 186, 175, 0.28);
+  --fog-flash: rgba(226, 219, 208, 0.52);
+  --cloud-paper: rgba(247, 242, 233, 0.48);
+  --cloud-warm: rgba(226, 207, 196, 0.44);
+  --cloud-rose: rgba(216, 178, 181, 0.55);
+  --cloud-pine: rgba(182, 202, 187, 0.5);
+  --cloud-core: rgba(250, 246, 238, 0.5);
+  --cloud-shadow: rgba(104, 84, 78, 0.34);
+  --cloud-glow: rgba(252, 246, 237, 0.4);
+  --cloud-ink: rgba(80, 68, 62, 0.24);
+}
+
+.ink-fog.is-dark {
+  --fog-base: rgba(38, 26, 46, 0.32);
+  --fog-flash: rgba(16, 11, 24, 0.5);
+  --cloud-paper: rgba(78, 56, 84, 0.55);
+  --cloud-warm: rgba(54, 38, 64, 0.5);
+  --cloud-rose: rgba(104, 62, 72, 0.46);
+  --cloud-pine: rgba(42, 56, 58, 0.42);
+  --cloud-core: rgba(32, 22, 40, 0.62);
+  --cloud-shadow: rgba(10, 6, 16, 0.4);
+  --cloud-glow: rgba(116, 84, 122, 0.42);
+  --cloud-ink: rgba(6, 4, 10, 0.5);
+}
+
+.ink-fog-veil {
+  position: absolute;
+  inset: 0;
+  background: var(--fog-flash);
+  opacity: var(--fog-flash-opacity, 0);
+  pointer-events: none;
+  will-change: opacity;
+}
+
+.ink-fog-clouds {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.ink-fog-cloud {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--w);
+  height: var(--h);
+  border-radius: 50%;
+  background:
+    radial-gradient(ellipse 60% 52% at 30% 58%, var(--cloud), transparent 72%),
+    radial-gradient(ellipse 56% 48% at 68% 40%, var(--cloud), transparent 74%),
+    radial-gradient(ellipse 52% 56% at 52% 78%, var(--cloud), transparent 76%),
+    radial-gradient(ellipse 44% 40% at 16% 30%, var(--cloud), transparent 78%);
+  opacity: var(--o, 0.5);
+  filter: blur(24px);
+  transform: translate3d(0, calc(-1 * var(--fog-rise) * var(--speed, 1)), 0);
+  will-change: transform;
+}
+
+.ink-fog.is-active .ink-fog-cloud {
+  animation: inkFogDrift var(--drift-duration, 9s) ease-in-out infinite alternate;
+  animation-delay: var(--drift-delay, 0s);
+}
+
+@keyframes inkFogDrift {
+  from { translate: calc(-1 * var(--drift-x, 2.5%)) 0; }
+  to { translate: var(--drift-x, 2.5%) -1.5%; }
+}
+
+/* The banks are stacked from different depths. The lower ones move fastest,
+   the high ones drift slowly, so the field keeps changing shape while it
+   covers the page. */
+.ink-fog-cloud.c1 {
+  --x: -20%; --y: 58%; --w: 72vw; --h: 56vh;
+  --speed: 1.15; --o: 0.42; --cloud: var(--cloud-paper);
+  --drift-x: 3.4%; --drift-duration: 8.5s; --drift-delay: -1.2s;
+}
+
+.ink-fog-cloud.c2 {
+  --x: 24%; --y: 74%; --w: 60vw; --h: 46vh;
+  --speed: 0.95; --o: 0.38; --cloud: var(--cloud-core);
+  --drift-x: 2.2%; --drift-duration: 10s; --drift-delay: -3.4s;
+}
+
+.ink-fog-cloud.c3 {
+  --x: 58%; --y: 54%; --w: 70vw; --h: 56vh;
+  --speed: 1.25; --o: 0.58; --cloud: var(--cloud-rose);
+  --drift-x: 4.2%; --drift-duration: 9.5s; --drift-delay: -2.2s;
+}
+
+.ink-fog-cloud.c4 {
+  --x: -24%; --y: 28%; --w: 54vw; --h: 44vh;
+  --speed: 0.7; --o: 0.42; --cloud: var(--cloud-warm);
+  --drift-x: 3%; --drift-duration: 11s; --drift-delay: -5s;
+}
+
+.ink-fog-cloud.c5 {
+  --x: 62%; --y: 18%; --w: 62vw; --h: 46vh;
+  --speed: 0.82; --o: 0.34; --cloud: var(--cloud-glow);
+  --drift-x: 2.6%; --drift-duration: 10.5s; --drift-delay: -1.8s;
+}
+
+.ink-fog-cloud.c6 {
+  --x: 16%; --y: 34%; --w: 64vw; --h: 46vh;
+  --speed: 1; --o: 0.46; --cloud: var(--cloud-pine);
+  --drift-x: 3.6%; --drift-duration: 9s; --drift-delay: -4.2s;
+}
+
+.ink-fog-cloud.c7 {
+  --x: -12%; --y: -6%; --w: 50vw; --h: 36vh;
+  --speed: 0.55; --o: 0.3; --cloud: var(--cloud-paper);
+  --drift-x: 2.4%; --drift-duration: 12s; --drift-delay: -6.5s;
+}
+
+.ink-fog-cloud.c8 {
+  --x: 54%; --y: -12%; --w: 58vw; --h: 38vh;
+  --speed: 0.65; --o: 0.28; --cloud: var(--cloud-warm);
+  --drift-x: 3.2%; --drift-duration: 11.5s; --drift-delay: -2.8s;
+}
+
+.ink-fog-cloud.c9 {
+  --x: 26%; --y: 50%; --w: 48vw; --h: 42vh;
+  --speed: 1.35; --o: 0.26; --cloud: var(--cloud-core);
+  --drift-x: 2%; --drift-duration: 7.5s; --drift-delay: -0.8s;
+}
+
+.ink-fog-cloud.c10 {
+  --x: 6%; --y: 84%; --w: 42vw; --h: 34vh;
+  --speed: 1.45; --o: 0.7; --cloud: var(--cloud-shadow);
+  --drift-x: 4.5%; --drift-duration: 8s; --drift-delay: -3.8s;
+}
+
+.ink-fog-cloud.c11 {
+  --x: 34%; --y: 96%; --w: 54vw; --h: 32vh;
+  --speed: 1.55; --o: 0.75; --cloud: var(--cloud-ink);
+  --drift-x: 3.8%; --drift-duration: 7s; --drift-delay: -1.5s;
+}
+
+/* Blur the actual hero, not only the backdrop. This keeps the focus pull
+   legible everywhere, including browsers that composite backdrop-filter
+   differently, and it is the layer that hides the palette switch. */
+html.ink-fogging #hero,
+html.ink-fogging #navbar {
+  filter: blur(var(--fog-page-blur, 0px));
+}
+
+/* Without backdrop blur the fog must carry the switch on its own. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .ink-fog.is-ink { background: rgba(243, 238, 226, 0.44); }
+  .ink-fog.is-dark { background: rgba(16, 11, 26, 0.52); }
+}
+
+/* Phones get a lighter version of the same weather: fewer banks, smaller
+   radii, so the blur stays smooth beside the WebGL card. */
+@media (max-width: 768px) {
+  .ink-fog {
+    -webkit-backdrop-filter: blur(calc(var(--fog-blur, 0px) * 0.7));
+    backdrop-filter: blur(calc(var(--fog-blur, 0px) * 0.7));
+  }
+
+  .ink-fog-cloud {
+    filter: blur(15px);
+  }
+
+  .ink-fog-cloud.c4,
+  .ink-fog-cloud.c7,
+  .ink-fog-cloud.c8,
+  .ink-fog-cloud.c11 {
+    display: none;
+  }
+
+  html.ink-fogging #hero,
+  html.ink-fogging #navbar {
+    filter: blur(calc(var(--fog-page-blur, 0px) * 0.72));
+  }
+}
+
+html.ink-mode {
+  --ink-paper: #f2ecdf;
+  --ink-paper-raised: #f7f2e8;
+  --ink-paper-deep: #e8dfcd;
+  --ink-graphite: #2c2823;
+  --ink-graphite-soft: #625a4e;
+  --ink-rose: #9b4a52;
+  --ink-rose-deep: #7d363e;
+  --ink-pine: #4c6857;
+
+  --bg-primary: var(--ink-paper);
+  --bg-card: rgba(255, 252, 246, 0.62);
+  --accent-pink: var(--ink-rose);
+  --accent-violet: var(--ink-pine);
+  --accent-bright: var(--ink-rose-deep);
+  --accent-pink-rgb: 155, 74, 82;
+  --accent-violet-rgb: 76, 104, 87;
+  --accent-bright-rgb: 125, 54, 62;
+  --ink-accent: var(--ink-rose);
+  --ink-accent-rgb: 155, 74, 82;
+  --ink-green: var(--ink-pine);
+  --gradient: linear-gradient(135deg, var(--ink-rose), var(--ink-pine));
+  --text-primary: var(--ink-graphite);
+  --text-secondary: var(--ink-graphite-soft);
+  background-color: var(--bg-primary);
+}
+
+html.ink-mode body {
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
+  background-image:
+    radial-gradient(ellipse 130% 100% at 50% 46%, transparent 56%, rgba(96, 78, 62, 0.075) 100%),
+    radial-gradient(ellipse 62% 44% at 78% 4%, rgba(255, 250, 242, 0.48), transparent 66%),
+    radial-gradient(ellipse 58% 42% at 16% 18%, rgba(155, 74, 82, 0.055), transparent 70%),
+    radial-gradient(ellipse 52% 36% at 84% 76%, rgba(76, 104, 87, 0.05), transparent 72%),
+    radial-gradient(ellipse 74% 42% at 50% 108%, rgba(155, 74, 82, 0.035), transparent 75%);
+  background-attachment: fixed;
+}
+
+html.ink-mode body::before {
+  opacity: 0 !important;
+}
+
+html.ink-mode #grid-overlay {
+  background-image:
+    linear-gradient(to right, rgba(125, 54, 62, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(76, 104, 87, 0.05) 1px, transparent 1px);
+  opacity: 0.34 !important;
+}
+
+html.ink-mode #particles {
+  filter: grayscale(1) invert(1) sepia(0.1);
+  opacity: 0.26;
+}
+
+html.ink-mode #top-highlight,
+html.ink-mode #bottom-ambient-glow {
+  opacity: 0 !important;
+}
+
+/* --- Paper landscape & light --- */
+#ink-landscape {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  display: none;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+html.ink-mode #ink-landscape {
+  display: block;
+}
+
+#ink-landscape svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.ink-landscape-sun-mobile {
+  display: none;
+}
+
+/* A soft cast shadow grounds the card on the paper without drawing an
+   outline around it; the white rim can then melt into the page. */
+html.ink-mode .pixel-avatar::before {
+  content: "";
+  position: absolute;
+  left: 17%;
+  right: 17%;
+  bottom: 4%;
+  height: 12%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(84, 66, 54, 0.24),
+    rgba(84, 66, 54, 0.09) 46%,
+    transparent 72%
+  );
+  filter: blur(14px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+html.ink-mode .pixel-avatar .pixel-canvas {
+  z-index: 1;
+}
+
+html.ink-mode .pixel-avatar .pixel-fallback {
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  #ink-landscape .ink-landscape-birds,
+  #ink-landscape .ink-landscape-pine {
+    display: none;
+  }
+
+  #ink-landscape .ink-landscape-sun {
+    display: none;
+  }
+
+  #ink-landscape .ink-landscape-sun-mobile {
+    display: inline;
+  }
+
+  #ink-landscape svg {
+    opacity: 0.86;
+  }
+
+  html.ink-mode .pixel-avatar::before {
+    left: 20%;
+    right: 20%;
+    bottom: 6%;
+    filter: blur(10px);
+  }
+}
+
+/* --- Navigation --- */
+html.ink-mode .nav-capsule {
+  background: rgba(248, 244, 236, 0.9);
+  border-color: rgba(125, 54, 62, 0.16);
+  box-shadow: 0 16px 40px -18px rgba(84, 47, 44, 0.34),
+              0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+}
+
+html.ink-mode .nav-capsule:hover {
+  border-color: rgba(125, 54, 62, 0.28);
+  box-shadow: 0 20px 48px -18px rgba(84, 47, 44, 0.42),
+              0 0 0 1px rgba(255, 255, 255, 0.6) inset;
+}
+
+html.ink-mode .nav-avatar {
+  filter: grayscale(0.88) sepia(0.14) contrast(1.03);
+  border-color: rgba(155, 74, 82, 0.28);
+}
+
+html.ink-mode .nav-name {
+  color: var(--ink-graphite);
+}
+
+html.ink-mode .nav-link,
+html.ink-mode .nav-link-icon,
+html.ink-mode .nav-lang-btn,
+html.ink-mode .nav-source-link {
+  color: rgba(44, 40, 35, 0.62);
+}
+
+html.ink-mode .nav-link:hover,
+html.ink-mode .nav-link:hover .nav-link-icon,
+html.ink-mode .nav-lang-btn:hover,
+html.ink-mode .nav-lang-btn:focus,
+html.ink-mode .nav-lang-btn:active,
+html.ink-mode .nav-source-link:hover,
+html.ink-mode .nav-source-link:focus,
+html.ink-mode .nav-source-link:active {
+  color: var(--ink-graphite);
+}
+
+html.ink-mode .nav-link.active,
+html.ink-mode .nav-link.active .nav-link-icon,
+html.ink-mode .nav-lang-btn .lang-opt.active {
+  color: var(--ink-rose-deep);
+}
+
+html.ink-mode .nav-toggle span {
+  background: var(--ink-graphite);
+}
+
+html.ink-mode .nav-toggle:hover {
+  background-color: rgba(155, 74, 82, 0.08);
+}
+
+html.ink-mode .nav-mobile-menu {
+  background: rgba(248, 244, 236, 0.97);
+  border-color: rgba(125, 54, 62, 0.16);
+  box-shadow: 0 20px 48px -16px rgba(84, 47, 44, 0.36),
+              0 0 0 1px rgba(255, 255, 255, 0.55) inset;
+}
+
+html.ink-mode .nav-mobile-item {
+  color: rgba(44, 40, 35, 0.68);
+}
+
+html.ink-mode .nav-mobile-item:hover,
+html.ink-mode .nav-mobile-item:focus {
+  color: var(--ink-graphite);
+  background-color: rgba(155, 74, 82, 0.06);
+}
+
+html.ink-mode .nav-mobile-item:active {
+  background-color: rgba(155, 74, 82, 0.1);
+}
+
+html.ink-mode .nav-mobile-item.active {
+  color: var(--ink-rose-deep);
+  background-color: rgba(155, 74, 82, 0.1);
+}
+
+html.ink-mode .nav-mobile-icon {
+  color: rgba(44, 40, 35, 0.45);
+}
+
+html.ink-mode .nav-mobile-item.active .nav-mobile-icon {
+  color: var(--ink-rose-deep);
+}
+
+html.ink-mode .nav-mobile-divider {
+  background-color: rgba(125, 54, 62, 0.12);
+}
+
+html.ink-mode .nav-mobile-backdrop {
+  background: rgba(36, 30, 26, 0.36);
+}
+
+/* --- Hero terminal & tags --- */
+html.ink-mode .terminal-user {
+  color: var(--ink-rose);
+}
+
+html.ink-mode .terminal-path {
+  color: var(--ink-pine);
+}
+
+html.ink-mode .terminal-cmd,
+html.ink-mode .terminal-output,
+html.ink-mode .terminal-role {
+  color: var(--ink-graphite);
+}
+
+html.ink-mode .terminal-quote {
+  color: var(--ink-graphite-soft);
+  border-left-color: rgba(76, 104, 87, 0.55);
+}
+
+html.ink-mode .typing-text {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  -webkit-text-fill-color: var(--ink-graphite);
+  animation: none;
+}
+
+html.ink-mode .typing-cursor {
+  color: var(--ink-rose);
+  text-shadow: none;
+}
+
+html.ink-mode .tag-item {
+  color: var(--ink-graphite);
+  border-color: rgba(155, 74, 82, 0.3);
+  background-color: rgba(155, 74, 82, 0.055);
+  opacity: 0.85;
+}
+
+html.ink-mode .section-title {
+  position: relative;
+  color: var(--ink-graphite);
+}
+
+html.ink-mode .section-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.55rem;
+  width: 46px;
+  height: 3px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--ink-rose), var(--ink-pine));
+}
+
+/* --- Hero buttons & social circles --- */
+html.ink-mode .hero-site-btn {
+  background-color: rgba(155, 74, 82, 0.08);
+  color: var(--ink-rose-deep);
+  box-shadow: 0 2px 8px rgba(84, 47, 44, 0.08);
+}
+
+html.ink-mode .hero-site-btn:hover {
+  background-color: var(--ink-rose-deep);
+  color: #f8f2e7;
+  box-shadow: 0 4px 14px rgba(125, 54, 62, 0.24);
+}
+
+html.ink-mode .hero-site-btn .site-arrow {
+  color: rgba(125, 54, 62, 0.7);
+}
+
+html.ink-mode .hero-site-btn:hover .site-arrow {
+  color: #f8f2e7;
+}
+
+html.ink-mode .hero-social-circle,
+html.ink-mode .footer-social-tag {
+  color: var(--ink-graphite);
+  background-color: rgba(155, 74, 82, 0.07);
+  border-color: transparent;
+  box-shadow: 0 2px 6px rgba(84, 47, 44, 0.08);
+}
+
+html.ink-mode .hero-social-circle:hover,
+html.ink-mode .footer-social-tag:hover {
+  color: #f8f2e7;
+  background-color: var(--ink-rose-deep);
+  border-color: var(--ink-rose-deep);
+  box-shadow: 0 4px 12px rgba(125, 54, 62, 0.26);
+}
+
+html.ink-mode .hero-social-circle .social-brand-icon,
+html.ink-mode .footer-social-tag .social-brand-icon {
+  filter: grayscale(1) brightness(0);
+}
+
+html.ink-mode .hero-social-circle:hover .social-brand-icon,
+html.ink-mode .footer-social-tag:hover .social-brand-icon {
+  filter: grayscale(1) brightness(0) invert(1);
+}
+
+html.ink-mode .hero-action-pill {
+  background-color: rgba(155, 74, 82, 0.08);
+  color: var(--ink-graphite);
+  box-shadow: 0 2px 8px rgba(84, 47, 44, 0.08);
+}
+
+html.ink-mode .hero-action-pill:hover {
+  background-color: rgba(155, 74, 82, 0.14);
+  border-color: var(--ink-rose-deep);
+  color: var(--ink-rose-deep);
+  box-shadow: 0 0 0 1.5px rgba(125, 54, 62, 0.7),
+              0 8px 18px rgba(125, 54, 62, 0.14);
+}
+
+html.ink-mode .hero-action-pill.hero-action-cta {
+  background-color: var(--ink-rose-deep);
+  color: #f8f2e7;
+  border-color: transparent;
+  box-shadow: 0 2px 10px rgba(125, 54, 62, 0.26);
+}
+
+html.ink-mode .hero-action-pill.hero-action-cta:hover {
+  background-color: #6a2b33;
+  color: #f8f2e7;
+  box-shadow: 0 4px 16px rgba(106, 43, 51, 0.32);
+}
+
+html.ink-mode .scroll-indicator {
+  color: rgba(98, 90, 78, 0.6);
+}
+
+/* --- About --- */
+html.ink-mode .link-tag {
+  background-color: rgba(155, 74, 82, 0.07);
+  border-color: rgba(155, 74, 82, 0.24);
+  color: var(--ink-rose-deep);
+}
+
+html.ink-mode .link-tag:hover {
+  background-color: rgba(155, 74, 82, 0.13);
+  border-color: rgba(125, 54, 62, 0.5);
+  color: var(--ink-rose-deep);
+  box-shadow: 0 2px 8px rgba(125, 54, 62, 0.1);
+}
+
+/* --- Works --- */
+html.ink-mode .featured-card {
+  background-color: rgba(255, 252, 246, 0.55);
+  border-color: rgba(125, 54, 62, 0.14);
+  box-shadow: 0 4px 20px rgba(84, 47, 44, 0.08);
+}
+
+html.ink-mode .featured-card:hover {
+  border-color: rgba(125, 54, 62, 0.38);
+  box-shadow: 0 12px 30px rgba(84, 47, 44, 0.16);
+}
+
+html.ink-mode .featured-card-bg {
+  background-color: var(--ink-paper-deep);
+}
+
+html.ink-mode .featured-card-bg img {
+  filter: saturate(0.96) contrast(1.03);
+}
+
+html.ink-mode .featured-card:hover .featured-card-bg img {
+  filter: saturate(1.02) contrast(1.04);
+}
+
+html.ink-mode .featured-card-overlay::before {
+  background: linear-gradient(
+    to top,
+    rgba(242, 236, 223, 0.98) 0%,
+    rgba(242, 236, 223, 0.9) 45%,
+    rgba(242, 236, 223, 0.32) 80%,
+    transparent 100%
+  );
+}
+
+html.ink-mode .featured-card-title {
+  color: var(--ink-graphite);
+}
+
+html.ink-mode .featured-card:hover .featured-card-title {
+  color: var(--ink-rose-deep);
+}
+
+html.ink-mode .featured-card-desc {
+  color: rgba(98, 90, 78, 0.78);
+}
+
+html.ink-mode .featured-card-icon {
+  color: rgba(98, 90, 78, 0.55);
+}
+
+html.ink-mode .featured-card:hover .featured-card-icon {
+  color: var(--ink-rose-deep);
+}
+
+/* --- Footer --- */
+html.ink-mode #footer {
+  background: transparent;
+}
+
+html.ink-mode .footer-glow {
+  display: none;
+}
+
+html.ink-mode #brand-canvas {
+  filter: grayscale(1) invert(1) contrast(1.05);
+}
+
+html.ink-mode .footer-text,
+html.ink-mode .footer-beian {
+  color: var(--text-secondary);
+}
+
+html.ink-mode .footer-beian-link {
+  border-color: rgba(125, 54, 62, 0.18);
+  color: var(--text-secondary);
+}
+
+html.ink-mode .footer-beian-link:hover {
+  color: var(--ink-rose-deep);
+  border-color: rgba(125, 54, 62, 0.4);
+  background-color: rgba(155, 74, 82, 0.05);
+}
+
+html.ink-mode .footer-beian-link img {
+  filter: grayscale(1);
+}
+
+html.ink-mode .back-to-top {
+  background: var(--ink-rose-deep);
+  color: #f8f2e7;
+}
+
+html.ink-mode .back-to-top:hover {
+  background: #6a2b33;
+  box-shadow: 0 0 15px rgba(125, 54, 62, 0.35);
+}
+
+html.ink-mode .wechat-qr-card-direct {
+  box-shadow: 0 18px 48px -6px rgba(84, 47, 44, 0.35),
+              0 0 0 1px rgba(125, 54, 62, 0.12);
+}
+
+html.ink-mode .pixel-avatar:focus-visible {
+  outline-color: rgba(155, 74, 82, 0.75);
+}
+
+/* --- Chrome --- */
+html.ink-mode ::-webkit-scrollbar-track {
+  background: #e9e0cf;
+}
+
+html.ink-mode ::-webkit-scrollbar-thumb {
+  background: rgba(125, 54, 62, 0.35);
+}
+
+html.ink-mode ::-webkit-scrollbar-thumb:hover {
+  background: rgba(125, 54, 62, 0.55);
+}
+
+html.ink-mode ::selection {
+  background: rgba(155, 74, 82, 0.22);
+}
+
+/* While the fog is at its peak, existing hover/entrance transitions would
+   otherwise tint elements as the palette flips underneath. Muting only
+   transition timing keeps keyframe animations intact. */
+html.ink-revealing *,
+html.ink-revealing *::before,
+html.ink-revealing *::after {
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
 }
