@@ -6,7 +6,6 @@ export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
   const [inHero, setInHero] = useState(true);
-  const [retracted, setRetracted] = useState(false);
 
   const lastScrollY = useRef(0);
 
@@ -45,18 +44,9 @@ export const Navbar: React.FC = () => {
         setIsOpen(false);
       }
 
-      // Scroll down: retract. Scroll up: reveal!
-      if (!isPastHero || isOpen) {
-        setRetracted(false);
-      } else {
-        const diff = scrollY - lastScrollY.current;
-        if (diff > 8 && scrollY > 360) {
-          setRetracted(true);
-        } else if (diff < -6) {
-          setRetracted(false);
-        }
-      }
-
+      // The nav is hidden over the hero, then stays fixed for the rest of the
+      // page. It does not retract on downward scroll; only returning to the
+      // hero lets it slide away again.
       lastScrollY.current = scrollY;
 
       // Active section spy
@@ -93,13 +83,12 @@ export const Navbar: React.FC = () => {
   }, [isOpen]);
 
   const isHidden = inHero && !isOpen;
-  const isRetracted = retracted && !isOpen && !inHero;
 
   return (
     <>
       <header
         id="navbar"
-        className={`${isHidden ? "nav-hidden" : ""} ${isRetracted ? "nav-retracted" : ""}`}
+        className={isHidden ? "nav-hidden" : ""}
       >
         <div className="nav-capsule">
           <a href="#hero" className="nav-logo" title="Back to top" onClick={() => setIsOpen(false)}>

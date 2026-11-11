@@ -49,12 +49,4 @@ export const PROJECTS: ProjectCardData[] = [
     alt: "porter-workflow",
     description: "Bilingual video localization with Whisper & FFmpeg — CLI, MCP, WebUI & Agent Skill",
   },
-  {
-    id: "20-fruit-recognition",
-    title: "20-Fruit_Recognition_System",
-    url: "https://github.com/RolinShmily/20-Fruit_Recognition_System",
-    image: "assets/works/fruit-recognition.webp",
-    alt: "20-Fruit_Recognition_System",
-    description: "Deep Learning-Based 20-Fruit Classification with ResNet18 + CBAM Attention",
-  },
 ];
