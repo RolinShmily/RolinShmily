@@ -1860,12 +1860,8 @@ a:hover {
 }
 
 .footer-counter img {
-  height: 88px;
-  opacity: 1;
-  /* Deepen the pixel outlines and keep the original hues readable on light paper. */
-  filter: contrast(1.12) saturate(1.2)
-    drop-shadow(0 0 1px rgba(30, 25, 20, 0.6))
-    drop-shadow(0 2px 3px rgba(60, 44, 34, 0.22));
+  height: 80px;
+  opacity: 0.9;
 }
 
 /* === Back to Top === */
@@ -2147,7 +2143,7 @@ a:hover {
   }
 
   .footer-counter img {
-    height: 60px;
+    height: 50px;
   }
 
   /* Back to top mobile */
@@ -2876,29 +2872,6 @@ html.ink-mode #brand-canvas {
 html.ink-mode .footer-text,
 html.ink-mode .footer-beian {
   color: var(--text-secondary);
-}
-
-/* The counter sprites are mostly white/pale; a soft ink wash behind the group
-   keeps them from dissolving into the warm paper. */
-html.ink-mode .footer-counter {
-  position: relative;
-  isolation: isolate;
-}
-
-html.ink-mode .footer-counter::before {
-  content: "";
-  position: absolute;
-  inset: -10px -26px;
-  z-index: -1;
-  border-radius: 50%;
-  background: radial-gradient(
-    ellipse at 50% 50%,
-    rgba(44, 40, 35, 0.26),
-    rgba(44, 40, 35, 0.09) 52%,
-    transparent 78%
-  );
-  filter: blur(9px);
-  pointer-events: none;
 }
 
 html.ink-mode .footer-beian-link {

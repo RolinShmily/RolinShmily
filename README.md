@@ -1,3 +1,11 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/banners/hero-dark.webp" />
+    <source media="(prefers-color-scheme: light)" srcset="assets/banners/hero-light.webp" />
+    <img src="assets/banners/hero-dark.webp" alt="RoL1n SrP — developer, gamer, guitarist" width="100%" />
+  </picture>
+</p>
+
 ### Hi there 👋, I'm RoL1n!
 **An Electronic Information Engineering undergraduate.**
 
@@ -23,8 +31,8 @@ If you enjoy my work, you can support me on Afdian:
 
 ### 📊 GitHub Stats
 <p>
-<img align="top" height="165" src="stats/stats.svg" alt="GitHub Stats" />
-<img align="top" height="165" src="stats/top-langs.svg" alt="Most Used Languages" />
+<img align="top" height="165" src="assets/stats/stats.svg" alt="GitHub Stats" />
+<img align="top" height="165" src="assets/stats/top-langs.svg" alt="Most Used Languages" />
 </p>
 
 ---

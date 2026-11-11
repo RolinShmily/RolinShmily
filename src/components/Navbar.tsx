@@ -92,7 +92,7 @@ export const Navbar: React.FC = () => {
       >
         <div className="nav-capsule">
           <a href="#hero" className="nav-logo" title="Back to top" onClick={() => setIsOpen(false)}>
-            <img src="assets/avatar-profile.png" alt="RoL1n_SrP" className="nav-avatar" />
+            <img src="assets/avatars/avatar-profile.png" alt="RoL1n_SrP" className="nav-avatar" />
             <span className="nav-name">RoL1n</span>
           </a>
 

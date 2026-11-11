@@ -24,7 +24,7 @@ function serveStaticFolders(): Plugin {
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
         const reqUrl = (req as { url?: string }).url?.split("?")[0] || "";
-        if (reqUrl.startsWith("/assets/") || reqUrl.startsWith("/stats/")) {
+        if (reqUrl.startsWith("/assets/")) {
           const filePath = path.join(process.cwd(), reqUrl.slice(1));
           if (fs.existsSync(filePath) && fs.statSync(filePath).isFile()) {
             const ext = path.extname(filePath).toLowerCase();
@@ -38,12 +38,10 @@ function serveStaticFolders(): Plugin {
       });
     },
     closeBundle() {
-      for (const dir of ["assets", "stats"]) {
-        const src = path.join(process.cwd(), dir);
-        const dest = path.join(process.cwd(), "dist", dir);
-        if (fs.existsSync(src)) {
-          fs.cpSync(src, dest, { recursive: true });
-        }
+      const src = path.join(process.cwd(), "assets");
+      const dest = path.join(process.cwd(), "dist", "assets");
+      if (fs.existsSync(src)) {
+        fs.cpSync(src, dest, { recursive: true });
       }
     },
   };

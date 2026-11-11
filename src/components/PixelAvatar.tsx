@@ -162,7 +162,7 @@ export const PixelAvatar: React.FC<PixelAvatarProps> = React.memo(({ ink, onSide
       sketch.onerror = () => {
         console.warn("Back sketch failed to load; keeping the paper plate.");
       };
-      sketch.src = "assets/avatar-back-sketch.webp";
+      sketch.src = "assets/avatars/avatar-back-sketch.webp";
 
       return tex;
     }
@@ -274,7 +274,7 @@ export const PixelAvatar: React.FC<PixelAvatarProps> = React.memo(({ ink, onSide
 
     // 2) Front face: avatar image
     const frontTexture = new THREE.TextureLoader().load(
-      "assets/avatar-card.webp",
+      "assets/avatars/avatar-card.webp",
       (tex) => {
         tex.colorSpace = THREE.SRGBColorSpace;
         tex.anisotropy = 4;
@@ -731,7 +731,7 @@ export const PixelAvatar: React.FC<PixelAvatarProps> = React.memo(({ ink, onSide
         <canvas className="pixel-canvas" id="pixel-canvas" ref={canvasRef} />
         <img
           className="pixel-fallback"
-          src="assets/avatar-card.webp"
+          src="assets/avatars/avatar-card.webp"
           alt="RoL1n_SrP pixel avatar with pink guitar"
         />
       </div>

@@ -115,7 +115,7 @@ export const WeChatPopover: React.FC<WeChatPopoverProps> = ({ anchorEl, onClose 
     >
       <div className="wechat-qr-card-direct">
         <img
-          src="assets/wechat-official-account.png"
+          src="assets/qrcodes/wechat-official-account.png"
           alt="WeChat QR code"
           width={188}
           height={188}
