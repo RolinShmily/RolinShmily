@@ -17,7 +17,7 @@ export const zh: I18nDictionary = {
     actions: {
       about: "关于我",
       works: "作品集",
-      contact: "保持联系",
+      contact: "联系我",
     },
   },
   about: {

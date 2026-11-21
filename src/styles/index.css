@@ -317,6 +317,14 @@ a:hover {
   color: #ffffff;
 }
 
+/* Explicit per-option colors so the inactive language never inherits the
+   button's hover color and fake an "active" look — only one side is lit. */
+.nav-lang-btn .lang-opt {
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
 .nav-lang-btn .lang-opt.active {
   color: #ffffff;
   font-weight: 700;
@@ -2602,6 +2610,11 @@ html.ink-mode .nav-link.active,
 html.ink-mode .nav-link.active .nav-link-icon,
 html.ink-mode .nav-lang-btn .lang-opt.active {
   color: var(--ink-rose-deep);
+}
+
+/* Paper theme: the inactive language needs dark ink, not the dark-theme white. */
+html.ink-mode .nav-lang-btn .lang-opt:not(.active) {
+  color: rgba(44, 40, 35, 0.45);
 }
 
 html.ink-mode .nav-toggle span {
