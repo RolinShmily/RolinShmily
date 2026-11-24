@@ -47,6 +47,6 @@ export const PROJECTS: ProjectCardData[] = [
     url: "https://github.com/RolinShmily/porter-workflow",
     image: "assets/works/porter-workflow.webp",
     alt: "porter-workflow",
-    description: "Bilingual video localization with Whisper & FFmpeg — CLI, MCP, WebUI & Agent Skill",
+    description: "Plan-first bilingual video localization — offline/API ASR, LLM translation & hardware-accelerated FFmpeg hardsub, with Python API, WebUI & Agent Skill",
   },
 ];

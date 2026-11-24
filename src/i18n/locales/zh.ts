@@ -61,7 +61,7 @@ export const zh: I18nDictionary = {
       },
       "porter-workflow": {
         title: "porter-workflow",
-        description: "基于 Whisper 与 FFmpeg 的双语视频本地化搬运工作流 — CLI、MCP、WebUI 与 Agent Skill",
+        description: "计划优先的双语视频本地化工作流 — 离线/API 语音识别、LLM 翻译与硬件加速 FFmpeg 压制，提供 Python API、WebUI 与 Agent Skill",
       },
       "20-fruit-recognition": {
         title: "20-Fruit_Recognition_System",

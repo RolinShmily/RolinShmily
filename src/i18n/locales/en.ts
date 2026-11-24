@@ -61,7 +61,7 @@ export const en: I18nDictionary = {
       },
       "porter-workflow": {
         title: "porter-workflow",
-        description: "Bilingual video localization with Whisper & FFmpeg — CLI, MCP, WebUI & Agent Skill",
+        description: "Plan-first bilingual video localization — offline/API ASR, LLM translation & hardware-accelerated FFmpeg hardsub, with Python API, WebUI & Agent Skill",
       },
       "20-fruit-recognition": {
         title: "20-Fruit_Recognition_System",
