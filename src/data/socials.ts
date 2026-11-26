@@ -7,7 +7,7 @@ import { SocialLink } from "../types";
  * (sprite symbol in SvgSprite.tsx, `.social-<id>` styles in index.css,
  * `t.socials.<id>` translations) stay in place, so re-enabling is a one-flag flip.
  *
- * Currently hidden: none.
+ * Currently hidden: x.
  */
 const ALL_SOCIAL_LINKS: SocialLink[] = [
   {
@@ -49,6 +49,7 @@ const ALL_SOCIAL_LINKS: SocialLink[] = [
     iconType: "symbol",
     iconHref: "#icon-x",
     ariaLabel: "X (Twitter): @SrP9601",
+    hidden: true,
   },
   {
     id: "xiaoheihe",
